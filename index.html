@@ -16,36 +16,34 @@
             ga('create', 'UA-534843-30', 'auto');
             ga('send', 'pageview');
 
-            function trackOutboundLink(event) {
-                ga('send', 'event', {
-                    eventCategory: 'Outbound Link',
-                    eventAction: 'click',
-                    eventLabel: event.target.href,
-                    transport: 'beacon'
-                });
+            var trackOutboundLink = function(url) {
+               ga('send', 'event', 'outbound', 'click', url, {
+                 'transport': 'beacon',
+                 'hitCallback': function(){document.location = url;}
+               });
             }
         </script>
     </head>
     <body class="mw7 center">
         <section class="pa3 mt4">
             <h1 class="mt0">Michael Schultz</h1>
-            <p class="lh-copy">Currently leading product design at <a href="//sidewire.com" class="link hover-dark-blue no-underline black">Sidewire</a> in San Francisco, California.</p>
+            <p class="lh-copy">Currently leading product design at <a class="link hover-dark-blue no-underline black" href="http://sidewire.com" onclick="trackOutboundLink('http://sidewire.com'); return false;">Sidewire</a> in San Francisco, California.</p>
         </section>
 
         <section class="pa3 mt4">
             <a class="f3 link hover-blue b no-underline black dib pr2 pv1"
-                href="//twitter.com/michaelschultz"
-                onclick="trackOutboundLink('twitter.com/michaelschultz'); return false;">
+                href="http://twitter.com/michaelschultz"
+                onclick="trackOutboundLink('http://twitter.com/michaelschultz'); return false;">
                 twitter
             </a>
             <a class="f3 link hover-green b no-underline black dib ph2 pv1"
-                href="//github.com/michaelwschultz"
-                onclick="trackOutboundLink('github.com/michaelwschultz'); return false;">
+                href="http://github.com/michaelwschultz"
+                onclick="trackOutboundLink('http://github.com/michaelwschultz'); return false;">
                 github
             </a>
             <a class="f3 link hover-orange b no-underline black dib ph2 pv1"
-                href="//instagram.com/michaelschultz"
-                onclick="trackOutboundLink('instagram.com/michaelschultz'); return false;">
+                href="http://instagram.com/michaelschultz"
+                onclick="trackOutboundLink('http://instagram.com/michaelschultz'); return false;">
                 instagram
             </a>
         </section>
