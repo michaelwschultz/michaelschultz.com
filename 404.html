@@ -1,0 +1,113 @@
+<!doctype html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Oops, nothing here</title>
+
+        <style>
+            body {
+                font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+                text-align: center;
+                margin: 0;
+            }
+            .bg {
+                position: fixed; 
+                top: -50%; 
+                left: -50%; 
+                width: 200%; 
+                height: 200%;
+            }
+            .bg img {
+                position: absolute; 
+                top: 0; 
+                left: 0; 
+                right: 0; 
+                bottom: 0; 
+                margin: auto; 
+                min-width: 50%;
+                min-height: 50%;
+                -webkit-filter: blur(2px);
+                filter: blur(2px);
+            }
+            .inside {
+                display: flex; 
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                top: 0;
+                left: 0;
+                background-color: white;
+                mix-blend-mode: screen;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                
+            }
+            h1 {
+                text-align: center;
+                margin: 0 0 100px 0;
+                font-size: 64px;
+                font-weight: 800;
+                text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            }
+            a {
+                color: black;
+                text-decoration: none;
+            }
+            a:hover {
+                border-bottom: 1px solid black;
+            }
+            #overlay {
+                display: flex; 
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                background-color: white;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 1;
+                transition: opacity 1s;
+                pointer-events: none;
+            }
+            .loading {
+                position: relative;
+            }
+            .spinner {
+                width: 56px;
+                height: 56px;
+                border: 8px solid transparent;
+                border-top-color: #F4F4F4;
+                border-bottom-color: #F4F4F4;
+                border-radius: 50%;
+                position: relative;
+                animation: loader-rotate 1s linear infinite;
+                top: 50%;
+                margin: -28px auto 0;
+            }
+
+            @keyframes loader-rotate {
+                0% {
+                    transform: rotate(0); }
+                100% {
+                    transform: rotate(360deg); }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="bg">
+            <img onload="document.getElementById('overlay').style.opacity='0';" src="https://source.unsplash.com/random/1000x500/?night-sky"/>
+        </div>
+        <div class="inside">
+            <h1 style="text-transform: uppercase;">Oops, nothing here</h1>
+            <h4><a href="/">Go Home</a></h4>
+            <h4 class="contact">Did I make a mistake? Let me know @<a href="http://twitter.com/michaelschultz">michaelschultz</a>.</h4>
+        </div>
+        
+        <div id="overlay">
+            <div class="loading"><div class="spinner"></div></div>
+        </div>
+    </body>
+</html>
