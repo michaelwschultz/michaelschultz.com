@@ -45,9 +45,32 @@
                         href="http://instagram.com/michaelschultz"
                         onclick="trackOutboundLink('http://instagram.com/michaelschultz'); return false;">
                         Instagram
-                    </a> 
+                    </a>
+                    <a class="f6 f5-l link bg-animate black-80 hover-bg-light-purple dib pa3 ph4-l"
+                        href="http://twitch.com/idigg"
+                        onclick="trackOutboundLink('http://twitch.com/idigg'); return false;">
+                        Twitch <span id="status" style="display: none;" class="bg-red white br2 ph1 f6">Live Now</span>
+                    </a>
                 </nav>
             </header>
         </section>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script>
+            $.ajax({
+                type: 'GET',
+                url: 'https://api.twitch.tv/kraken/channels/idigg',
+                headers: {
+                   'Client-ID': 'huq9j1mhn1y324eetrl4o31sgazr27b'
+                },
+                success: function(channel) {
+                    if (channel["stream"] == null) { 
+                        console.log("stream offline");
+                    } else {
+                        console.log("stream online");
+                        $("#status").css({"display": "inline-block"});
+                    }
+                }
+            });
+        </script>
     </body>
 </html>
