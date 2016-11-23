@@ -16,7 +16,7 @@
             ga('create', 'UA-534843-30', 'auto');
             ga('send', 'pageview');
 
-            var trackOutboundLink = function(url) {
+            function trackOutboundLink(url) {
                ga('send', 'event', 'outbound', 'click', url, {
                  'transport': 'beacon',
                  'hitCallback': function(){document.location = url;}
@@ -56,21 +56,40 @@
         </section>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script>
-            $.ajax({
-                type: 'GET',
-                url: 'https://api.twitch.tv/kraken/channels/idigg',
-                headers: {
-                   'Client-ID': 'huq9j1mhn1y324eetrl4o31sgazr27b'
-                },
-                success: function(channel) {
-                    if (channel["stream"] == null) { 
-                        console.log("stream offline");
-                    } else {
-                        console.log("stream online");
-                        $("#status").css({"display": "inline-block"});
+            // check Twitch to see if I'm streaming
+            function twitchStream() {
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://api.twitch.tv/kraken/channels/idigg',
+                    headers: {
+                       'Client-ID': 'huq9j1mhn1y324eetrl4o31sgazr27b'
+                    },
+                    success: function(channel) {
+                        if (channel["stream"] == null) { 
+                            console.log("stream offline");
+                        } else {
+                            console.log("stream online");
+                            $("#status").css({"display": "inline-block"});
+                        }
                     }
+                });
+            }
+
+            // Add a listener that detects when tab is hidden
+            document.addEventListener('visibilitychange', function(){
+                if (document.hidden) {
+                    clearInterval(checkTwitch);
+                } else {
+                    twitchStream();
+                    checkTwitch = setInterval(twitchStream, 30000);
                 }
-            });
+            }, false);
+
+            // run once when page loads
+            twitchStream();
+
+            // start checking every 30 seconds after page loads
+            var checkTwitch = setInterval(twitchStream, 30000);
         </script>
     </body>
 </html>
