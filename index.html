@@ -7,7 +7,26 @@
         <!-- Tachyons v4.5.5 -->
         <link rel="stylesheet" href="tachyons.min.css">
         <title>Michael Schultz</title>
-        <script>
+        <style>
+            .darken::after {
+                background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.35) 70%, rgba(0, 0, 0, 0.7) 100%);
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+            }
+            .flexer {
+                display: flex;
+            }
+            @media only screen and (max-width: 479px) {
+                .flexer {
+                    display: block !important;
+                }
+            }
+        </style>
+        <script> 
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -24,12 +43,12 @@
             }
         </script>
     </head>
-    <body class="mw7 center">
-        <section class="pa3">
+    <body class="mw7 center pa3">
+        <section>
             <header class="bg-white black-80 tc pv4 avenir">
                 <img src="michael_schultz.jpg" class="bg-black-80 ba b--black dib w4 h4 br2"/>
                 <h1 class="mt2 mb0 baskerville i fw1 f1">Michael Schultz</h1>
-                <h2 class="mt4 mb0 f6 fw4 ttu tracked">Currently leading product design at <a class="link hover-dark-blue no-underline black" href="http://sidewire.com" onclick="trackOutboundLink('http://sidewire.com'); return false;">Sidewire</a> in San Francisco, California.</h2>
+                <h2 class="mt4 mb0 f6 fw4 ttu lh-copy tracked">Currently leading product design at <a class="link hover-dark-blue no-underline blue" href="http://sidewire.com" onclick="trackOutboundLink('http://sidewire.com'); return false;">Sidewire</a> in San Francisco, California.</h2>
                 <nav class="bt bb tc mw7 center mt4">
                     <a class="f6 f5-l link bg-animate black-80 hover-bg-light-blue dib pa3 ph4-l"
                         href="http://twitter.com/michaelschultz"
@@ -53,6 +72,18 @@
                     </a>
                 </nav>
             </header>
+        </section>
+        <section>
+            <h2 class="fw4 mt4">Some of my favorite artists...</h2>
+            <h4 class="fw4 lh-copy">Here are my top 5 artists of all time based on <a href="http://last.fm/user/michaelschultz" class="link hover-dark-blue no-underline blue">my Last.fm</a>. What I'd really like to show you are artists I'm listening to <i>right now</i>. I'll make that happen soon.</h4>
+            <div id="lastFm" class="flexer mt4">
+                <div id="firstArtist" class="flex w-100" style="flex-direction: column;">
+                    <!-- get first arists and make it bigger -->
+                </div>
+                <div id="artists" class="flex w-100" style="flex-wrap: wrap;">
+                    <!-- get arists -->
+                </div>
+            </div>
         </section>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script>
@@ -86,10 +117,68 @@
             }, false);
 
             // run once when page loads
-            twitchStream();
+            // twitchStream();
 
             // start checking every 30 seconds after page loads
-            var checkTwitch = setInterval(twitchStream, 30000);
+            // var checkTwitch = setInterval(twitchStream, 30000);
+        </script>
+        <script>
+            const lastFm = () => {
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=michaelschultz&api_key=a598c3064191ff18ee9756b6d8e41ea4&format=json',
+                    success: function(data) {
+                        if (data) {
+                            let topArtists = data.topartists.artist;
+                            let firstArtist = document.getElementById('firstArtist');
+                            let artists = document.getElementById('artists');
+                            let artistImage = "";
+
+                            // iterate through and return 5 artists
+                            for (let i = 0; i < 5; i++) {
+
+                                // iterate through each artist and extract the image path
+                                for (let r = 0; r < topArtists[i].image.length; r++) {
+                                    if (topArtists[i].image[r].size == 'extralarge') {
+                                        artistImage = topArtists[i].image[r]["#text"];
+                                    }
+                                }
+
+                                // create a container for each artist and place their info inside
+                                var artist = document.createElement('div');
+                                artist.id = 'artist' + [i];
+                                artist.style.backgroundImage = "url('" + artistImage +"')";
+                                artist.style.backgroundRepeat = "no-repeat";
+                                artist.innerHTML = "<p class='absolute bottom-0 pl2 f6 fw4 ttu tracked' style='z-index: 10;'>" + topArtists[i].name + "</p>";
+
+                                // if this is the first artist give it some special treatment
+                                if (i == 0) {
+                                    artist.className = "artist relative cover darken w-100 white";
+                                    artist.style.height = "22rem";
+                                    firstArtist.appendChild(artist);
+                                } else {
+                                    artist.className = "artist relative cover darken w-50 h4 h-50-ns white";
+                                    artists.appendChild(artist);
+                                }
+                            }   
+                        } else {
+                            console.log("something went wrong with the last.fm data");
+
+                            let lastFm = document.getElementById('lastFm');
+                            lastFm.innerHTML = "<p class='pl2 f6 fw4 ttu tracked'>Oops, something seems to be wrong with the Last.fm api. Maybe try refreshing once to see if it was just a glitch.</p>";
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        console.log("last.fm api wasn't able to be reached");
+                        
+                        let lastFm = document.getElementById('lastFm');
+                        lastFm.innerHTML = "<p class='pl2 f6 fw4 ttu tracked'>Oops, something seems to be wrong with the Last.fm api. Maybe try refreshing once to see if it was just a glitch.</p>";
+                    }
+                });
+            }
+
+            // render lastFm data
+            lastFm();
         </script>
     </body>
 </html>
