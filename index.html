@@ -76,7 +76,7 @@
         <section>
             <h2 class="fw4 mt4">Some of my favorite artists...</h2>
             <h4 class="fw4 lh-copy">Here are my top 5 artists of all time based on <a href="http://last.fm/user/michaelschultz" class="link hover-dark-blue no-underline blue">my Last.fm</a>. What I'd really like to show you are artists I'm listening to <i>right now</i>. I'll make that happen soon.</h4>
-            <div id="lastFm" class="flexer mt4">
+            <div id="myLastFm" class="flexer mt4">
                 <div id="firstArtist" class="flex w-100" style="flex-direction: column;">
                     <!-- get first arists and make it bigger -->
                 </div>
@@ -164,15 +164,15 @@
                         } else {
                             console.log("something went wrong with the last.fm data");
 
-                            let lastFm = document.getElementById('lastFm');
-                            lastFm.innerHTML = "<p class='pl2 f6 fw4 ttu tracked'>Oops, something seems to be wrong with the Last.fm api. Maybe try refreshing once to see if it was just a glitch.</p>";
+                            let myLastFm = document.getElementById('lastFm');
+                            myLastFm.innerHTML = "<p class='pl2 f6 fw4 ttu tracked'>Oops, something seems to be wrong with the Last.fm api. Maybe try refreshing once to see if it was just a glitch.</p>";
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown){
                         console.log("last.fm api wasn't able to be reached");
-                        
-                        let lastFm = document.getElementById('lastFm');
-                        lastFm.innerHTML = "<p class='pl2 f6 fw4 ttu tracked'>Oops, something seems to be wrong with the Last.fm api. Maybe try refreshing once to see if it was just a glitch.</p>";
+
+                        let myLastFm = document.getElementById('lastFm');
+                        myLastFm.innerHTML = "<p class='pl2 f6 fw4 ttu tracked'>Oops, something seems to be wrong with the Last.fm api. Maybe try refreshing once to see if it was just a glitch.</p>";
                     }
                 });
             }
