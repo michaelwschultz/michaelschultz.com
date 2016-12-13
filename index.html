@@ -91,7 +91,7 @@
             function twitchStream() {
                 $.ajax({
                     type: 'GET',
-                    url: 'https://api.twitch.tv/kraken/channels/idigg',
+                    url: 'https://api.twitch.tv/kraken/streams/idigg',
                     headers: {
                        'Client-ID': 'huq9j1mhn1y324eetrl4o31sgazr27b'
                     },
@@ -117,10 +117,10 @@
             }, false);
 
             // run once when page loads
-            // twitchStream();
+            twitchStream();
 
             // start checking every 30 seconds after page loads
-            // var checkTwitch = setInterval(twitchStream, 30000);
+            var checkTwitch = setInterval(twitchStream, 30000);
         </script>
         <script>
             const lastFm = () => {
