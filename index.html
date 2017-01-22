@@ -75,7 +75,7 @@
         </section>
         <section>
             <h2 class="fw4 mt4">Some of my favorite artists...</h2>
-            <h4 class="fw4 lh-copy">Here are my top 5 artists of all time based on <a href="http://last.fm/user/michaelschultz" class="link hover-dark-blue no-underline blue">my Last.fm</a>. What I'd really like to show you are artists I'm listening to <i>right now</i>. I'll make that happen soon.</h4>
+            <h4 class="fw4 lh-copy">Here are my top 5 artists of the week based on plays. See all the music I listen to on <a href="http://last.fm/user/michaelschultz" class="link hover-dark-blue no-underline blue">Last.fm</a>.</h4>
             <div id="myLastFm" class="flexer mt4">
                 <div id="firstArtist" class="flex w-100" style="flex-direction: column;">
                     <!-- get first arists and make it bigger -->
@@ -126,7 +126,7 @@
             const lastFm = () => {
                 $.ajax({
                     type: 'GET',
-                    url: 'https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=michaelschultz&api_key=a598c3064191ff18ee9756b6d8e41ea4&format=json',
+                    url: 'https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=michaelschultz&period=7day&api_key=a598c3064191ff18ee9756b6d8e41ea4&format=json',
                     success: function(data) {
                         if (data) {
                             let topArtists = data.topartists.artist;
