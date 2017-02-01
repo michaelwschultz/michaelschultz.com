@@ -76,11 +76,11 @@
         <section>
             <h2 class="fw4 mt4">Some of my favorite artists...</h2>
             <h4 class="fw4 lh-copy">Here are my top 5 artists of the week based on plays. See all the music I listen to on <a href="http://last.fm/user/michaelschultz" class="link hover-dark-blue no-underline blue">Last.fm</a>.</h4>
-            <div id="myLastFm" class="flexer mt4">
-                <div id="firstArtist" class="flex w-100" style="flex-direction: column;">
+            <div id="myLastFm" class="flexer mt4" style="height: 22rem;">
+                <div id="firstArtist" class="flex w-100 h-100" style="flex-direction: column;">
                     <!-- get first arists and make it bigger -->
                 </div>
-                <div id="artists" class="flex w-100" style="flex-wrap: wrap;">
+                <div id="artists" class="flex w-100 h-100" style="flex-wrap: wrap;">
                     <!-- get arists -->
                 </div>
             </div>
@@ -157,7 +157,7 @@
                                     artist.style.height = "22rem";
                                     firstArtist.appendChild(artist);
                                 } else {
-                                    artist.className = "artist relative cover darken w-50 h4 h-50-ns white";
+                                    artist.className = "artist relative cover darken w-50 h-50 h4 white";
                                     artists.appendChild(artist);
                                 }
                             }   
