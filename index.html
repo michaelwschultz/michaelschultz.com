@@ -25,6 +25,9 @@
                     display: block !important;
                 }
             }
+            a:visited {
+                color: #357edd;
+            }
         </style>
         <script> 
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -45,10 +48,10 @@
     </head>
     <body class="mw7 center pa3">
         <section>
-            <header class="bg-white black-80 tc pv4 avenir">
+            <header class="bg-white black-80 tc mt4 avenir">
                 <img src="michael_schultz.jpg" class="bg-black-80 ba b--black dib w4 h4 br2"/>
                 <h1 class="mt2 mb0 baskerville i fw1 f1">Michael Schultz</h1>
-                <h2 class="mt4 mb0 f6 fw4 ttu lh-copy tracked">Currently leading product design at <a class="link hover-dark-blue no-underline blue" href="http://sidewire.com" onclick="trackOutboundLink('http://sidewire.com'); return false;">Sidewire</a> in San Francisco, California.</h2>
+                <h2 class="mt4 mb0 f6 fw4 ttu lh-copy tracked">Currently leading product design at <a class="link hover-dark-blue blue" href="http://sidewire.com" onclick="trackOutboundLink('http://sidewire.com'); return false;">Sidewire</a> in San Francisco, California.</h2>
                 <nav class="bt bb tc mw7 center mt4">
                     <a class="f6 f5-l link bg-animate black-80 hover-bg-light-blue dib pa3 ph4-l"
                         href="http://twitter.com/michaelschultz"
@@ -74,9 +77,12 @@
             </header>
         </section>
         <section>
-            <h2 class="fw4 mt4">Some of my favorite artists...</h2>
-            <h4 class="fw4 lh-copy">Here are my top 5 artists of the week based on plays. See all the music I listen to on <a href="http://last.fm/user/michaelschultz" class="link hover-dark-blue no-underline blue">Last.fm</a>.</h4>
-            <div id="myLastFm" class="flexer mt4" style="height: 22rem;">
+            <h3 class="fw3 lh-copy mt5">
+                These artists have dominated my headphones this week
+                <span id="currentSong" style="visibility: hidden;"></span>
+            </h3>
+            <!-- <h3 class="fw4 mt5">My top 5 artists this week</h3> -->
+            <div id="myLastFm" class="flexer" style="height: 22rem;">
                 <div id="firstArtist" class="flex w-100 h-100" style="flex-direction: column;">
                     <!-- get first arists and make it bigger -->
                 </div>
@@ -84,6 +90,7 @@
                     <!-- get arists -->
                 </div>
             </div>
+            <h4 class="fw3 lh-copy silver">Based on plays over the last 7 days across all my devices. See all the music I listen to on <a href="http://last.fm/user/michaelschultz" class="link hover-dark-blue blue">Last.fm</a>.</h4>
         </section>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script>
@@ -123,7 +130,7 @@
             var checkTwitch = setInterval(twitchStream, 30000);
         </script>
         <script>
-            const lastFm = () => {
+            const lastFMFavoriteArtists = () => {
                 $.ajax({
                     type: 'GET',
                     url: 'https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=michaelschultz&period=7day&api_key=a598c3064191ff18ee9756b6d8e41ea4&format=json',
@@ -177,8 +184,42 @@
                 });
             }
 
+            const lastFMCurrentSong = () => {
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=michaelschultz&limit=1&api_key=a598c3064191ff18ee9756b6d8e41ea4&format=json',
+                    success: function(data) {
+                        if (data) {
+                            let currentSong = document.getElementById('currentSong');
+                            let nowPlaying = document.getElementById('nowPlaying');
+                            let currentTrack = data.recenttracks.track[0];
+                            let streaming = currentTrack["@attr"];
+                            let artist = currentTrack.artist["#text"];
+                            let song = currentTrack.name;
+                            
+                            if (streaming !== undefined) {
+                                currentSong.style.visibility = "visible";
+                                currentSong.innerHTML = "and right now I'm listening to <a href='https://www.youtube.com/results?search_query=" + song + " " + artist + "id='nowPlaying' target='_blank' class='link blue hover-dark-blue'>" + song + " by " + artist + "</a>.";
+                            }
+                        } else {
+                            console.log("something went wrong with the last.fm data");
+
+                            let myLastFm = document.getElementById('lastFm');
+                            myLastFm.innerHTML = "<p class='pl2 f6 fw4 ttu tracked'>Oops, something seems to be wrong with the Last.fm api. Maybe try refreshing once to see if it was just a glitch.</p>";
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        console.log("last.fm api wasn't able to be reached");
+
+                        let myLastFm = document.getElementById('lastFm');
+                        myLastFm.innerHTML = "<p class='pl2 f6 fw4 ttu tracked'>Oops, something seems to be wrong with the Last.fm api. Maybe try refreshing once to see if it was just a glitch.</p>";
+                    }
+                });
+            }
+
             // render lastFm data
-            lastFm();
+            lastFMCurrentSong();
+            lastFMFavoriteArtists();
         </script>
     </body>
 </html>
