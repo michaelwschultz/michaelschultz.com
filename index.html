@@ -25,9 +25,6 @@
                     display: block !important;
                 }
             }
-            a:visited {
-                color: #357edd;
-            }
         </style>
         <script> 
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -45,6 +42,7 @@
                });
             }
         </script>
+        <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
     </head>
     <body class="mw7 center pa3">
         <section>
@@ -92,6 +90,17 @@
             </div>
             <h4 class="fw3 lh-copy silver">Based on plays over the last 7 days across all my devices. See all the music I listen to on <a href="http://last.fm/user/michaelschultz" class="link hover-dark-blue blue">Last.fm</a>.</h4>
         </section>
+        <section>
+            <h3 class="fw3 lh-copy mt5">
+                The ramblings of two cousins
+            </h3>
+            <div class="flex flex-column">
+                <a class="embedly-card" href="https://bumpers.fm/e/b27ba96hre0002rq8pf0"></a>
+                <a class="embedly-card" href="https://bumpers.fm/e/b28bapt2i32g02q3fcsg"></a>
+                <a class="embedly-card" href="https://bumpers.fm/e/b298fn8j6sq002qi6uf0"></a>
+            </div>
+        </section>
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script>
             // check Twitch to see if I'm streaming
@@ -196,10 +205,10 @@
                             let streaming = currentTrack["@attr"];
                             let artist = currentTrack.artist["#text"];
                             let song = currentTrack.name;
-                            
+
                             if (streaming !== undefined) {
                                 currentSong.style.visibility = "visible";
-                                currentSong.innerHTML = "and right now I'm listening to <a href='https://www.youtube.com/results?search_query=" + song + " " + artist + "id='nowPlaying' target='_blank' class='link blue hover-dark-blue'>" + song + " by " + artist + "</a>.";
+                                currentSong.innerHTML = "and right now I'm listening to <a href='https://www.youtube.com/results?search_query=" + song + " " + artist + "id='nowPlaying' target='_blank' class='link blue hover-dark-blue'>" + song + " by " + artist + "</a>";
                             }
                         } else {
                             console.log("something went wrong with the last.fm data");
