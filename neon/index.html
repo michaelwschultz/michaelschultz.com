@@ -317,14 +317,14 @@
             }
 
             // Add a listener that detects when tab is hidden
-            document.addEventListener('visibilitychange', function(){
-                if (document.hidden) {
-                    clearInterval(checkTwitch);
-                } else {
-                    twitchStream();
-                    checkTwitch = setInterval(twitchStream, 30000);
-                }
-            }, false);
+            // document.addEventListener('visibilitychange', function(){
+            //     if (document.hidden) {
+            //         clearInterval(checkTwitch);
+            //     } else {
+            //         twitchStream();
+            //         checkTwitch = setInterval(twitchStream, 30000);
+            //     }
+            // }, false);
 
             // run once when page loads
             // twitchStream();
