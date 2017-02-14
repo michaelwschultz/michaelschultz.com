@@ -24,10 +24,13 @@ x photo section
 - build out individual project pages (sidewire, iodine, etc)
 
 ## polish
-- add background pattern and animate shapes
+x add background pattern and animate shapes
+- animate background shapes
+- change youtube links to use songlink.io
 
 ## bugs
 - youtube music link includes "id=" on IE11
 
 ## content
 - look up old hoverboard website for porfolio examples
+- add rest of friends to bottom section

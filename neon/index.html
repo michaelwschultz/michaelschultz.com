@@ -17,7 +17,7 @@
                 top: 0;
                 left: 0;
             }
-            .spin-record {
+            .spin-animation {
                 animation-name: spin;
                 animation-duration: 4000ms;
                 animation-iteration-count: infinite;
@@ -62,6 +62,34 @@
             html {
                 line-height: 0;
             }
+
+            .shapes {
+                background-image: url(./assets/bg-shapes.svg);
+                background-repeat: repeat;
+                background-size: contain;
+            }
+
+
+            /* animation and coloring for shape layer
+
+            #bg-shapes .shapes {
+                fill: #232B71;
+            }
+            #bg-shapes .shapes rect {
+                animation-name: spin;
+                animation-duration: 8000ms;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+                transform-origin: 50% 50%;
+            }
+            #bg-shapes .shapes polygon {
+                animation-name: spin;
+                animation-duration: 20s;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+                transform-origin: 50% 50%;
+            }*/
+
 
             /* font */
             body {
@@ -110,7 +138,6 @@
                 }
             }
 
-            
 
             /* flexbox */
             .flex-column  { flex-direction: column }
@@ -157,8 +184,8 @@
             }
         </script> -->
     </head>
-    <body class="mw8 center bg-dark-blue">
-        <header class="mt4 flex flex-column flex-row-ns justify-between">
+    <body class="bg-dark-blue shapes">
+        <header class="mw8 center mt4 flex flex-column flex-row-ns justify-between">
             <h1 class="color-pink i pa1" style="flex-shrink: 0">Michael Schultz</h1>
             <div class="flex items-center ph1">
                 <p id="currentSong" class="color-pink i pa1 tr"></p>
@@ -167,12 +194,14 @@
             <!-- <h2 class="mt4 mb0 f6 fw4 ttu lh-copy tracked">Currently leading product design at <a class="link hover-dark-blue blue" href="http://sidewire.com" onclick="trackOutboundLink('http://sidewire.com'); return false;">Sidewire</a> in San Francisco, California.</h2> -->
         </header>
 
-        <section class="mt5">
+        <section class="mw8 center mt5">
             <h2 class="color-blue ph1 pv2">Some things I've been working on</h2>
             <div class="cf">
                 <div class="fl w-100-m w-75-ns pa1">
                     <div class="bg-blue">
-                        <img class="br3 shadow-l w-50 w-third-m fr pa4" src="./assets/sidewire-thumbnail.png" />
+                        <div class="fl w-50 w-third-m fr pa4">
+                            <img class="br3 shadow-l" src="./assets/sidewire-thumbnail.png" />
+                        </div>
                         <div class="pa4">
                             <h2 class="white pb4">Design @ Sidewire</h2>
                             <p class="white pb2">
@@ -186,7 +215,7 @@
                             </p>
                         </div>
                         <div class="tr pb4 pr4">
-                            <h2 class="white">See more projects</h2>
+                            <h2 class="white"><a href="./projects.html">See all projects</a></h2>
                         </div>
                     </div>
                 </div>
@@ -204,35 +233,13 @@
         </section>
 
 
-        <section class="mt5">
+        <section class="mw8 center mt5">
             <h2 class="color-blue ph1 pv2">Have a look at some photos I’ve taken of people and things I like</h2>
 
             <div id="instafeed" class="flex flex-wrap"></div>
-
-            <!-- <div class="cf">
-                <div class="fl w-100 w-50-ns pa1">
-                    <img class="db w-100" src="/assets/fleetfoxes.png">
-                </div>
-                <div class="fl w-100 w-25-ns">
-                    <div class="pa1">
-                        <img class="db w-100" src="/assets/fleetfoxes.png">
-                    </div>
-                    <div class="pa1">
-                        <img class="db w-100" src="/assets/fleetfoxes.png">
-                    </div>
-                </div>
-                <div class="fl w-100 w-25-ns">
-                    <div class="pa1">
-                        <img class="db w-100" src="/assets/fleetfoxes.png">
-                    </div>
-                    <div class="pa1">
-                        <img class="db w-100" src="/assets/fleetfoxes.png">
-                    </div>
-                </div>
-            </div> -->
         </section>
 
-        <section class="mt5">
+        <section class="mw8 center mt5">
             <h2 class="color-blue ph1 pv2">Music that’s been dominating my headphones this week</h2>
             <div id="myLastFm" class="cf">
                 <div id="firstArtist">
@@ -244,7 +251,7 @@
             </div>
         </section>
 
-        <section class="mt5">
+        <section class="mw8 center mt5">
             <h2 class="color-blue w-60-ns pa1">If you’re a designer living in or visiting SF and we haven’t met yet, shoot me a message and let’s grab a coffee. My treat.</h2>
             <h3 class="color-blue pa1">Bounus! These are some other folks I can introduce you to.</h3>
             <div class="flex mt4">
@@ -263,7 +270,7 @@
             </div>
         </section>
 
-        <footer class="mv5">
+        <footer class="mw8 center mv5">
             <nav class="tc center">
                 <a class="link bg-animate color-pink hover-bg-pink dib pa3"
                     href="http://twitter.com/michaelschultz"
@@ -396,7 +403,7 @@
                             let song = currentTrack.name;
 
                             if (streaming !== undefined) {
-                                recordPlayer.classList.add("spin-record");
+                                recordPlayer.classList.add("spin-animation");
                                 currentSong.innerHTML = "Currently playing: <a href='https://www.youtube.com/results?search_query=" + song + " " + artist + "id='nowPlaying' target='_blank' class='link i color-pink hover-pink'>" + song + " by " + artist + "</a>";
                             } else {
                                 currentSong.innerHTML = "Recently listened: <a href='https://www.youtube.com/results?search_query=" + song + " " + artist + "id='nowPlaying' target='_blank' class='link i color-pink hover-pink'>" + song + " by " + artist + "</a>";

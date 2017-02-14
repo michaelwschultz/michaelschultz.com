@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="Currently leading product design at Sidewire in San Francisco, California.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Tachyons v4.5.5 -->
+        <link rel="stylesheet" href="tachyons.min.css">
+        <title>Michael Schultz</title>
+        <style>
+            .darken::after {
+                background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.35) 70%, rgba(0, 0, 0, 0.7) 100%);
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+            }
+            .spin-animation {
+                animation-name: spin;
+                animation-duration: 4000ms;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+            }
+            @keyframes spin {
+                from {transform:rotate(0deg);}
+                to {transform:rotate(360deg);}
+            }
+
+            /* colors */
+            .color-blue {
+                color: #01AEF0;
+            }
+            .bg-blue {
+                background-color: #01AEF0;
+            }
+            .color-dark-blue {
+                color: #23225D;
+            }
+            .bg-dark-blue {
+                background-color: #23225D;
+            }
+            .color-pink {
+                color: #DD2A73;
+            }
+            .bg-pink {
+                background-color: #DD2A73;
+            }
+            .color-purple {
+                color: #784EDB;
+            }
+            .bg-purple {
+                background-color: #784EDB;
+            }
+            .hover-bg-pink:hover {
+                background-color: #DD2A73;
+                color: #23225D;
+            }
+
+            /* fix for extra line-height between elements */
+            html {
+                line-height: 0;
+            }
+
+            .shapes {
+                background-image: url(./assets/bg-shapes.svg);
+                background-repeat: repeat;
+                background-size: contain;
+            }
+
+
+            /* animation and coloring for shape layer
+
+            #bg-shapes .shapes {
+                fill: #232B71;
+            }
+            #bg-shapes .shapes rect {
+                animation-name: spin;
+                animation-duration: 8000ms;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+                transform-origin: 50% 50%;
+            }
+            #bg-shapes .shapes polygon {
+                animation-name: spin;
+                animation-duration: 20s;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+                transform-origin: 50% 50%;
+            }*/
+
+
+            /* font */
+            body {
+                font-family: "Open Sans", "Avant Garde", sans-serif;
+                font-size: 16px;
+                font-style: normal;
+                font-variant: normal;
+                font-weight: 400;
+            }
+            h1 {
+                font-size: 24px;
+                font-weight: 400;
+                line-height: 32px;
+                margin: 0;
+            }
+            h2 {
+                font-size: 20px;
+                font-weight: 400;
+                line-height: 32px;
+                margin: 0;
+            }
+            h3 {
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 21px;
+                margin: 0;
+            }
+            p {
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 21px;
+                margin: 0;
+            }
+
+            /* small screen size */
+            @media screen and (min-width: 30em) {
+                .flex-row-ns {
+                    flex-direction: row !important;
+                }
+            }
+
+             /* medium screen size */
+            @media screen and (max-width: 60em) and (min-width: 30em) {
+                .flex-row-m {
+                    flex-direction: row !important;
+                }
+            }
+
+
+            /* flexbox */
+            .flex-column  { flex-direction: column }
+
+            .items-start    { align-items: flex-start }
+            .items-end      { align-items: flex-end }
+            .items-center   { align-items: center }
+            .items-baseline { align-items: baseline }
+            .items-stretch  { align-items: stretch }
+
+            .self-start    { align-self: flex-start }
+            .self-end      { align-self: flex-end }
+            .self-center   { align-self: center }
+            .self-baseline { align-self: baseline }
+            .self-stretch  { align-self: stretch }
+
+            .justify-start   { justify-content: flex-start }
+            .justify-end     { justify-content: flex-end }
+            .justify-center  { justify-content: center }
+            .justify-between { justify-content: space-between }
+            .justify-around  { justify-content: space-around }
+
+            .content-start   { align-content: flex-start }
+            .content-end     { align-content: flex-end }
+            .content-center  { align-content: center }
+            .content-between { align-content: space-between }
+            .content-around  { align-content: space-around }
+            .content-stretch { align-content: stretch }
+        </style>
+        <!-- <script> 
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-534843-30', 'auto');
+            ga('send', 'pageview');
+
+            function trackOutboundLink(url) {
+               ga('send', 'event', 'outbound', 'click', url, {
+                 'transport': 'beacon',
+                 'hitCallback': function(){document.location = url;}
+               });
+            }
+        </script> -->
+    </head>
+    <body class="bg-dark-blue shapes">
+        <header class="mw8 center mt4 flex flex-column flex-row-ns justify-between">
+            <h1 class="color-pink i pa1" style="flex-shrink: 0"><a href="./">Michael Schultz</a></h1>
+            <div class="flex items-center ph1">
+                <p id="currentSong" class="color-pink i pa1 tr"></p>
+                <a href="http://www.last.fm/user/michaelschultz" class="pa1"><img src="./assets/record-player.svg" id="recordPlayer" width="24px" height="24px"></a>
+            </div>
+        </header>
+
+        <section class="mw8 center mt5">
+            <h2 class="color-blue ph1 pv2">Why are insiders with all the info squelched by he trolls?</h2>
+            <div class="bg-blue cf">
+                <div class="fl w-50 w-third-m fr pa4">
+                    <img class="br3 shadow-l" src="./assets/sidewire-thumbnail.png" />
+                </div>
+                <div class="pa4">
+                    <h2 class="white pb4">Design @ Sidewire</h2>
+                    <p class="white pb2">
+                        Sidewire’s a place where you can find experts and insiders breaking down the day’s news in public chats.
+                    </p>
+                    <p class="white pv2">
+                        I’ve helped design product at Sidewire since November 2016. We’ve transformed our social platform into an awesome place for experts and readers alike. The coolest thing about Sidewire is everyone is verified. We’ve had some incredible conversations that I don’t think could happen anywhere else.
+                    </p>
+                    <p class="white pt2">
+                        You can check it out at <a href="#">sidewire.com</a> or download the app on iOS or Android.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mw8 center mt5">
+            <h2 class="color-blue ph1 pv2">Iodine.com - helping people find what works</h2>
+            <div class="bg-purple pa4">
+                <h2 class="white pb4">A spoon full of sugar...and whatnot</h2>
+                <p class="white pb2">I was the first designer at Iodine. With a team of only a few, we built incredibly honest drug information resource. Something that I'm glad exists today. During the first few weeks on the job we partnered with the FDA to release and distribute a redesigned view of their resource of thousands of stuctured product labels or SPL's. This early product later turned into a feature of our main product, Iodine.com along with hundreds of early reviews from real people. I left Iodine after 2 years and am thrilled with the work I was able to do while I was there.</p>
+                <p class="white pb2">Another product I helped launch at Iodine was an app for helping you find out if your depression meds were working. We called it Start and you can find it in the app store.
+                </p>
+                <p class="white pb2">Start tracks your progress overtime, and mirring that progress back to you over time. Our goal was to help you make a decision after only 6 weeks. That's almost half the time it normally takes for a doctor to switch you to another drug if one isn't working.
+                </p>
+
+                <div class="cf mv4">
+                    <div class="fl w-100 w-25-ns pa1">
+                        <img class="br2 shadow-l" src="./assets/iodine-med-labels.jpg" />
+                    </div>
+                    <div class="fl w-100 w-25-ns pa1">
+                        <img class="br2 shadow-l" src="./assets/start-drug-placed.jpg" />
+                    </div>
+                    <div class="fl w-100 w-25-ns pa1">
+                        <img class="br2 shadow-l" src="./assets/start-journey-vertical-placed.jpg" />
+                    </div>
+                    <div class="fl w-100 w-25-ns pa1">
+                        <img class="br2 shadow-l" src="./assets/iodine-med-labels.jpg" />
+                    </div>
+                </div>
+
+                <p class="mv2 pa2 bg-white">Big Takeaway – designing *and* building things is way more fun than just designing them and handing them off</p>
+            </div>
+        </section>
+
+        <section class="mw8 center mt5">
+            <h2 class="color-blue ph1 pv2">Just for fun project incoming</h2>
+            <div class="bg-pink pa4 cf">
+                <h2 class="white pb4">Unsplash yourself</h2>
+                <p class="white pb2">Probably one of the best online resources of royalty free, *high* quality, stock photo sites was looking to do a redesign a few years ago. I didn't have a lot of time to devote to it but I had a cool idea and recoreded myself mocking it up. Don't worry it's sped up a ton. ;)
+                </p>
+
+                <!-- Need to make this responsive -->
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/XR7LhR0UoKM?list=PLyijtMT5knM8-nZBCqjsZmqsYteijMUa2" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="mw8 center mt5">
+            <h2 class="color-blue ph1 pv2">Small communities need apps too</h2>
+            <div class="bg-blue pa4 cf">
+                <h2 class="white pb4">Hemoglobe</h2>
+                <p class="white pb2">"Discover others in the bleeding disorder community near you and around the world."
+                </p>
+                <p class="white pv2">he·mo·phil·i·a </p>
+                <p class="white pv2">A medical condition in which the ability of the blood to clot is severely reduced, often due to lack of factor VIII.
+                </p>
+                <p class="white pv2">Hemoglobe is a location based app designed for the hemophilia community. It allows users to update their location and find others who are nearby and across the globe. Many hemophiliacs feel like they are alone. Hemophilia is an extremely rare disorder and this app was created to help them find others like them.
+                </p>
+                <p class="mv2 pa2 bg-white">Unfortunitly with the shutdown of Parse and my lack of time to commit to it, Hemoglobe is no longer available. Read more about the shutdown at <a href="http://hemoglobe.com">hemoglobe.com</a></p>
+                <div class="fl w-100 w-50-ns pa1">
+                    <img class="br2 shadow-l" src="./assets/hemoglobe.jpg" />
+                </div>
+                <div class="fl w-100 w-50-ns pa1">
+                    <img class="br2 shadow-l" src="./assets/hemoglobe.jpg" />
+                </div>
+            </div>
+        </section>
+
+        <!-- <section class="mw8 center mt5">
+            <h2 class="color-blue w-60-ns pa1">If you’re a designer living in or visiting SF and we haven’t met yet, shoot me a message and let’s grab a coffee. My treat.</h2>
+            <h3 class="color-blue pa1">Bounus! These are some other folks I can introduce you to.</h3>
+            <div class="flex mt4">
+                <div class="pa1">
+                    <a href="http://twitter.com/uberbryn"><img class="db w-100" src="./assets/bryn-jackson.png"></a>
+                </div>
+                <div class="pa1">
+                    <a href="http://twitter.com/brian_lovin"><img class="db w-100" src="./assets/brian-lovin.png"></a>
+                </div>
+                <div class="pa1">
+                    <a href="http://twitter.com/sirbenlee"><img class="db w-100" src="./assets/ben-lee.png"></a>
+                </div>
+                <div class="pa1">
+                    <a href="http://twitter.com/gabrielvaldivia"><img class="db w-100" src="./assets/gabe-valdivia.png"></a>
+                </div>
+            </div>
+        </section> -->
+
+        <footer class="mw8 center mv5">
+            <nav class="tc center">
+                <a class="link bg-animate color-pink hover-bg-pink dib pa3"
+                    href="http://twitter.com/michaelschultz"
+                    onclick="trackOutboundLink('http://twitter.com/michaelschultz'); return false;">
+                    Twitter
+                </a> 
+                <a class="link bg-animate color-pink hover-bg-pink dib pa3"
+                    href="http://github.com/michaelwschultz"
+                    onclick="trackOutboundLink('http://github.com/michaelwschultz'); return false;">
+                    github
+                </a> 
+                <a class="link bg-animate color-pink hover-bg-pink dib pa3"
+                    href="http://instagram.com/michaelschultz"
+                    onclick="trackOutboundLink('http://instagram.com/michaelschultz'); return false;">
+                    Instagram
+                </a>
+                <a class="link bg-animate color-pink hover-bg-pink dib pa3"
+                    href="http://twitch.com/idigg"
+                    onclick="trackOutboundLink('http://twitch.com/idigg'); return false;">
+                    Twitch <span id="status" style="display: none;" class="bg-red white br2 ph1 f6">Live Now</span>
+                </a>
+            </nav>
+        </footer>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    </body>
+</html>
