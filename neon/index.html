@@ -186,19 +186,19 @@
     </head>
     <body class="bg-dark-blue shapes">
         <header class="mw8 center mt4 flex flex-column flex-row-ns justify-between">
-            <h1 class="color-pink i pa1" style="flex-shrink: 0">Michael Schultz</h1>
-            <div class="flex items-center ph1">
-                <p id="currentSong" class="color-pink i pa1 tr"></p>
-                <a href="http://www.last.fm/user/michaelschultz" class="pa1"><img src="./assets/record-player.svg" id="recordPlayer" width="24px" height="24px"></a>
+            <h1 class="color-pink i pa2" style="flex-shrink: 0"><a href="./" class="color-pink hover-pink link">Michael Schultz</a></h1>
+            <div class="flex items-center pa2">
+                <p id="currentSong" class="color-pink i tr">current song playing on my last.fm account</p>
+                <a href="http://www.last.fm/user/michaelschultz" class="ph2"><img src="./assets/record-player.svg" id="recordPlayer" width="24px" height="24px"></a>
             </div>
             <!-- <h2 class="mt4 mb0 f6 fw4 ttu lh-copy tracked">Currently leading product design at <a class="link hover-dark-blue blue" href="http://sidewire.com" onclick="trackOutboundLink('http://sidewire.com'); return false;">Sidewire</a> in San Francisco, California.</h2> -->
         </header>
 
         <section class="mw8 center mt5">
-            <h2 class="color-blue ph1 pv2">Some things I've been working on</h2>
+            <h2 class="color-blue pa2">Some things I've been working on</h2>
             <div class="cf">
-                <div class="fl w-100-m w-75-ns pa1">
-                    <div class="bg-blue">
+                <div class="fl w-100-m w-75-ns">
+                    <div class="bg-blue mv1 mh2">
                         <div class="fl w-50 w-third-m fr pa4">
                             <img class="br3 shadow-l" src="./assets/sidewire-thumbnail.png" />
                         </div>
@@ -215,15 +215,15 @@
                             </p>
                         </div>
                         <div class="tr pb4 pr4">
-                            <h2 class="white"><a href="./projects.html">See all projects</a></h2>
+                            <a href="./projects.html" class="white f4 link">See all projects</a>
                         </div>
                     </div>
                 </div>
                 <div class="fl w-100-m w-25-ns">
-                    <div class="fl w-100 w-50-m pa1">
+                    <div class="fl w-100 w-50-m pv1 ph2">
                         <a class="white" href="https://bumpers.fm/e/b27ba96hre0002rq8pf0"><img src="https://bumpersfm.imgix.net/covers/CC50A002-688F-4A24-B1DF-B22FB0BFE5AD.jpg" class="w-100"></a>
                     </div>
-                    <div class="fl w-100 w-50-m pa1">
+                    <div class="fl w-100 w-50-m pv1 ph2">
                         <div class="bg-purple w-100">
                             <h2 class="white pa1">Iodine</h2>
                         </div>
@@ -234,13 +234,13 @@
 
 
         <section class="mw8 center mt5">
-            <h2 class="color-blue ph1 pv2">Have a look at some photos I’ve taken of people and things I like</h2>
+            <h2 class="color-blue pa2">Have a look at some photos I’ve taken of people and things I like</h2>
 
             <div id="instafeed" class="flex flex-wrap"></div>
         </section>
 
         <section class="mw8 center mt5">
-            <h2 class="color-blue ph1 pv2">Music that’s been dominating my headphones this week</h2>
+            <h2 class="color-blue pa2">Music that’s been dominating my headphones this week</h2>
             <div id="myLastFm" class="cf">
                 <div id="firstArtist">
                     <!-- get first arists and make it bigger -->
@@ -252,19 +252,19 @@
         </section>
 
         <section class="mw8 center mt5">
-            <h2 class="color-blue w-60-ns pa1">If you’re a designer living in or visiting SF and we haven’t met yet, shoot me a message and let’s grab a coffee. My treat.</h2>
-            <h3 class="color-blue pa1">Bounus! These are some other folks I can introduce you to.</h3>
+            <h2 class="color-blue w-60-ns pa2">If you’re a designer living in or visiting SF and we haven’t met yet, shoot me a message and let’s grab a coffee. My treat.</h2>
+            <h3 class="color-blue pa2">Bounus! These are some other folks I can introduce you to.</h3>
             <div class="flex mt4">
-                <div class="pa1">
+                <div class="pa2">
                     <a href="http://twitter.com/uberbryn"><img class="db w-100" src="./assets/bryn-jackson.png"></a>
                 </div>
-                <div class="pa1">
+                <div class="pa2">
                     <a href="http://twitter.com/brian_lovin"><img class="db w-100" src="./assets/brian-lovin.png"></a>
                 </div>
-                <div class="pa1">
+                <div class="pa2">
                     <a href="http://twitter.com/sirbenlee"><img class="db w-100" src="./assets/ben-lee.png"></a>
                 </div>
-                <div class="pa1">
+                <div class="pa2">
                     <a href="http://twitter.com/gabrielvaldivia"><img class="db w-100" src="./assets/gabe-valdivia.png"></a>
                 </div>
             </div>
@@ -425,8 +425,8 @@
             }
 
             // render lastFm data
-            lastFMCurrentSong();
-            lastFMFavoriteArtists();
+            // lastFMCurrentSong();
+            // lastFMFavoriteArtists();
         </script>
 
 
@@ -456,7 +456,7 @@
                     resolution: 'standard_resolution',
                     template: '<div class="w-50 w-third-ns pa1"><a href="{{link}}"><img src="{{image}}"></a></div>'
                 });
-                feed.run();
+                // feed.run();
             });
         </script>
     </body>
