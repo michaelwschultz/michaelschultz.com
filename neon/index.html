@@ -29,7 +29,7 @@
         <header class="mw8 center mt4 flex flex-column flex-row-ns justify-between">
             <h1 class="color-pink i pa2" style="flex-shrink: 0"><a href="./" class="color-pink hover-pink link">Michael Schultz</a></h1>
             <nav class="flex items-center tc">
-                <a class="link color-pink hover-pink dib pa3"
+                <a class="link color-pink hover-pink dib pv3 pl2 pr3"
                     href="http://twitter.com/michaelschultz"
                     onclick="trackOutboundLink('http://twitter.com/michaelschultz'); return false;">
                     Twitter
@@ -44,7 +44,7 @@
                     onclick="trackOutboundLink('http://instagram.com/michaelschultz'); return false;">
                     Instagram
                 </a>
-                <a class="link color-pink hover-pink dib pa3"
+                <a class="link color-pink hover-pink dib pv3 pl3 pr2"
                     href="http://twitch.com/idigg"
                     onclick="trackOutboundLink('http://twitch.com/idigg'); return false;">
                     Twitch <span id="status" style="display: none;" class="bg-pink white br2 ph1 f6">Live Now</span>
@@ -53,8 +53,14 @@
         </header>
 
         <section class="mw8 center mt5">
+            <div class="bg-pink br2 ma1 pa4">
+                <h2 class="white f5 ph2 lh-title">Designer of helpful things currently living in San Francisco. Wanna get in touch? Reach out on Twitter <a class="white hover-pink" href="http://twitter.com/michaelschultz">@michaelschultz</a>.</h2>
+            </div>
+        </section>
+
+        <section class="mw8 center mt5">
             <h2 class="color-blue pa2 pb3">Some things I've been working on</h2>
-            <div class="cf relative">
+            <div class="cf">
                 <div class="fl w-100-m w-75-ns">
                     <div class="bg-blue br2 ma1">
                         <h2 class="white pa4 lh-title">Design @ Sidewire</h2>
@@ -67,12 +73,12 @@
                             Sidewire’s a place where you can find experts and insiders breaking down the day’s news in public chats.
                         </p>
                         <p class="white ph4 pb2 lh-copy">
-                            I’ve been at Sidewire since November 2015 and have been the sole designer since September 2016. We’ve transformed our social platform into an awesome place for experts and readers alike. The best thing about Sidewire is that every expert is verified (no trolls!). We’ve had some incredible conversations that I don’t think could happen anywhere else.
+                            I’ve been at Sidewire since November 2015 and have been the sole designer since June 2016. We’ve transformed our social platform into an awesome place for experts and readers alike. The best thing about Sidewire is that every expert is verified (no trolls!). We’ve had some incredible conversations that I don’t think could happen anywhere else.
                         </p>
-                        <p class="white ph4 pb4 lh-copy">
-                            You can check it out at <a class="white" href="http://sidewire.com" onclick="trackOutboundLink('http://sidewire.com'); return false;">sidewire.com</a> or download the app on iOS or Android.
+                        <p class="white ph4 pb2 lh-copy">
+                            You can check it out at <a class="white hover-blue" href="http://sidewire.com" onclick="trackOutboundLink('http://sidewire.com'); return false;">sidewire.com</a> or download the app on iOS or Android.
                         </p>
-                        <a href="./projects.html" class="db white lh-title f4 ph4 pb4">See all projects</a>
+                        <a href="./projects.html" class="db white hover-blue lh-title f4 ph4 pb4">See all projects</a>
                     </div>
                 </div>
                 <div class="fl w-100-m w-25-ns">
@@ -103,7 +109,12 @@
         </section>
 
         <section class="mw8 center mt5">
-            <h2 class="color-blue pa2 pb3">Music that’s been dominating my headphones this week</h2>
+            <!--  -->
+            <div class="flex items-center mb1">
+                <a href="http://www.last.fm/user/michaelschultz" class="ph2" style="flex-shrink: 0"><img src="./assets/record-player.svg" id="recordPlayer" width="24px" height="24px"></a>
+                <p id="currentSong" class="color-pink i f4">loading song data from last.fm...</p>
+            </div>
+            <p class="color-blue pa2 pb3">Here's some music that’s been dominating my headphones this week</p>
             <div id="myLastFm" class="cf">
                 <div id="firstArtist">
                     <!-- get first arists and make it bigger -->
@@ -112,12 +123,13 @@
                     <!-- get arists -->
                 </div>
             </div>
+
         </section>
 
         <section class="mw8 center mt5">
             <h2 class="color-blue lh-title w-60-ns pa2">If you’re a designer living in or visiting SF and we haven’t met yet, shoot me a message and let’s grab a coffee. My treat.</h2>
-            <p class="color-blue pa2 lh-copy">Bounus! These are some other folks I can introduce you to.</p>
-            <div class="flex mt4">
+            <p class="color-blue pa2 lh-copy">Bonus! These are some other folks I'd be happy to introduce you to.</p>
+            <div class="flex mt3">
                 <div>
                     <div class="pa2">
                         <a href="http://twitter.com/sirbenlee"><img class="db w-100 br2" src="./assets/friends/ben-lee.jpg"></a>
@@ -127,7 +139,6 @@
                     </div>
                 </div>
                 <div>
-                    
                     <div class="pa2">
                         <a href="http://twitter.com/uberbryn"><img class="db w-100 br2" src="./assets/friends/bryn-jackson.jpg"></a>
                     </div>
@@ -172,10 +183,10 @@
 
 
         <footer class="mw8 center mv5">
-            <div class="flex items-center">
-                <a href="http://www.last.fm/user/michaelschultz" class="ph2"><img src="./assets/record-player.svg" id="recordPlayer" width="24px" height="24px"></a>
+            <!-- <div class="flex items-center">
+                <a href="http://www.last.fm/user/michaelschultz" class="ph2" style="flex-shrink: 0"><img src="./assets/record-player.svg" id="recordPlayer" width="24px" height="24px"></a>
                 <p id="currentSong" class="color-pink i">loading song data from last.fm</p>
-            </div>
+            </div> -->
         </footer>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
