@@ -44,11 +44,11 @@
                     onclick="trackOutboundLink('http://instagram.com/michaelschultz'); return false;">
                     Instagram
                 </a>
-                <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pl3 pr2"
+                <!-- <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pl3 pr2"
                     href="http://twitch.com/idigg"
                     onclick="trackOutboundLink('http://twitch.com/idigg'); return false;">
                     Twitch <span id="status" style="display: none;" class="bg-pink white br2 ph1 f6">Live Now</span>
-                </a>
+                </a> -->
             </nav>
         </header>
 
@@ -61,7 +61,7 @@
         <section class="mw8 center mt5">
             <div class="flex justify-between">
                 <h2 class="color-blue pa2 pb3">Some things I've been working on</h2>
-                <a href="./projects.html" class="white hover-blue lh-title f4 pa2 pb3">More projects</a>
+                <a href="./projects.html" class="white hover-blue lh-title f5 pa2 pb3">More projects</a>
             </div>
             <div class="cf">
                 <div class="fl w-100-m w-75-ns">
@@ -203,20 +203,20 @@
             }
 
             // Adds a listener that detects when tab is hidden
-            document.addEventListener('visibilitychange', function(){
-                if (document.hidden) {
-                    clearInterval(checkTwitch);
-                } else {
-                    twitchStream();
-                    checkTwitch = setInterval(twitchStream, 30000);
-                }
-            }, false);
+            // document.addEventListener('visibilitychange', function(){
+            //     if (document.hidden) {
+            //         clearInterval(checkTwitch);
+            //     } else {
+            //         twitchStream();
+            //         checkTwitch = setInterval(twitchStream, 30000);
+            //     }
+            // }, false);
 
             // run once when page loads
-            twitchStream();
+            // twitchStream();
 
             // start checking every 30 seconds after page loads
-            var checkTwitch = setInterval(twitchStream, 30000);
+            // var checkTwitch = setInterval(twitchStream, 30000);
         </script>
         <script>
             const lastFMFavoriteArtists = () => {
