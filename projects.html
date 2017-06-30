@@ -4,9 +4,14 @@
         <meta charset="UTF-8">
         <meta name="description" content="Currently leading product design at Sidewire in San Francisco, California.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- Tachyons v4.5.5 -->
         <link rel="stylesheet" href="tachyons.min.css">
         <link rel="stylesheet" href="style.css">
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+        <link rel="manifest" href="/manifest.json">
+        <link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#23205f">
+        <meta name="theme-color" content="#ffffff">
         <style>
             p { font-size: 14px; }
             a { color: #fff; }
@@ -29,40 +34,60 @@
             }
         </script>
     </head>
+
+    <!--
+    Hey, and welcome to my site!
+    If you have any questions about how it's built just let me know.
+    I'm a huge fan of functional CSS. This site makes use of the
+    technique by way of the tachyons framework (http://github.com/tachyons-css/tachyons).
+    -->
+
     <body class="sans-serif bg-dark-blue shapes">
         <header class="mw8 center mt4 ph3">
             <h1><a href="./" class="flex-no-shrink f3 color-pink hover-pink link" style="flex-shrink: 0">Michael Schultz</a></h1>
-            <nav>
-                <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pr3"
-                    href="http://twitter.com/michaelschultz"
-                    onclick="trackOutboundLink('http://twitter.com/michaelschultz'); return false;">
-                    Twitter
-                </a> 
-                <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pr3"
-                    href="http://github.com/michaelwschultz"
-                    onclick="trackOutboundLink('http://github.com/michaelwschultz'); return false;">
-                    github
-                </a>
-                <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pr3"
-                    href="http://linkedin.com/mikewschultz"
-                    onclick="trackOutboundLink('http://linkedin.com/mikewschultz'); return false;">
-                    LinkedIn
-                </a>
-                <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pr3"
-                    href="hhttp://dribbble.com/michaelschultz"
-                    onclick="trackOutboundLink('http://dribbble.com/michaelschultz'); return false;">
-                    Dribbble
-                </a>
-                <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3"
-                    href="http://instagram.com/michaelschultz"
-                    onclick="trackOutboundLink('http://instagram.com/michaelschultz'); return false;">
-                    Instagram
-                </a>
-                <!-- <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pl3 pr2"
-                    href="http://twitch.com/idigg"
-                    onclick="trackOutboundLink('http://twitch.com/idigg'); return false;">
-                    Twitch <span id="status" style="display: none;" class="bg-pink white br2 ph1 f6">Live Now</span>
-                </a> -->
+            <nav class="flex flex-column flex-row-ns justify-between items-center-ns">
+                <div class="nowrap">
+                    <a class="f6 link br1 bg-pink white pa3 mr2 mv3 dib"
+                        href="/projects.html">
+                        Portfolio
+                    </a>
+                    <a class="f6 link br1 ba color-pink hover-pink pa3 mr2 mv3 dib white"
+                        href="/resume.html">
+                        Resume
+                    </a>
+                </div>
+                <div>
+                    <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pr3"
+                        href="http://twitter.com/michaelschultz"
+                        onclick="trackOutboundLink('http://twitter.com/michaelschultz'); return false;">
+                        Twitter
+                    </a> 
+                    <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pr3"
+                        href="http://github.com/michaelwschultz"
+                        onclick="trackOutboundLink('http://github.com/michaelwschultz'); return false;">
+                        github
+                    </a>
+                    <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pr3"
+                        href="http://linkedin.com/mikewschultz"
+                        onclick="trackOutboundLink('http://linkedin.com/mikewschultz'); return false;">
+                        LinkedIn
+                    </a>
+                    <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pr3"
+                        href="hhttp://dribbble.com/michaelschultz"
+                        onclick="trackOutboundLink('http://dribbble.com/michaelschultz'); return false;">
+                        Dribbble
+                    </a>
+                    <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3"
+                        href="http://instagram.com/michaelschultz"
+                        onclick="trackOutboundLink('http://instagram.com/michaelschultz'); return false;">
+                        Instagram
+                    </a>
+                    <!-- <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pl3 pr2"
+                        href="http://twitch.com/idigg"
+                        onclick="trackOutboundLink('http://twitch.com/idigg'); return false;">
+                        Twitch <span id="status" style="display: none;" class="bg-pink white br2 ph1 f6">Live Now</span>
+                    </a> -->
+                </div>
             </nav>
         </header>
 
