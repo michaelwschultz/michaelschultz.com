@@ -26,7 +26,7 @@
         </script>
     </head>
     <body class="sans-serif bg-dark-blue shapes">
-        <header class="mw8 center mt4 ph2">
+        <header class="mw8 center mt4 ph3">
             <h1><a href="./" class="flex-no-shrink f3 color-pink hover-pink link" style="flex-shrink: 0">Michael Schultz</a></h1>
             <nav>
                 <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pr3"
@@ -62,24 +62,20 @@
             </nav>
         </header>
 
-        <section class="mw8 center mv5">
-            <h2 class="white f5 ph2 lh-title">Currently looking for a new full-time Product Design position. <a class="white hover-pink" href="/resume.html">View my resume</a> or reach out on Twitter <a class="white hover-pink" href="http://twitter.com/michaelschultz">@michaelschultz</a>.</h2>
+        <section class="mw8 center mv5 ph3">
+            <h2 class="white f5 lh-title"><span class="mr1">👋</span> Currently looking for a new full-time Product Design position. <a class="white hover-pink" href="/resume.html">View my resume</a> or reach out on Twitter <a class="white hover-pink" href="http://twitter.com/michaelschultz" onclick="trackOutboundLink('http://twitter.com/michaelschultz'); return false;">@michaelschultz</a>.</h2>
         </section>
 
-        <section class="mw8 center mt5">
-            <div class="flex justify-between">
-                <h2 class="color-blue pa2 pb3">Some things I've been working on</h2>
-                <a href="./projects.html" class="white hover-blue lh-title f5 pa2 pb3">More projects</a>
+        <section class="mw8 center mt5 ph3">
+            <div class="flex justify-between items-center">
+                <h2 class="color-blue pa1 pb3 lh-title pr2">Projects I've been working on</h2>
             </div>
             <div class="cf">
                 <div class="fl w-100-m w-75-ns">
-                    <div class="bg-blue br2 ma1">
+                    <div class="br2 ba color-blue ma1">
                         <h2 class="white pa4 lh-title">Design @ Sidewire</h2>
                         <div class="fr w-100 w-50-ns ph4 pb4">
-                            <a href="http://sidewire.com"
-                                onclick="trackOutboundLink('http://sidewire.com'); return false;">
-                                <img class="br2 dim" src="./assets/sidewire-thumbnail.jpg" />
-                            </a>
+                            <img class="br2" src="./assets/sidewire-thumbnail.jpg" />
                         </div>
                         <p class="white ph4 pb2 lh-copy">
                             Sidewire’s a place where you can find experts and insiders breaking down the day’s news in public chats.
@@ -87,9 +83,13 @@
                         <p class="white ph4 pb2 lh-copy">
                             I’ve been at Sidewire since November 2015 and have been the sole designer since June 2016. We’ve transformed our social platform into an awesome place for experts and readers alike. The best thing about Sidewire is that every expert is verified (no trolls!). We’ve had some incredible conversations that I don’t think could happen anywhere else.
                         </p>
-                        <p class="white ph4 pb5 lh-copy">
+                        <p class="white ph4 lh-copy">
                             You can check it out at <a class="white hover-blue" href="http://sidewire.com" onclick="trackOutboundLink('http://sidewire.com'); return false;">sidewire.com</a> or download the app on iOS or Android.
                         </p>
+                        <a class="f6 link dim br1 bg-pink pa3 mh4 mv3 dib white nowrap"
+                            href="./projects.html">
+                            See more projects
+                        </a>
                     </div>
                 </div>
                 <div class="fl w-100-m w-25-ns">
@@ -105,25 +105,30 @@
                     <div class="fl w-100 w-50-m pa1">
                         <div class="relative w-100">
                             <h2 class="white absolute pa1 bottom-0 pl3 f6 fw4 ttu tracked" style="pointer-events: none; z-index: 10;">Iodine</h2>
-                            <a href="./projects.html#iodine" class="darken dim"><img src="./assets/start-worth-screenshot.jpg" class="w-100 br2" style="min-height: 225px;"></a>
+                            <a href="./projects.html" class="darken dim">
+                                <img src="./assets/start-worth-screenshot.jpg" class="w-100 br2" style="min-height: 225px;">
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="mw8 center mt5">
-            <h2 class="color-blue pa2 pb3">Have a look at some photos I’ve taken of people and things I like</h2>
+        <section class="mw8 center mt5 ph3">
+            <h2 class="color-blue pv2 pb3 lh-title">Photos I’ve posted to <a class="color-blue hover-blue" href="http://instagram.com/michaelschultz" onclick="trackOutboundLink('http://instagram.com/michaelschultz'); return false;">Instagram</a>
+            </h2>
 
             <div id="instafeed" class="flex flex-wrap"></div>
         </section>
 
-        <section class="mw8 center mt5">
-            <div class="flex items-center mb1">
-                <a href="http://www.last.fm/user/michaelschultz" class="ph2" style="flex-shrink: 0"><img src="./assets/record-player.svg" id="recordPlayer" width="24px" height="24px"></a>
-                <p id="currentSong" class="color-pink i f4">loading song data from last.fm...</p>
+        <section class="mw8 center mt5 ph3">
+            <h2 class="color-blue pv2 pb3 lh-title">Music that’s been dominating my headphones this week</h2>
+            <div class="flex items-center mb3">
+                <a href="http://www.last.fm/user/michaelschultz" class="pr2" style="flex-shrink: 0">
+                    <img src="./assets/record-player.svg" id="recordPlayer" width="24px" height="24px">
+                </a>
+                <p id="currentSong" class="color-pink i f5">loading song data from last.fm...</p>
             </div>
-            <p class="color-blue pa2 pb3">Here's some music that’s been dominating my headphones this week</p>
             <div id="myLastFm" class="cf">
                 <div id="firstArtist">
                     <!-- get first arists and make it bigger -->
@@ -135,56 +140,56 @@
 
         </section>
 
-        <section class="mw8 center mv5">
-            <h2 class="color-blue lh-title w-60-ns pa2">If you’re a designer living in or visiting SF and we haven’t met yet, shoot me a message and let’s grab a coffee. My treat.</h2>
-            <p class="color-blue pa2 lh-copy">Bonus! These are some other folks I'd be happy to introduce you to.</p>
+        <section class="mw8 center mv5 ph3">
+            <h2 class="color-blue lh-title w-60-ns pv2">If you’re a designer living in or visiting SF and we haven’t met yet, shoot me a message and let’s grab coffee. My treat.</h2>
+            <p class="color-blue pv2 lh-copy">Bonus! These are some other folks I'd be happy to introduce you to.</p>
             <div class="flex mt3">
                 <div>
                     <div class="pa2">
-                        <a href="http://twitter.com/sirbenlee"><img class="db w-100 br2 dim" src="./assets/friends/ben-lee.jpg"></a>
+                        <a href="http://twitter.com/sirbenlee" onclick="trackOutboundLink('http://twitter.com/sirbenlee'); return false;"><img class="db w-100 br2 dim" src="./assets/friends/ben-lee.jpg"></a>
                     </div>
                     <div class="pa2">
-                        <a href="http://twitter.com/brian_lovin"><img class="db w-100 br2 dim" src="./assets/friends/brian-lovin.jpg"></a>
-                    </div>
-                </div>
-                <div>
-                    <div class="pa2">
-                        <a href="http://twitter.com/uberbryn"><img class="db w-100 br2 dim" src="./assets/friends/bryn-jackson.jpg"></a>
-                    </div>
-                    <div class="pa2">
-                        <a href="http://twitter.com/schombombadil"><img class="db w-100 br2 dim" src="./assets/friends/meredith-schomburg.jpg"></a>
+                        <a href="http://twitter.com/brian_lovin" onclick="trackOutboundLink('http://twitter.com/brian_lovin'); return false;"><img class="db w-100 br2 dim" src="./assets/friends/brian-lovin.jpg"></a>
                     </div>
                 </div>
                 <div>
                     <div class="pa2">
-                        <a href="http://twitter.com/gabrielvaldivia"><img class="db w-100 br2 dim" src="./assets/friends/gabe-valdivia.jpg"></a>
+                        <a href="http://twitter.com/uberbryn" onclick="trackOutboundLink('http://twitter.com/uberbryn'); return false;"><img class="db w-100 br2 dim" src="./assets/friends/bryn-jackson.jpg"></a>
                     </div>
                     <div class="pa2">
-                        <a href="http://twitter.com/luketns"><img class="db w-100 br2 dim" src="./assets/friends/luke-schultz.png"></a>
-                    </div>
-                </div>
-                <div>
-                    <div class="pa2">
-                        <a href="http://twitter.com/kleinmaetschke"><img class="db w-100 br2 dim" src="./assets/friends/klein-maetschke.jpg"></a>
-                    </div>
-                    <div class="pa2">
-                        <a href="http://twitter.com/sarahberus"><img class="db w-100 br2 dim" src="./assets/friends/sarah-jackson.jpg"></a>
+                        <a href="http://twitter.com/schombombadil" onclick="trackOutboundLink('http://twitter.com/schombombadil'); return false;"><img class="db w-100 br2 dim" src="./assets/friends/meredith-schomburg.jpg"></a>
                     </div>
                 </div>
                 <div>
                     <div class="pa2">
-                        <a href="http://twitter.com/littlenono"><img class="db w-100 br2 dim" src="./assets/friends/linda-eliasen.jpg"></a>
+                        <a href="http://twitter.com/gabrielvaldivia" onclick="trackOutboundLink('http://twitter.com/gabrielvaldivia'); return false;"><img class="db w-100 br2 dim" src="./assets/friends/gabe-valdivia.jpg"></a>
                     </div>
                     <div class="pa2">
-                        <a href="http://twitter.com/charliedeets"><img class="db w-100 br2 dim" src="./assets/friends/charlie-deets.jpg"></a>
+                        <a href="http://twitter.com/luketns" onclick="trackOutboundLink('http://twitter.com/luketns'); return false;"><img class="db w-100 br2 dim" src="./assets/friends/luke-schultz.png"></a>
                     </div>
                 </div>
                 <div>
                     <div class="pa2">
-                        <a href="http://twitter.com/jeffpersonified"><img class="db w-100 br2 dim" src="./assets/friends/jeff-smith.jpg"></a>
+                        <a href="http://twitter.com/kleinmaetschke" onclick="trackOutboundLink('http://twitter.com/uberbryn'); return false;"><img class="db w-100 br2 dim" src="./assets/friends/klein-maetschke.jpg"></a>
                     </div>
                     <div class="pa2">
-                        <a href="http://twitter.com/ndaught"><img class="db w-100 br2 dim" src="./assets/friends/nate-daught.jpg"></a>
+                        <a href="http://twitter.com/sarahberus" onclick="trackOutboundLink('http://twitter.com/uberbryn'); return false;"><img class="db w-100 br2 dim" src="./assets/friends/sarah-jackson.jpg"></a>
+                    </div>
+                </div>
+                <div>
+                    <div class="pa2">
+                        <a href="http://twitter.com/littlenono" onclick="trackOutboundLink('http://twitter.com/littlenono'); return false;"><img class="db w-100 br2 dim" src="./assets/friends/linda-eliasen.jpg"></a>
+                    </div>
+                    <div class="pa2">
+                        <a href="http://twitter.com/charliedeets" onclick="trackOutboundLink('http://twitter.com/charliedeets'); return false;"><img class="db w-100 br2 dim" src="./assets/friends/charlie-deets.jpg"></a>
+                    </div>
+                </div>
+                <div>
+                    <div class="pa2">
+                        <a href="http://twitter.com/jeffpersonified" onclick="trackOutboundLink('http://twitter.com/jeffpersonified'); return false;"><img class="db w-100 br2 dim" src="./assets/friends/jeff-smith.jpg"></a>
+                    </div>
+                    <div class="pa2">
+                        <a href="http://twitter.com/ndaught" onclick="trackOutboundLink('http://twitter.com/ndaught'); return false;"><img class="db w-100 br2 dim" src="./assets/friends/nate-daught.jpg"></a>
                     </div>
                 </div>
             </div>

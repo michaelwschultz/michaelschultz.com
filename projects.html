@@ -7,6 +7,10 @@
         <!-- Tachyons v4.5.5 -->
         <link rel="stylesheet" href="tachyons.min.css">
         <link rel="stylesheet" href="style.css">
+        <style>
+            p { font-size: 14px; }
+            a { color: #fff; }
+        </style>
         <title>Michael Schultz</title>
         <script> 
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -26,7 +30,7 @@
         </script>
     </head>
     <body class="sans-serif bg-dark-blue shapes">
-        <header class="mw8 center mt4 ph2">
+        <header class="mw8 center mt4 ph3">
             <h1><a href="./" class="flex-no-shrink f3 color-pink hover-pink link" style="flex-shrink: 0">Michael Schultz</a></h1>
             <nav>
                 <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pr3"
@@ -62,7 +66,15 @@
             </nav>
         </header>
 
-        <section id="sidewire" class="mw8 center mt5">
+        <section id="sidewire" class="mw8 center mt5 ph2" style="min-height: 100vh;">
+            <ul class="shots flex flex-wrap" style="list-style: none; padding: 0;">
+                <div class="tc">
+                    <span class="white">loading data from dribbble.com...</span>
+                </div>
+            </ul>
+        </section>
+
+        <!-- <section id="sidewire" class="mw8 center mt5">
             <div class="cf bg-blue br2 ma1">
                 <h2 class="white pa4 lh-title">Design @ Sidewire</h2>
                 <div class="fr w-100 w-50-ns ph4 pb4">
@@ -121,7 +133,6 @@
                     </p>
                 </div>
 
-                <!-- Need to make this responsive -->
                 <div class="fl w-100-m w-50-ns pa1">
                     <a href="https://www.youtube.com/watch?list=PLyijtMT5knM8-nZBCqjsZmqsYteijMUa2&v=XR7LhR0UoKM"><img class="br2 shadow-l" src="./assets/unsplash-thumbnail.jpg" /></a>
                 </div>
@@ -151,17 +162,36 @@
                 <p class="mv3 pa2 br2 lh-copy color-blue bg-white">Unfortunately with the shutdown of Parse and my lack of time to commit to it, Hemoglobe is no longer available. Read more about the shutdown at <a class="color-blue hover-blue" href="http://hemoglobe.com">hemoglobe.com</a>
                 </p>
             </div>
-        </section>
+        </section> -->
 
-        <section id="dribbble" class="mw8 center mv4">
-            <div class="pa4 tc">
-                <a class="db f4 color-pink hover-pink lh-copy"
-                    href="http://dribbble.com/michaelschultz"
-                    onclick="trackOutboundLink('http://dribbble.com/michaelschultz'); return false;">
-                Check out my Dribbble for more projects</a>
-            </div>
+        <section id="dribbble" class="mw8 center tc mb5">
+            <a class="f6 link dim br1 ba ph3 pv3 dib color-pink"
+                href="http://dribbble.com/michaelschultz"
+                onclick="trackOutboundLink('http://dribbble.com/michaelschultz'); return false;">
+                Check out my Dribbble page for more projects
+            </a>
         </section>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="jribbble.min.js"></script>
+        <script>
+            $.jribbble.setToken('23b98863585ad16501a8c11d0da0ab35cae3ddd7b689a2cc38d73e8acc6a90d6');
+            $.jribbble.users('michaelschultz').shots({
+                'per_page': 9,
+                'timeframe': 'ever',
+                'sort': 'recent'
+            }).then(function(res) {
+                var html = [];
+                res.forEach(function(shot) {
+                    html.push('<li class="w-100 w-50-m w-third-ns ph2 pb5">');
+                    html.push('<a href="' + shot.html_url + '" target="_blank">');
+                    html.push('<img class="br2 dim" src="' + shot.images.hidpi + '"></a>');
+                    html.push('<div class="white pt2"><h4 class="white">' + shot.title + '</h4>' + shot.description + '</div>');
+                    html.push('</li>');
+                });
+              
+                $('.shots').html(html.join(''));
+            });
+        </script>
     </body>
 </html>
