@@ -4,7 +4,6 @@
         <meta charset="UTF-8">
         <meta name="description" content="Currently leading product design at Sidewire in San Francisco, California.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- Tachyons v4.5.5 -->
         <link rel="stylesheet" href="tachyons.min.css">
         <link rel="stylesheet" href="style.css">
         <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
@@ -23,7 +22,7 @@
             ga('create', 'UA-534843-30', 'auto');
             ga('send', 'pageview');
 
-            function trackOutboundLink(url) {
+            var trackOutboundLink = function(url) {
                ga('send', 'event', 'outbound', 'click', url, {
                  'transport': 'beacon',
                  'hitCallback': function(){document.location = url;}

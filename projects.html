@@ -26,7 +26,7 @@
             ga('create', 'UA-534843-30', 'auto');
             ga('send', 'pageview');
 
-            function trackOutboundLink(url) {
+            var trackOutboundLink = function(url) {
                ga('send', 'event', 'outbound', 'click', url, {
                  'transport': 'beacon',
                  'hitCallback': function(){document.location = url;}
