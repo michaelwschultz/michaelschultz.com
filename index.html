@@ -214,23 +214,23 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script>
             // check Twitch to see if I'm streaming
-            function twitchStream() {
-                $.ajax({
-                    type: 'GET',
-                    url: 'https://api.twitch.tv/kraken/streams/idigg',
-                    headers: {
-                       'Client-ID': 'huq9j1mhn1y324eetrl4o31sgazr27b'
-                    },
-                    success: function(channel) {
-                        if (channel["stream"] == null) { 
-                            console.log("stream offline");
-                        } else {
-                            console.log("stream online");
-                            $("#status").css({"display": "inline-block"});
-                        }
-                    }
-                });
-            }
+            // function twitchStream() {
+            //     $.ajax({
+            //         type: 'GET',
+            //         url: 'https://api.twitch.tv/kraken/streams/idigg',
+            //         headers: {
+            //            'Client-ID': 'huq9j1mhn1y324eetrl4o31sgazr27b'
+            //         },
+            //         success: function(channel) {
+            //             if (channel["stream"] == null) { 
+            //                 console.log("stream offline");
+            //             } else {
+            //                 console.log("stream online");
+            //                 $("#status").css({"display": "inline-block"});
+            //             }
+            //         }
+            //     });
+            // }
 
             // Adds a listener that detects when tab is hidden
             // document.addEventListener('visibilitychange', function(){

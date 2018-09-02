@@ -101,26 +101,24 @@
             </a>
         </section>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="jribbble.min.js"></script>
         <script>
-            $.jribbble.setToken('23b98863585ad16501a8c11d0da0ab35cae3ddd7b689a2cc38d73e8acc6a90d6');
-            $.jribbble.users('michaelschultz').shots({
-                'per_page': 9,
-                'timeframe': 'ever',
-                'sort': 'recent'
-            }).then(function(res) {
-                var html = [];
-                res.forEach(function(shot) {
-                    html.push('<li class="w-100 w-50-m w-third-ns ph2 pb5">');
-                    html.push('<a href="' + shot.html_url + '" target="_blank">');
-                    html.push('<img class="br2 dim" src="' + shot.images.hidpi + '"></a>');
-                    html.push('<div class="white pt2"><h4 class="white normal">' + shot.title + '</h4>' + shot.description + '</div>');
-                    html.push('</li>');
-                });
-              
-                $('.shots').html(html.join(''));
-            });
+          jribbble.shots(
+            {
+              token: 'ae1ce6a64952bf1eae5f7829fdcad6206b5bd203ae6f06f771768b4e05ed4738',
+              per_page: 9,
+              sort: 'recent'
+            },
+            function(shotsArray) {
+              document.querySelector('.shots').innerHTML = shotsArray.reduce((html, shot) => (
+                html + '<li class="w-100 w-50-m w-third-ns ph2 pb5"><a href="' +
+                shot.html_url + '" target="_blank"><img class="br2 dim" src="' +
+                shot.images.hidpi + '"></a>' +
+                '<div class="white pt2"><h4 class="white normal">' + shot.title +
+                '</h4>' + shot.description + '</div></li>'
+              ), '');
+            }
+          );
         </script>
     </body>
 </html>
