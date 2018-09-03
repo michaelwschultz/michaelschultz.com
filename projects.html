@@ -103,22 +103,20 @@
 
         <script src="jribbble.min.js"></script>
         <script>
-          jribbble.shots(
-            {
-              token: 'ae1ce6a64952bf1eae5f7829fdcad6206b5bd203ae6f06f771768b4e05ed4738',
-              per_page: 9,
-              sort: 'recent'
+            jribbble.shots({
+                token: 'ae1ce6a64952bf1eae5f7829fdcad6206b5bd203ae6f06f771768b4e05ed4738',
+                per_page: 9,
+                sort: 'recent'
             },
             function(shotsArray) {
-              document.querySelector('.shots').innerHTML = shotsArray.reduce((html, shot) => (
-                html + '<li class="w-100 w-50-m w-third-ns ph2 pb5"><a href="' +
-                shot.html_url + '" target="_blank"><img class="br2 dim" src="' +
-                shot.images.hidpi + '"></a>' +
-                '<div class="white pt2"><h4 class="white normal">' + shot.title +
-                '</h4>' + shot.description + '</div></li>'
-              ), '');
-            }
-          );
+                document.querySelector('.shots').innerHTML = shotsArray.reduce((html, shot) => (
+                    html + '<li class="w-100 w-50-m w-third-ns ph2 pb5"><a href="' +
+                    shot.html_url + '" target="_blank"><img class="br2 dim" src="' +
+                    shot.images.hidpi + '"></a>' +
+                    '<div class="white pt2"><h4 class="white normal">' + shot.title +
+                    '</h4>' + shot.description + '</div></li>'
+                ), '');
+            });
         </script>
     </body>
 </html>
