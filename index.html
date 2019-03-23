@@ -22,11 +22,13 @@
             ga('create', 'UA-534843-30', 'auto');
             ga('send', 'pageview');
 
-            var trackOutboundLink = function(url) {
-               ga('send', 'event', 'outbound', 'click', url, {
-                 'transport': 'beacon',
-                 'hitCallback': function(){document.location = url;}
-               });
+            const trackOutboundLink = function(url) {
+               ga('send', 'event', {
+                   eventCategory: 'outbound',
+                   eventAction: 'click',
+                   eventLabel: url,
+                   'transport': 'beacon',
+               }); return false;
             }
         </script>
     </head>
@@ -54,7 +56,8 @@
                 </div>
                 <div>
                     <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pr3"
-                        href="http://twitter.com/michaelschultz">
+                        href="http://twitter.com/michaelschultz"
+                        onClick="trackOutboundLink('http://twitter.com/michaelschultz')">
                         Twitter
                     </a>
                     <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pr3"
