@@ -22,13 +22,11 @@
             ga('create', 'UA-534843-30', 'auto');
             ga('send', 'pageview');
 
-            const trackOutboundLink = function(url) {
-               ga('send', 'event', {
-                   eventCategory: 'outbound',
-                   eventAction: 'click',
-                   eventLabel: url,
-                   'transport': 'beacon',
-               }); return false;
+            var trackOutboundLink = function(url) {
+                ga('send', 'event', 'outbound', 'click', url, {
+                    'transport': 'beacon',
+                    'hitCallback': () => document.location = url,
+                });
             }
         </script>
     </head>
@@ -57,23 +55,27 @@
                 <div>
                     <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pr3"
                         href="http://twitter.com/michaelschultz"
-                        onClick="trackOutboundLink('http://twitter.com/michaelschultz'); return false;">
+                        onclick="trackOutboundLink('http://twitter.com/michaelschultz'); return false;">
                         Twitter
                     </a>
                     <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pr3"
-                        href="http://github.com/michaelwschultz">
+                        href="http://github.com/michaelwschultz"
+                        onclick="trackOutboundLink('http://github.com/michaelwschultz'); return false;">
                         Github
                     </a>
                     <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pr3"
-                        href="http://linkedin.com/in/mikewschultz">
+                        href="http://linkedin.com/in/mikewschultz"
+                        onclick="trackOutboundLink('http://linkedin.com/in/mikewschultz'); return false;">
                         LinkedIn
                     </a>
                     <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pr3"
-                        href="http://dribbble.com/michaelschultz">
+                        href="http://dribbble.com/michaelschultz"
+                        onclick="trackOutboundLink('http://dribbble.com/michaelschultz'); return false;">
                         Dribbble
                     </a>
                     <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3"
-                        href="http://instagram.com/michaelschultz">
+                        href="http://instagram.com/michaelschultz"
+                        onclick="trackOutboundLink('http://instagram.com/michaelschultz'); return false;">
                         Instagram
                     </a>
                     <!-- <a class="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pl3 pr2"
@@ -95,20 +97,21 @@
                         <div class="fr w-100 w-50-ns pl3-ns pb4">
                             <div class="relative w-100">
                                 <h2 class="white absolute pa1 bottom-0 pl3 f6 fw4 ttu tracked" style="pointer-events: none; z-index: 10;">Newfront Insurance</h2>
-                                <a href="https://www.newfrontinsurance.com"
-                                    class="darken dim">
+                                <a class="darken dim"
+                                    href="https://www.newfrontinsurance.com"
+                                    onclick="trackOutboundLink('https://www.newfrontinsurance.com'); return false;">
                                     <img class="w-100 br2" src="./assets/newfront-insurance-thumbnail.png" />
                                 </a>
                             </div>
                         </div>
                         <p class="white pb2 lh-copy">
-                            After designing public health tools at <a  class="white hover-pink" href="https://iodine.com" target="_blank">Iodine<a/>, and a quick dip into politics at Sidewire, I joined Newfront Insurance in December of 2017 to help design and build a modern insurance brokerage.
+                            After designing public health tools at <a  class="white hover-pink" href="https://iodine.com" onclick="trackOutboundLink('https://www.iodine.com'); return false;" target="_blank">Iodine<a/>, and a quick dip into politics at Sidewire, I joined Newfront Insurance in December of 2017 to help design and build a modern insurance brokerage.
                         </p>
                         <p class="white pb2 lh-copy">
                             At Newfront, we're building tools that make life easier for brokers, their clients, and our account managers. Some of these tools include automation and others improve the communication process between each group.
                         </p>
                         <p class="white pb2 lh-copy">
-                            If you're looking for commercial or personal insurance or are interested in helping build a big business, join us at <a class="white hover-blue" href="https://www.newfrontinsurance.com" target="_blank">Newfront</a>.
+                            If you're looking for commercial or personal insurance or are interested in helping build a big business, join us at <a class="white hover-blue" href="https://www.newfrontinsurance.com" onclick="trackOutboundLink('https://www.newfrontinsurance.com'); return false;" target="_blank">Newfront</a>.
                         </p>
                         <a class="f6 link br1 ba color-pink hover-pink pa3 mv3 dib nowrap"
                             href="./projects">
@@ -120,8 +123,9 @@
                     <div class="fl w-100 w-50-m pa1">
                         <div class="relative w-100">
                             <h2 class="white absolute pa1 bottom-0 pl3 f6 fw4 ttu tracked" style="pointer-events: none; z-index: 10;">Cousins The Podcast</h2>
-                            <a href="https://anchor.fm/cousins"
-                                class="darken dim">
+                            <a class="darken dim"
+                                href="https://anchor.fm/cousins"
+                                onclick="trackOutboundLink('https://anchor.fm/cousins'); return false;">
                                 <img src="./assets/michael-luke.jpg" class="w-100 br2" style="min-height: 225px;">
                             </a>
                         </div>
@@ -129,7 +133,7 @@
                     <div class="fl w-100 w-50-m pa1">
                         <div class="relative w-100">
                             <h2 class="white absolute pa1 bottom-0 pl3 f6 fw4 ttu tracked" style="pointer-events: none; z-index: 10;">Timelapse App</h2>
-                            <a href="https://github.com/michaelwschultz/timelapse-app" class="darken dim">
+                            <a class="darken dim" href="https://github.com/michaelwschultz/timelapse-app" onclick="trackOutboundLink('https://github.com/michaelwschultz/timelapse-app'); return false;">
                                 <img src="./assets/timelapse-app-screenshot.jpg" class="w-100 br2" style="min-height: 225px;">
                             </a>
                         </div>
@@ -139,7 +143,7 @@
         </section>
 
         <section class="mw8 center mt5 ph3">
-            <h2 class="color-blue pv2 pb3 lh-title">Photos I’ve posted to <a class="color-blue hover-blue" href="http://instagram.com/michaelschultz">Instagram</a>
+            <h2 class="color-blue pv2 pb3 lh-title">Photos I’ve posted to <a class="color-blue hover-blue" href="http://instagram.com/michaelschultz" onclick="trackOutboundLink('http://instagram.com/michaelschultz'); return false;">Instagram</a>
             </h2>
 
             <div id="instafeed" class="flex flex-wrap"></div>
@@ -148,7 +152,7 @@
         <section class="mw8 center mt6 ph3">
             <h2 class="color-blue pv2 pb3 lh-title">Music that’s been dominating my headphones this week</h2>
             <div class="flex items-center mb3">
-                <a href="http://www.last.fm/user/michaelschultz" class="pr2" style="flex-shrink: 0">
+                <a class="pr2" style="flex-shrink: 0" href="http://www.last.fm/user/michaelschultz" onclick="trackOutboundLink('http://www.last.fm/user/michaelschultz'); return false;">
                     <img src="./assets/record-player.svg" id="recordPlayer" width="24px" height="24px">
                 </a>
                 <p id="currentSong" class="color-pink i f5">loading song data from last.fm...</p>
