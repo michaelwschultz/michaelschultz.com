@@ -4,7 +4,4 @@ michaelschultz.com - created Tue Nov 22 11:59:04 PST 2016
     http://github.com/michaelwschultz/basher
 
 ### About
-Designer and software engineer living in San Francisco, California. Currently building a modern insurance brokerage at Newfront.
-
-### Repo Address
-`git clone user@server:/var/repos/michaelschultz.com.git`
+Designer and software engineer living in San Francisco, California. Currently building a modern insurance brokerage at newfrontinsurance.com
