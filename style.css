@@ -4,6 +4,10 @@ html {
     line-height: 0;
 }
 
+.artist {
+    contain: content;
+}
+
 body {
     font-family: "Open Sans", "Avant Garde", sans-serif;
     font-size: 16px;

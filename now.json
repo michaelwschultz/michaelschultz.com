@@ -1,0 +1,5 @@
+{
+  "env": {
+    "SPOTIFY_ACCESS_TOKEN": "@spotify-access-token"
+  }
+}
