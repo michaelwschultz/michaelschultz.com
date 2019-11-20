@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import Page from '../components/page'
-import DribbblePosts from '../components/dribbble_posts'
+import Dribbble from '../components/dribbble'
 
 function Projects() {
   return (
@@ -9,7 +9,7 @@ function Projects() {
       <Head>
         <title>Michael Schultz</title>
       </Head>
-      <DribbblePosts />
+      <Dribbble />
     </Page>
   )
 }

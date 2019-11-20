@@ -4,7 +4,7 @@ import Alert from './ui/alert'
 import Button from './ui/button'
 import DribbblePost from './ui/dribbble_post'
 
-function DribbblePosts() {
+function Dribbble() {
   const SHOTS_PER_PAGE = 3;
 
   const [isLoading, setIsLoading] = useState(true);
@@ -15,8 +15,6 @@ function DribbblePosts() {
   const [dribbblePosts, setDribbblePosts] = useState([]);
 
   const placeholderArr = Array.from({ length: SHOTS_PER_PAGE }, (_v, i) => i);
-
-  console.log('dribbble', process.env.DRIBBBLE_TOKEN);
 
   useEffect(() => {
     let didCancel = false;
@@ -96,4 +94,4 @@ function DribbblePosts() {
   );
 }
 
-export default DribbblePosts
+export default Dribbble

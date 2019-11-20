@@ -5,7 +5,7 @@ function Button(props) {
 
   return (
     <button
-      className="f6 link br1 ba pa3 mr2 mv3 dib"
+      className="f6 br1 ba pa3 dib"
       onClick={onClick}
       disabled={isLoading}
     >
