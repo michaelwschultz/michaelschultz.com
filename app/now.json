@@ -1,5 +1,9 @@
 {
-  "env": {
-    "SPOTIFY_ACCESS_TOKEN": "@spotify-access-token"
+  "build": {
+    "env": {
+      "SPOTIFY_ACCESS_TOKEN": "@spotify-access-token",
+      "DRIBBBLE_TOKEN": "@dribbble-token",
+      "GA_TRACKING_ID": "@ga-tracking-id"
+    }
   }
 }

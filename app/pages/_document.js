@@ -1,8 +1,6 @@
 import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
 
-import { GA_TRACKING_ID } from '../lib/gtag'
-
 export default class extends Document {
   render() {
     return (
@@ -14,16 +12,15 @@ export default class extends Document {
           <link rel="icon" href="/favicon.ico" />
           <link rel="stylesheet" href="/tachyons.min.css" />
           <link rel="stylesheet" href="/style.css" />
-          <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-          <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-          <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-          <link rel="manifest" href="/manifest.json" />
-          <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#23205f" />
+          <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+          <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
+          <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png" />
+          <link rel="mask-icon" href="assets/safari-pinned-tab.svg" color="#23205f" />
 
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           <script
             async
-            src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA_TRACKING_ID}`}
           />
           <script
             dangerouslySetInnerHTML={{
@@ -31,7 +28,7 @@ export default class extends Document {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${GA_TRACKING_ID}');
+            gtag('config', '${process.env.GA_TRACKING_ID}');
           `,
             }}
           />
