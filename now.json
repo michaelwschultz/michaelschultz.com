@@ -6,6 +6,7 @@
     "env": {
       "DRIBBBLE_TOKEN": "@dribbble-token",
       "GA_TRACKING_ID": "@ga-tracking-id",
+      "LASTFM_TOKEN": "@lastfm-token",
       "SPOTIFY_ACCESS_TOKEN": "@spotify-access-token"
     }
   }

@@ -17,11 +17,13 @@ const Nav = () => (
             Portfolio
           </a>
         </Link>
+        {/* Bring back resume at some point
+            For more info checkout LinkedIn
         <Link href="/resume">
           <a className="f6 link br1 ba color-pink hover-pink pa3 mr2 mv3 dib white">
             Resume
           </a>
-        </Link>
+        </Link> */}
       </div>
       <div>
         <a href="http://twitter.com/michaelschultz" className="link color-pink hover-pink dib f6 fw4 ttu tracked pv3 pr3">
