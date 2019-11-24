@@ -1,4 +1,4 @@
-exports.default = {
+module.exports = {
   env: {
     DRIBBBLE_TOKEN: process.env.DRIBBBLE_TOKEN,
     SPOTIFY_ACCESS_TOKEN: process.env.SPOTIFY_ACCESS_TOKEN,
