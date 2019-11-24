@@ -4,9 +4,9 @@
   "builds": [{ "src": "next.config.js", "use": "@now/next" }],
   "build": {
     "env": {
-      "SPOTIFY_ACCESS_TOKEN": "@spotify-access-token",
       "DRIBBBLE_TOKEN": "@dribbble-token",
-      "GA_TRACKING_ID": "@ga-tracking-id"
+      "GA_TRACKING_ID": "@ga-tracking-id",
+      "SPOTIFY_ACCESS_TOKEN": "@spotify-access-token"
     }
   }
 }
