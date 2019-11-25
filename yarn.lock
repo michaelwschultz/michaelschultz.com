@@ -4486,6 +4486,11 @@ react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
   integrity sha512-rPCkf/mWBtKc97aLL9/txD8DZdemK0vkA3JMLShjlJB3Pj3s+lpf1KaBzMfQrAmhMQB0n1cU/SUGgKKBCe837Q==
 
+react-spotify-api@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-spotify-api/-/react-spotify-api-2.4.0.tgz#c4cc8dd83a6c5eb1d75a385178097ab636eb72db"
+  integrity sha512-vRoZDQEP7G79Yf9W0GL4eDwDNrKCkPII0ev8e9d7sL4eSdbvJBSFgxjm7GuVYJIZ+ogwxw8LTC3O7bJLIBr1aw==
+
 react@16.12.0:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.12.0.tgz#0c0a9c6a142429e3614834d5a778e18aa78a0b83"

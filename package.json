@@ -13,6 +13,7 @@
     "instafeed.js": "^1.4.1",
     "next": "9.1.4",
     "react": "16.12.0",
-    "react-dom": "16.12.0"
+    "react-dom": "16.12.0",
+    "react-spotify-api": "^2.4.0"
   }
 }

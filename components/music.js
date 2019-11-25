@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import useAxios from 'axios-hooks'
+import React, { useEffect, useState } from 'react';
+import useAxios from 'axios-hooks';
+import axios from 'axios';
 
 const capitalize = (string) => {
   return string.toLowerCase()
@@ -8,19 +9,40 @@ const capitalize = (string) => {
   .join(' ');
 }
 
-function Music() {
-  const [fetchedData, setFetchedData] = useState();
+function Music(props) {
+  const { spotifyAccessToken } = props;
+  const [artistImage, setArtistImage] = useState();
+  const [artistData, setArtistData] = useState();
   const [mostRecentSong, setMostRecentSong] = useState();
   const [currentlyListening, setCurrentlyListening] = useState(false);
+
   const userName = "michaelschultz";
   const limit = 1;
-  const lastfm_api = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${userName}&limit=${limit}&api_key=${process.env.LASTFM_TOKEN}&format=json`;
+  const lastfm_request = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${userName}&limit=${limit}&api_key=${process.env.LASTFM_TOKEN}&format=json`;
+  
+  const [{ data: lastfmData, loading: lastfmLoading, error: lastfmError }, lastfmRefresh] = useAxios(lastfm_request);
 
-  const [{ data, loading, error }, refresh] = useAxios(lastfm_api);
+  const getSpotifyData = async function(artist, spotifyAccessToken) {
+    await axios({
+      url: `https://api.spotify.com/v1/search?q=${artist}&type=artist&limit=${limit}`,
+      method: 'get',
+      headers: {
+        Authorization: `Bearer ${spotifyAccessToken}`,
+      }
+    }).then(function(response) {
+      setArtistImage(response.data.artists.items[0].images[0].url);
+      setArtistData(response);
+      return {
+        data: response.data
+      }
+    }).catch(function(error) {
+        console.log(error);
+    });
+  }
 
   useEffect(() => {
-    if (data) {
-      const trackData = data.recenttracks.track[0];
+    if (lastfmData) {
+      const trackData = lastfmData.recenttracks.track[0];
       const song = capitalize(trackData.name);
       const artist = capitalize(trackData.artist['#text']);
       const rawSongAndArtist = `${song} by ${artist}`;
@@ -33,12 +55,12 @@ function Music() {
         songAndArtist = `Recently listened to ${rawSongAndArtist}`;
       }
 
+      getSpotifyData(artist, spotifyAccessToken);
       setMostRecentSong(songAndArtist);
       setCurrentlyListening(currentlyListening);
     }
+  }, [lastfmData]);
 
-    setFetchedData(data);    
-  }, [data]);
 
   return (
     <section className="mw8 center mt6 ph3">
@@ -49,19 +71,26 @@ function Music() {
         <a
           className="pr2"
           style={{ flexShrink: 0, cursor: "pointer" }}
-          onClick={refresh}
+          onClick={lastfmRefresh}
           title="Check for more recent song."
         >
-          <img src="./assets/record-player.svg" className={fetchedData && currentlyListening ? "spin-animation" : ""} id="recordPlayer" width="24px" height="24px" />
+          <img src="./assets/record-player.svg" className={lastfmData && currentlyListening ? "spin-animation" : ""} id="recordPlayer" width="24px" height="24px" />
         </a>
         <p id="currentSong" className="color-pink f5">
-          {loading && 'Loading song data from last.fm...'}
-          {error && !loading && 'Error loading data from last.fm...'}
-          {fetchedData && !loading && mostRecentSong}
+          {lastfmLoading && 'Loading song data from last.fm...'}
+          {lastfmError && !lastfmLoading && 'Error loading data from last.fm...'}
+          {lastfmData && !lastfmLoading && mostRecentSong}
         </p>
       </div>
+
       <div id="myLastFm" className="cf">
         <div id="firstArtist">
+          {artistData && (
+            <a href={artistData.data.artists.items[0].external_urls.spotify}>
+              <img src={artistImage} width="400" height="400" style={{ objectFit: "cover" }} />
+            </a>
+          )}
+          
           {/* <!-- get first arists and make it bigger --> */}
         </div>
         <div id="artists">
