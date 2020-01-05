@@ -1,13 +1,15 @@
 import React from 'react'
 import Nav from './nav'
-// import { ThemeType } from '../lib/types';
+import { ThemeType } from '../lib/types'
 
-// interface PageProps {
-//   children: any,
-//   theme: ThemeType,
-// }
+interface PageProps {
+  children: any,
+  theme: ThemeType,
+}
 
-export default ({ children, theme }) => {
+export default (props: PageProps) => {
+  const { children, theme } = props
+
   const selectBackgroundImage = () => {
     return `./assets/backgrounds/${theme.backgroundImage}.jpg`;
   }

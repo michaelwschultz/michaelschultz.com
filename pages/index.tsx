@@ -8,7 +8,9 @@ import Page from '../components/page'
 import Projects from '../components/projects'
 import DesignThoughts from '../components/design_thoughts'
 
-const Home = props => {
+import { ThemeType } from '../lib/types'
+
+const Home = (props: { theme: ThemeType }) => {
   // const { spotifyAccessToken } = props;
   const { theme } = props; 
 

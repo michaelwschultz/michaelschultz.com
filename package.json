@@ -15,5 +15,10 @@
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-spotify-api": "^2.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^13.1.4",
+    "@types/react": "^16.9.17",
+    "typescript": "^3.7.4"
   }
 }

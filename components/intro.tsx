@@ -1,10 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
 
-// import { ThemeType } from '../lib/types'
+import { ThemeType } from '../lib/types'
 
-const Intro = (props) => {
-  const { theme } = props;
+const Intro = (props: { theme: ThemeType }) => {
+  const { theme } = props
 
   return (
     <section className="mw8 center mt5 ph3">

@@ -1,11 +1,11 @@
 import React from 'react'
 
 // update onCilck type
-// interface buttonProps {
-//   children: string,
-//   onClick: any,
-//   isLoading: boolean,
-// }
+interface buttonProps {
+  children: string,
+  onClick: React.MouseEvent,
+  isLoading: boolean,
+}
 
 function Button(props) {
   const { children, onClick, isLoading } = props;
