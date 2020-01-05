@@ -3,15 +3,19 @@ import Head from 'next/head'
 import Page from '../components/page'
 import Dribbble from '../components/dribbble'
 
-function Projects() {
+const Portfolio = props => {
+  const { theme } = props;
+
+  console.log('this is the theme', theme)
+
   return (
-    <Page>
+    <Page theme={theme}>
       <Head>
         <title>Michael Schultz</title>
       </Head>
-      <Dribbble />
+      <Dribbble theme={theme} />
     </Page>
   )
 }
 
-export default Projects
+export default Portfolio

@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Alert(props) {
+function Alert(props: { children: string }) {
   const { children } = props;
 
   return (

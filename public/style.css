@@ -8,6 +8,34 @@ html {
   contain: content;
 }
 
+#bg {
+  position: fixed; 
+  top: -50%; 
+  left: -50%; 
+  width: 200%; 
+  height: 200%;
+  z-index: -1;
+}
+#bg img {
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0; 
+  margin: auto; 
+  min-width: 50%;
+  min-height: 50%;
+}
+
+.fadeIn {
+  animation: fadein .5s;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 body {
   font-family: "Open Sans", "Avant Garde", sans-serif;
   font-size: 16px;
@@ -203,6 +231,18 @@ p {
 }
 
 /* colors */
+
+.color-teal {
+  color: #39D1DB;
+}
+
+.color-green {
+  color: #28D898;
+}
+
+.color-light-purple {
+  color: #CC8AF4;
+}
 
 .color-blue {
   color: #01AEF0;
