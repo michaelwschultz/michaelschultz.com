@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { ThemeType } from '../lib/types'
+import { ThemeContext } from '../lib/themeContext'
 
-const Friends = (props: { theme: ThemeType }) => {
-  const { theme } = props
+const Friends = () => {
+  const theme = React.useContext(ThemeContext)
 
   return (
     <section className="mw8 center mv6 ph3">

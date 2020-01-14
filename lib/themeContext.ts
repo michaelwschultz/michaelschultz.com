@@ -1,24 +1,27 @@
 import React from 'react'
+import { ThemeType } from './types';
 
-export const themes = {
-  teal: {
+export interface ThemeContextType {
+  theme: ThemeType[],
+}
+
+export const Themes: ThemeType[] = [
+  {
     backgroundImage: '1',
     textColor: 'color-teal',
   },
-  pink: {
+  {
     backgroundImage: '2',
     textColor: 'pink',
   },
-  white: {
+  {
     backgroundImage: '3',
     textColor: 'white',
   },
-  green: {
+  {
     backgroundImage: '4',
     textColor: 'color-green',
   },
-};
+];
 
-export const ThemeContext = React.createContext(
-  themes.teal
-);
+export const ThemeContext = React.createContext<ThemeType | null>(null);

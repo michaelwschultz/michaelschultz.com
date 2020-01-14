@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { ThemeType } from '../lib/types'
+import { ThemeContext } from '../lib/themeContext'
 
-const Projects = (props: { theme: ThemeType }) => {
-  const { theme } = props
+const Projects = () => {
+  const theme = React.useContext(ThemeContext)
 
   return (
     <section className="mw8 center mt5 ph3">

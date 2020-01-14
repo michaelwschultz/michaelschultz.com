@@ -1,30 +1,45 @@
 import React from 'react'
 import Nav from './nav'
-import { ThemeType } from '../lib/types'
+
+import { ThemeContext, Themes } from '../lib/themeContext'
 
 interface PageProps {
   children: any,
-  theme: ThemeType,
 }
 
 export default (props: PageProps) => {
-  const { children, theme } = props
 
-  const selectBackgroundImage = () => {
-    return `./assets/backgrounds/${theme.backgroundImage}.jpg`;
+  // TODO
+  // move the theme provider to the _document
+  // so it doesn't load on every navigation change
+
+  // choose a theme on page load
+  const randomNumber = Math.random();
+  let i = 0
+
+  if (randomNumber < 0.25) {
+    i = 1
+  } else if (randomNumber <= 0.50) {
+    i = 2
+  } else if (randomNumber <= 0.75) {
+    i = 3
   }
 
+  const theme = Themes[i]
+
   return (
-    <div>
-      <div id="bg" className="backgroundImage">
-        <img
-          src={selectBackgroundImage()}
-          alt="random foliage background"
-          className="fadeIn"
-        />
+    <ThemeContext.Provider value={theme}>
+      <div>
+        <div id="bg" className="backgroundImage">
+          <img
+            src={`./assets/backgrounds/${theme.backgroundImage}.jpg`}
+            alt="random foliage background"
+            className="fadeIn"
+          />
+        </div>
+        <Nav />
+        {props.children}
       </div>
-      <Nav theme={theme} />
-      {children}
-    </div>
+    </ThemeContext.Provider>
   )
 }

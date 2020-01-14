@@ -2,10 +2,10 @@
 import React from 'react'
 import Link from 'next/link'
 
-import { ThemeType } from '../lib/types'
+import { ThemeContext } from '../lib/themeContext'
 
-const Nav = (props: { theme: ThemeType }) => {
-  const { theme } = props;
+const Nav = () => {
+  const theme = React.useContext(ThemeContext)
   const linkClasses = `${theme.textColor} hover-white link dib f6 fw4 ttu tracked pv3 pr3`;
 
   return (

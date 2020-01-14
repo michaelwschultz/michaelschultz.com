@@ -1,15 +1,15 @@
 import React from 'react'
 
-// export interface DribbblePostProps {
-//   description: string,
-//   html_url: string,
-//   images: {
-//     hidpi: string,
-//   }
-//   title: string,
-// }
+export interface DribbblePostProps {
+  description: string,
+  html_url: string,
+  images: {
+    hidpi: string,
+  }
+  title: string,
+}
 
-function DribbblePost(post) {
+function DribbblePost({ post }) {
   return (
     <li className="w-100 w-50-m w-third-ns ph2 pb5">
       <a href={post.html_url}>
