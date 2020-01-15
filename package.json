@@ -2,6 +2,7 @@
   "name": "app",
   "version": "0.1.0",
   "private": true,
+  "engines": { "node": "12.x" },
   "scripts": {
     "dev": "now dev",
     "build": "next build",
