@@ -2,7 +2,9 @@
   "name": "app",
   "version": "0.1.0",
   "private": true,
-  "engines": { "node": "13.x" },
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "dev": "now dev",
     "build": "next build",
@@ -18,7 +20,7 @@
     "react-spotify-api": "^2.4.0"
   },
   "devDependencies": {
-    "@types/node": "^13.1.4",
+    "@types/node": "^13.1.7",
     "@types/react": "^16.9.17",
     "typescript": "^3.7.4"
   }
