@@ -13,19 +13,26 @@ export default (props: PageProps) => {
   // move the theme provider to the _document
   // so it doesn't load on every navigation change
 
-  // choose a theme on page load
-  const randomNumber = Math.random();
-  let i = 0
+  function chooseRandomTheme() {
+    // choose a theme on page load
+    const randomNumber = Math.random();
+    let i = 0
 
-  if (randomNumber < 0.25) {
-    i = 1
-  } else if (randomNumber <= 0.50) {
-    i = 2
-  } else if (randomNumber <= 0.75) {
-    i = 3
+    if (randomNumber < 0.25) {
+      i = 1
+    } else if (randomNumber <= 0.50) {
+      i = 2
+    } else if (randomNumber <= 0.75) {
+      i = 3
+    }
+
+    return Themes[i]
   }
+  
 
-  const theme = Themes[i]
+  const theme = chooseRandomTheme()
+
+  console.log('page theme', theme)
 
   return (
     <ThemeContext.Provider value={theme}>
