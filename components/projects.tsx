@@ -14,36 +14,44 @@ const Projects = () => {
             <div className="fl w-100 w-25-ns pt1 pb1 pr1">
               <div className="relative w-100 hide-child">
                 <span className="child absolute bottom-0 ba b--white br2 h-100 w-100" style={{ pointerEvents: "none", zIndex: 10 }}></span>
-                <h2 className="white absolute pa1 bottom-0 pl3 f6 fw4 ttu tracked" style={{ pointerEvents: "none", zIndex: 10 }}>Cousins The Podcast</h2>
+                <h2 className="white absolute pa1 bottom-0 pl3 f6 fw4 ttu tracked" style={{ pointerEvents: "none", zIndex: 10 }}>
+                  The Podcast
+                </h2>
                 <a href="https://anchor.fm/cousins" className="darken">
-                  <img src="./assets/michael-luke.jpg" className="w-100 br2" style= {{ minHeight: "225px" }} />
+                  <img src="./assets/cousins-podcast-thumbnail.png" className="w-100 br2" style= {{ minHeight: "225px" }} />
                 </a>
               </div>
             </div>
             <div className="fl w-100 w-25-ns pa1">
               <div className="relative w-100 hide-child">
                 <span className="child absolute bottom-0 ba b--white br2 h-100 w-100" style={{ pointerEvents: "none", zIndex: 10 }}></span>
-                <h2 className="white absolute pa1 bottom-0 pl3 f6 fw4 ttu tracked" style={{ pointerEvents: "none", zIndex: 10 }}>Timelapse App</h2>
+                <h2 className="white absolute pa1 bottom-0 pl3 f6 fw4 ttu tracked" style={{ pointerEvents: "none", zIndex: 10 }}>
+                  The App
+                </h2>
                 <a href="https://github.com/michaelwschultz/timelapse-app" className="darken">
-                  <img src="./assets/timelapse-app-screenshot.jpg" className="w-100 br2" style={{ minHeight: "225px" }} />
+                  <img src="./assets/timelapse-thumbnail.png" className="w-100 br2" style={{ minHeight: "225px" }} />
                 </a>
               </div>
             </div>
             <div className="fl w-100 w-25-ns pa1">
               <div className="relative w-100 hide-child">
                 <span className="child absolute bottom-0 ba b--white br2 h-100 w-100" style={{ pointerEvents: "none", zIndex: 10 }}></span>
-                <h2 className="white absolute pa1 bottom-0 pl3 f6 fw4 ttu tracked" style={{ pointerEvents: "none", zIndex: 10 }}>Timelapse App</h2>
-                <a href="https://github.com/michaelwschultz/timelapse-app" className="darken">
-                  <img src="./assets/timelapse-app-screenshot.jpg" className="w-100 br2" style={{ minHeight: "225px" }} />
+                <h2 className="white absolute pa1 bottom-0 pl3 f6 fw4 ttu tracked" style={{ pointerEvents: "none", zIndex: 10 }}>
+                  The Game
+                </h2>
+                <a href="https://github.com/michaelwschultz/virgo" className="darken">   
+                  <img src="./assets/virgo-thumbnail.png" className="w-100 br2" style={{ minHeight: "225px" }} />
                 </a>
               </div>
-            </div>
+            </div> 
             <div className="fl w-100 w-25-ns pa1">
               <div className="relative w-100 hide-child">
                 <span className="child absolute bottom-0 ba b--white br2 h-100 w-100" style={{ pointerEvents: "none", zIndex: 10 }}></span>
-                <h2 className="white absolute pa1 bottom-0 pl3 f6 fw4 ttu tracked" style={{ pointerEvents: "none", zIndex: 10 }}>Timelapse App</h2>
-                <a href="https://github.com/michaelwschultz/timelapse-app" className="darken">
-                  <img src="./assets/timelapse-app-screenshot.jpg" className="w-100 br2" style={{ minHeight: "225px" }} />
+                <h2 className="white absolute pa1 bottom-0 pl3 f6 fw4 ttu tracked" style={{ pointerEvents: "none", zIndex: 10 }}>
+                  The Music
+                </h2>
+                <a href="https://soundcloud.com/michaelschultz" className="darken">
+                  <img src="./assets/michael-schultz-music-thumbnail.png" className="w-100 br2" style={{ minHeight: "225px" }} />
                 </a>
               </div>
             </div>
