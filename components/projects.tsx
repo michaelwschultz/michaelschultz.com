@@ -17,7 +17,7 @@ const Projects = () => {
                 <h2 className="white absolute pa1 bottom-0 pl3 f6 fw4 ttu tracked" style={{ pointerEvents: "none", zIndex: 10 }}>
                   The Podcast
                 </h2>
-                <a href="https://anchor.fm/cousins" className="darken">
+                <a href="http://counsinspodcast.com" className="darken">
                   <img src="./assets/cousins-podcast-thumbnail.png" className="w-100 br2" style= {{ minHeight: "225px" }} />
                 </a>
               </div>
