@@ -7,7 +7,7 @@ const Intro = () => {
   const theme = React.useContext(ThemeContext)
 
   return (
-    <section className="mw8 center mt5 ph3">
+    <section className="mw8 center mt5">
       <div className="flex justify-between items-center">
         <h2 className="white">Howdy, I'm Michael.</h2>
       </div>
@@ -30,7 +30,7 @@ const Intro = () => {
             </div>
             <p className="white pb2 lh-copy">
               After designing public health tools at {` `}
-              <a href="https://iodine.com" className="white hover-pink" target="_blank">
+              <a href="https://iodine.com" className="white hover-purple" target="_blank">
                 Iodine
               </a>
               , and a quick dip into politics at Sidewire, I joined Newfront Insurance in December of 2017 to help design and build a modern insurance brokerage.

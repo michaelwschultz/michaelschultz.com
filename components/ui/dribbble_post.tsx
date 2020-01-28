@@ -11,7 +11,7 @@ export interface DribbblePostProps {
 
 function DribbblePost({ post }) {
   return (
-    <li className="w-100 w-50-m w-third-ns ph2 pb5">
+    <div className="pb5" style={{columnGap: '40px'}}>
       <a href={post.html_url}>
         <img className="br2 dim" src={post.images.hidpi} />
       </a>
@@ -19,7 +19,7 @@ function DribbblePost({ post }) {
         <h4 className="white normal">{post.title}</h4>
         <span dangerouslySetInnerHTML={{ __html: post.description }}></span>
       </div>
-    </li>
+    </div>
   )
 }
     

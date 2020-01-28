@@ -3,9 +3,10 @@ import axios from 'axios'
 import Alert from './ui/alert'
 import Button from './ui/button'
 import DribbblePost from './ui/dribbble_post'
+import { ThemeContext } from '../lib/themeContext'
 
 function Dribbble() {
-  const SHOTS_PER_PAGE = 3;
+  const SHOTS_PER_PAGE = 9;
 
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -68,6 +69,8 @@ function Dribbble() {
     setIsLoadingMore(true);
   }
 
+  const theme = React.useContext(ThemeContext)
+
   return (
     <div className="mw8 center">
       {isError && <Alert>Sorry, something went wrong... refresh the page or come back later.</Alert>}
@@ -75,9 +78,9 @@ function Dribbble() {
       {isLoading &&
         placeholderArr.map((i) => <div key={i} />)}
       {!isLoading && (
-        <ul className="flex flex-wrap" style={{ padding: 0, listStyle: "none" }}>
+        <div className="mt5 grid">
           {dribbblePosts.map((post) => <DribbblePost key={post.id} post={post} />)}
-        </ul>
+        </div>
       )}
         
 
@@ -85,11 +88,19 @@ function Dribbble() {
         placeholderArr.map((i) => <div key={i} />)
       }
 
-      <div className="tc mv2">
-        <Button onClick={loadMorePosts} isLoading={isLoadingMore}>
+      <div className="tc mv4">
+        <Button onClick={loadMorePosts} isLoading={isLoading || isLoadingMore} theme={theme}>
           Load More
         </Button>
       </div>
+      <style jsx>{`
+        .grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        
+          grid-gap: 1rem;
+        }
+      `}</style>
     </div>
   );
 }

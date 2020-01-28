@@ -15,7 +15,7 @@ export default (props: PageProps) => {
 
   function chooseRandomTheme() {
     // choose a theme on page load
-    const randomNumber = Math.random();
+    const randomNumber = Math.random()
     let i = 0
 
     if (randomNumber < 0.25) {
@@ -29,14 +29,11 @@ export default (props: PageProps) => {
     return Themes[i]
   }
   
-
   const theme = chooseRandomTheme()
-
-  console.log('page theme', theme)
 
   return (
     <ThemeContext.Provider value={theme}>
-      <div>
+      <div className="wrapper ph3">
         <div id="bg" className="backgroundImage">
           <img
             src={`./assets/backgrounds/${theme.backgroundImage}.jpg`}
@@ -47,6 +44,14 @@ export default (props: PageProps) => {
         <Nav />
         {props.children}
       </div>
+      <style jsx>{`
+        .backgroundImage {
+          filter: blur(8px);
+        }
+        .wrapper {
+          overflow: hidden;
+        }
+      `}</style>
     </ThemeContext.Provider>
   )
 }

@@ -16,7 +16,7 @@ export const Themes: ThemeType[] = [
   },
   {
     backgroundImage: '3',
-    textColor: 'white',
+    textColor: 'pink',
   },
   {
     backgroundImage: '4',

@@ -1,18 +1,20 @@
 import React from 'react'
+import { ThemeType } from '../../lib/types';
 
-// update onCilck type
 interface buttonProps {
   children: string,
-  onClick: React.MouseEvent,
-  isLoading: boolean,
+  isLoading?: boolean,
+  onClick: () => React.MouseEvent,
+  theme?: ThemeType,
 }
 
-function Button(props) {
-  const { children, onClick, isLoading } = props;
+function Button(props: buttonProps) {
+  const { children, onClick, isLoading, theme } = props;
 
   return (
     <button
-      className="f6 no-underline white black bg-animate hover-bg-white hover-black inline-flex items-center pa3 ba border-box mr4 br1"
+      type="button"
+      className={`${theme.textColor} hover-white f6 link bn pa3 mr2 mv3 dib`}
       onClick={onClick}
       disabled={isLoading}
     >
@@ -24,6 +26,7 @@ function Button(props) {
         button {
           cursor: pointer;
           background: transparent;
+          outline: none;
         }
       `}</style>
     </button>
