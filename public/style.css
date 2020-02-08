@@ -1,0 +1,300 @@
+/* styles written for michaelschultz.com */
+
+html {
+  line-height: 0;
+}
+
+/* fallback */
+a {
+  color: white;
+}
+
+a:focus,
+button:focus {
+  outline: none !important;
+}
+
+.artist {
+  contain: content;
+}
+
+#bg {
+  position: fixed; 
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: -1;
+}
+
+#bg img {
+  position: absolute; 
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  min-width: 50%;
+  min-height: 50%;
+}
+
+.fadeIn {
+  animation: fadein .5s;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+body {
+  font-family: "Open Sans", "Avant Garde", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 32px;
+  margin: 0;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 32px;
+  margin: 0;
+}
+
+h3 {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  margin: 0;
+}
+
+p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21px;
+  margin: 0;
+}
+
+/* small screen size */
+
+@media screen and (min-width: 30em) {
+  .flex-row-ns {
+    flex-direction: row !important;
+  }
+}
+
+/* medium screen size */
+
+@media screen and (max-width: 60em) and (min-width: 30em) {
+  .flex-row-m {
+    flex-direction: row !important;
+  }
+}
+
+.shapes {
+  background-image: url(./assets/bg-shapes.svg);
+  background-repeat: repeat;
+  background-size: contain;
+}
+
+/* (todo) animation and coloring for shape layer
+#bg-shapes .shapes {
+    fill: #232B71;
+}
+#bg-shapes .shapes rect {
+    animation-name: spin;
+    animation-duration: 8000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    transform-origin: 50% 50%;
+}
+#bg-shapes .shapes polygon {
+    animation-name: spin;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    transform-origin: 50% 50%;
+}*/
+
+/* flexbox */
+
+.flex-column {
+  flex-direction: column
+}
+
+.items-start {
+  align-items: flex-start
+}
+
+.items-end {
+  align-items: flex-end
+}
+
+.items-center {
+  align-items: center
+}
+
+.items-baseline {
+  align-items: baseline
+}
+
+.items-stretch {
+  align-items: stretch
+}
+
+.self-start {
+  align-self: flex-start
+}
+
+.self-end {
+  align-self: flex-end
+}
+
+.self-center {
+  align-self: center
+}
+
+.self-baseline {
+  align-self: baseline
+}
+
+.self-stretch {
+  align-self: stretch
+}
+
+.justify-start {
+  justify-content: flex-start
+}
+
+.justify-end {
+  justify-content: flex-end
+}
+
+.justify-center {
+  justify-content: center
+}
+
+.justify-between {
+  justify-content: space-between
+}
+
+.justify-around {
+  justify-content: space-around
+}
+
+.content-start {
+  align-content: flex-start
+}
+
+.content-end {
+  align-content: flex-end
+}
+
+.content-center {
+  align-content: center
+}
+
+.content-between {
+  align-content: space-between
+}
+
+.content-around {
+  align-content: space-around
+}
+
+.content-stretch {
+  align-content: stretch
+}
+
+.darken::after {
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.35) 70%, rgba(0, 0, 0, 0.7) 100%);
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 3px;
+}
+
+.padded-border {
+  border-style: solid;
+  border-width: 1px;
+  padding: 3px;
+  margin: -4px 0 0 -4px;
+}
+
+.spin-animation {
+  animation-name: spin;
+  animation-duration: 4000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* colors */
+
+.color-teal {
+  color: #39D1DB;
+}
+
+.color-green {
+  color: #28D898;
+}
+
+.color-light-purple {
+  color: #CC8AF4;
+}
+
+.color-blue {
+  color: #01AEF0;
+}
+
+.bg-blue {
+  background-color: #01AEF0;
+}
+
+.color-dark-blue {
+  color: #23225D;
+}
+
+.bg-dark-blue {
+  background-color: #23225D;
+}
+
+.color-pink {
+  color: #DD2A73;
+}
+
+.bg-pink {
+  background-color: #DD2A73;
+}
+
+.color-purple {
+  color: #784EDB;
+}
+
+.bg-purple {
+  background-color: #784EDB;
+}
+
+.hover-bg-pink:hover {
+  background-color: #DD2A73;
+  color: #23225D;
+}

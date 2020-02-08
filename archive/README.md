@@ -5,13 +5,3 @@ michaelschultz.com - created Tue Nov 22 11:59:04 PST 2016
 
 ### About
 Designer and software engineer living in San Francisco, California. Currently building a modern insurance brokerage at newfrontinsurance.com
-
-## Dev
-Locally: `yarn dev`
-
-
-## Build
-This site is hosted on Zeit's Now service (https://zeit.co/michaelschultz/michaelschultz.com).
-
-CLI deploy method: `now --prod`
-Or merge into master branch on Github (https://github.com/michaelwschultz/michaelschultz.com) to autodeploy.
