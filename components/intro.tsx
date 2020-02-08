@@ -20,7 +20,7 @@ const Intro = () => {
                   className="child absolute padded-border b--white br2 h-100 w-100"
                   style={{ pointerEvents: "none", zIndex: 10 }} 
                 />  
-                <a href="https://www.newfrontinsurance.com" className="darken">
+                <a href="https://www.newfront.com" className="darken">
                   <h2
                     className="white absolute pa1 bottom-0 pl3 f6 fw4 ttu tracked"
                     style={{ pointerEvents: "none", zIndex: 10 }}
@@ -43,7 +43,7 @@ const Intro = () => {
             </p>
             <p className="white pb2 lh-copy">
               If you're looking for commercial or personal insurance or are interested in helping build a big business, join us at {` `}
-              <a className="white hover-blue" href="https://www.newfrontinsurance.com" target="_blank">
+              <a className="white hover-blue" href="https://www.newfront.com" target="_blank">
               Newfront
               </a>.
             </p>
