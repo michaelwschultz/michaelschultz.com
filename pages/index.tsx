@@ -1,5 +1,4 @@
 import React from 'react'
-// import axios from 'axios';
 
 import Friends from '../components/friends'
 import Intro from '../components/intro'
@@ -15,6 +14,7 @@ const Home = () => {
     <Page>
       <Intro />
       <Projects />
+      {/* Music I'm lisening to, coming soon */}
       {/* <Music spotifyAccessToken={spotifyAccessToken} /> */}
       <DesignThoughts />
       <Friends />

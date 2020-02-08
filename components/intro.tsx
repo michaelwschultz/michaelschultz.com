@@ -21,7 +21,10 @@ const Intro = () => {
                   style={{ pointerEvents: "none", zIndex: 10 }} 
                 />  
                 <a href="https://www.newfrontinsurance.com" className="darken">
-                  <h2 className="white absolute pa1 bottom-0 pl3 f6 fw4 ttu tracked" style={{ pointerEvents: "none", zIndex: 10 }}>
+                  <h2
+                    className="white absolute pa1 bottom-0 pl3 f6 fw4 ttu tracked"
+                    style={{ pointerEvents: "none", zIndex: 10 }}
+                  >
                     Newfront Insurance
                   </h2>
                   <img className="w-100 br2" src="./assets/newfront-insurance-thumbnail.png" />
