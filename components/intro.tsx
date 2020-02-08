@@ -17,9 +17,9 @@ const Intro = () => {
             <div className="fr w-100 w-50-ns pl3-ns pb4">
               <div className="relative w-100 hide-child">
                 <span
-                  className="child absolute ba b--white br2 h-100 w-100"
+                  className="child absolute padded-border b--white br2 h-100 w-100"
                   style={{ pointerEvents: "none", zIndex: 10 }} 
-                />
+                />  
                 <a href="https://www.newfrontinsurance.com" className="darken">
                   <h2 className="white absolute pa1 bottom-0 pl3 f6 fw4 ttu tracked" style={{ pointerEvents: "none", zIndex: 10 }}>
                     Newfront Insurance

@@ -12,9 +12,15 @@ export interface DribbblePostProps {
 function DribbblePost({ post }) {
   return (
     <div className="pb5" style={{columnGap: '40px'}}>
-      <a href={post.html_url}>
-        <img className="br2 dim" src={post.images.hidpi} />
-      </a>
+      <div className="relative hide-child">
+        <span
+          className="padded-border child absolute b--white br2 h-100 w-100"
+          style={{ pointerEvents: "none", zIndex: 10 }} 
+        />
+        <a href={post.html_url}>
+          <img className="br2" src={post.images.hidpi} />
+        </a>
+      </div>
       <div className="white pt2">
         <h4 className="white normal">{post.title}</h4>
         <span dangerouslySetInnerHTML={{ __html: post.description }}></span>

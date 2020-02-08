@@ -225,6 +225,13 @@ p {
   border-radius: 3px;
 }
 
+.padded-border {
+  border-style: solid;
+  border-width: 1px;
+  padding: 3px;
+  margin: -4px 0 0 -4px;
+}
+
 .spin-animation {
   animation-name: spin;
   animation-duration: 4000ms;

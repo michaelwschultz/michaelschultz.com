@@ -1,10 +1,12 @@
 
 import React from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import { ThemeContext } from '../lib/themeContext'
 
 const Nav = () => {
+  const router = useRouter()
   const theme = React.useContext(ThemeContext)
   const linkClasses = `${theme.textColor} hover-white link dib f6 fw4 ttu tracked pv3`;
 
@@ -21,7 +23,7 @@ const Nav = () => {
         <div className="nowrap">
           <Link href="/">
             <a className={`${theme.textColor} hover-white f6 link br1 ba pa3 mr2 mv3 dib`}>
-              MS
+              Home
             </a>
           </Link>
           <Link href="/projects">
