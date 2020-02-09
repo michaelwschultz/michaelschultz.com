@@ -5,7 +5,7 @@ import Page from '../components/page'
 const Resume = () => (
   <Page>
     <Head>
-      <title>Michael Schultz</title>
+      <title>Michael Schultz | Resume</title>
     </Head>
 
     <div className="mw8 center">

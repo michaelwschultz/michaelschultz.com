@@ -26,9 +26,9 @@ const Nav = () => {
               Home
             </a>
           </Link>
-          <Link href="/projects">
+          <Link href="/design">
             <a className={`${theme.textColor} hover-white f6 link br1 ba pa3 mr2 mv3 dib`}>
-              Portfolio
+              Design
             </a>
           </Link>
           {/* Bring back resume at some point
