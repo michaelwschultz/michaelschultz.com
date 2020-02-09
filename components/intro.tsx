@@ -47,7 +47,7 @@ const Intro = () => {
               Newfront
               </a>.
             </p>
-            <Link href="./projects">
+            <Link href="/design">
               <a className={`${theme.textColor} hover-white f6 link br1 ba hover pa3 mv3 dib nowrap`}>
                 See more of my work
               </a>
