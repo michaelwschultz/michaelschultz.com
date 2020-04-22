@@ -1,12 +1,13 @@
 import React from 'react'
 import Head from 'next/head'
 
+import DesignThoughts from '../components/designThoughts'
 import Friends from '../components/friends'
 import Intro from '../components/intro'
 // import Music from '../components/music'
 import Page from '../components/page'
 import Projects from '../components/projects'
-import DesignThoughts from '../components/designThoughts'
+import Soundcloud from '../components/soundcloud'
 
 const Home = () => {
   // const { spotifyAccessToken } = props;
@@ -22,6 +23,7 @@ const Home = () => {
       {/* Music I'm lisening to, coming soon */}
       {/* <Music spotifyAccessToken={spotifyAccessToken} /> */}
       <DesignThoughts />
+      <Soundcloud />
       <Friends />
     </Page>
   )
