@@ -22,8 +22,8 @@ const Home = () => {
       <Projects />
       {/* Music I'm lisening to, coming soon */}
       {/* <Music spotifyAccessToken={spotifyAccessToken} /> */}
-      <DesignThoughts />
       <Soundcloud />
+      <DesignThoughts />
       <Friends />
     </Page>
   )
