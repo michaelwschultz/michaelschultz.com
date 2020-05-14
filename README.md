@@ -11,7 +11,7 @@ Locally: `yarn dev`
 
 
 ## Build
-This site is hosted on Zeit's Now service (https://zeit.co/michaelschultz/michaelschultz.com).
+This site is hosted on Vercel's Now service (https://vercel.com/michaelschultz/michaelschultz.com).
 
 CLI deploy method: `now --prod`
 Or merge into master branch on Github (https://github.com/michaelwschultz/michaelschultz.com) to autodeploy.
