@@ -15,7 +15,10 @@ const Friends = () => {
             style={{ pointerEvents: "none", zIndex: 10 }}
           />
           <a href="http://twitter.com/brian_lovin">
-            <img className="db w-100 br2" src="assets/friends/brian-lovin.webp" />
+            <picture className="db w-100 br2">
+              <source srcSet="./assets/friends/brian-lovin.webp" type="image/webp" />
+              <img src="./assets/friends/brian-lovin.jpg" alt="brian lovin" />
+            </picture>
           </a>
         </div>
         <div className="relative hide-child">
@@ -24,7 +27,10 @@ const Friends = () => {
             style={{ pointerEvents: "none", zIndex: 10 }}
           />
           <a href="http://twitter.com/anthonyshort">
-            <img className="db w-100 br2" src="assets/friends/anthony-short.webp" />
+            <picture className="db w-100 br2">
+              <source srcSet="./assets/friends/anthony-short.webp" type="image/webp" />
+              <img src="./assets/friends/anthony-short.jpg" alt="anthony short" />
+            </picture>
           </a>
         </div>
         <div className="relative hide-child">
@@ -33,7 +39,10 @@ const Friends = () => {
             style={{ pointerEvents: "none", zIndex: 10 }}
           />
           <a href="http://twitter.com/superbryntendo">
-            <img className="db w-100 br2" src="assets/friends/bryn-jackson.webp" />
+            <picture className="db w-100 br2">
+              <source srcSet="./assets/friends/bryn-jackson.webp" type="image/webp" />
+              <img src="./assets/friends/bryn-jackson.jpg" alt="bryn jackson" />
+            </picture>
           </a>
         </div>
         <div className="relative hide-child">
@@ -42,7 +51,10 @@ const Friends = () => {
             style={{ pointerEvents: "none", zIndex: 10 }}
           />
           <a href="http://twitter.com/kleinmaetschke">
-            <img className="db w-100 br2" src="assets/friends/klein-maetschke.webp" />
+            <picture className="db w-100 br2">
+              <source srcSet="./assets/friends/klein-maetschke.webp" type="image/webp" />
+              <img src="./assets/friends/klein-maetschke.jpg" alt="klein maetschke" />
+            </picture>
           </a>
         </div>
         <div className="relative hide-child">
@@ -51,7 +63,10 @@ const Friends = () => {
             style={{ pointerEvents: "none", zIndex: 10 }}
           />
           <a href="http://twitter.com/luketns">
-            <img className="db w-100 br2" src="assets/friends/luke-schultz.webp" />
+            <picture className="db w-100 br2">
+              <source srcSet="./assets/friends/luke-schultz.webp" type="image/webp" />
+              <img src="./assets/friends/luke-schultz.png" alt="luke schultz" />
+            </picture>
           </a>
         </div>
       </div>

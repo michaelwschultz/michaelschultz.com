@@ -14,7 +14,10 @@ const Projects = () => {
             Cousins Podcast
           </h2>
           <a href="http://cousinspodcast.com" className="darken">
-            <img src="./assets/cousins-podcast-thumbnail.webp" className="w-100 br2" style= {{ minHeight: "225px" }} />
+            <picture className="w-100 br2" style= {{ minHeight: "225px" }}>
+              <source srcSet="./assets/cousins-podcast-thumbnail.webp" type="image/webp" />
+              <img src="./assets/cousins-podcast-thumbnail.png" alt="cousins podcast" />
+            </picture>
           </a>
         </div>
         <div className="relative hide-child">
@@ -26,7 +29,10 @@ const Projects = () => {
             Timelapse App
           </h2>
           <a href="https://github.com/michaelwschultz/timelapse-app" className="darken">
-            <img src="./assets/timelapse-thumbnail.webp" className="w-100 br2" style={{ minHeight: "225px" }} />
+            <picture className="w-100 br2" style= {{ minHeight: "225px" }}>
+              <source srcSet="./assets/timelapse-thumbnail.webp" type="image/webp" />
+              <img src="./assets/timelapse-thumbnail.png" alt="timelapse app" />
+            </picture>
           </a>
         </div>
         <div className="relative hide-child">
@@ -38,7 +44,10 @@ const Projects = () => {
             RPi Game
           </h2>
           <a href="https://github.com/michaelwschultz/virgo" className="darken">
-            <img src="./assets/virgo-thumbnail.webp" className="w-100 br2" style={{ minHeight: "225px" }} />
+            <picture className="w-100 br2" style= {{ minHeight: "225px" }}>
+              <source srcSet="./assets/virgo-thumbnail.webp" type="image/webp" />
+              <img src="./assets/virgo-thumbnail.png" alt="virgo led game" />
+            </picture>
           </a>
         </div>
         <div className="relative hide-child">
@@ -50,7 +59,10 @@ const Projects = () => {
             Music
           </h2>
           <a href="https://soundcloud.com/michaelschultz" className="darken">
-            <img src="./assets/michael-schultz-music-thumbnail.webp" className="w-100 br2" style={{ minHeight: "225px" }} />
+            <picture className="w-100 br2" style= {{ minHeight: "225px" }}>
+              <source srcSet="./assets/michael-schultz-music-thumbnail.webp" type="image/webp" />
+              <img src="./assets/michael-schultz-music-thumbnail.png" alt="michael schultz music" />
+            </picture>
           </a>
         </div>
       </div>
