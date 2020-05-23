@@ -1,7 +1,6 @@
 import React from 'react'
-import ReactPlayer from 'react-player';
 
-const DesignThoughts = () => {
+const DesignThoughts = (): JSX.Element => {
   return (
     <section className="mw8 center mv6">
       <h3 className="white f5 pb3">Thoughts on design</h3>
@@ -12,9 +11,8 @@ const DesignThoughts = () => {
         height='200px'
         scrolling='no'
         seamless
-        loading="lazy"
-        >
-      </iframe>
+        data-loading="lazy"
+      />
     </section>
   )
 }
