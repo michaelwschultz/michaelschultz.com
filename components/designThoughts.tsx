@@ -7,12 +7,12 @@ const DesignThoughts = (): JSX.Element => {
       <h3 className="white f5 pb3">Thoughts on design</h3>
       <Lazy>
         <iframe
-          src='https://embed.simplecast.com/c6d6f4c3'
-          width='100%'
           frameBorder='0'
           height='200px'
           scrolling='no'
           seamless
+          src='https://embed.simplecast.com/c6d6f4c3'
+          width='100%'
         />
       </Lazy>
     </section>
