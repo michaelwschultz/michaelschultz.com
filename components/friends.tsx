@@ -12,46 +12,46 @@ const Friends = () => {
         <div className="relative hide-child">
           <span
             className="child absolute padded-border b--white br2 h-100 w-100"
-            style={{ pointerEvents: "none", zIndex: 10 }} 
+            style={{ pointerEvents: "none", zIndex: 10 }}
           />
           <a href="http://twitter.com/brian_lovin">
-            <img className="db w-100 br2" src="assets/friends/brian-lovin.jpg" />
+            <img className="db w-100 br2" src="assets/friends/brian-lovin.webp" />
           </a>
         </div>
         <div className="relative hide-child">
           <span
             className="child absolute padded-border b--white br2 h-100 w-100"
-            style={{ pointerEvents: "none", zIndex: 10 }} 
+            style={{ pointerEvents: "none", zIndex: 10 }}
           />
           <a href="http://twitter.com/anthonyshort">
-            <img className="db w-100 br2" src="assets/friends/anthony-short.jpg" />
+            <img className="db w-100 br2" src="assets/friends/anthony-short.webp" />
           </a>
         </div>
         <div className="relative hide-child">
           <span
             className="child absolute padded-border b--white br2 h-100 w-100"
-            style={{ pointerEvents: "none", zIndex: 10 }} 
+            style={{ pointerEvents: "none", zIndex: 10 }}
           />
           <a href="http://twitter.com/superbryntendo">
-            <img className="db w-100 br2" src="assets/friends/bryn-jackson.jpg" />
+            <img className="db w-100 br2" src="assets/friends/bryn-jackson.webp" />
           </a>
         </div>
         <div className="relative hide-child">
           <span
             className="child absolute padded-border b--white br2 h-100 w-100"
-            style={{ pointerEvents: "none", zIndex: 10 }} 
+            style={{ pointerEvents: "none", zIndex: 10 }}
           />
           <a href="http://twitter.com/kleinmaetschke">
-            <img className="db w-100 br2" src="assets/friends/klein-maetschke.jpg" />
+            <img className="db w-100 br2" src="assets/friends/klein-maetschke.webp" />
           </a>
         </div>
         <div className="relative hide-child">
           <span
             className="child absolute padded-border b--white br2 h-100 w-100"
-            style={{ pointerEvents: "none", zIndex: 10 }} 
+            style={{ pointerEvents: "none", zIndex: 10 }}
           />
           <a href="http://twitter.com/luketns">
-            <img className="db w-100 br2" src="assets/friends/luke-schultz.png" />
+            <img className="db w-100 br2" src="assets/friends/luke-schultz.webp" />
           </a>
         </div>
       </div>

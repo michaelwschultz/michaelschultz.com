@@ -18,8 +18,8 @@ const Intro = () => {
               <div className="relative w-100 hide-child">
                 <span
                   className="child absolute padded-border b--white br2 h-100 w-100"
-                  style={{ pointerEvents: "none", zIndex: 10 }} 
-                />  
+                  style={{ pointerEvents: "none", zIndex: 10 }}
+                />
                 <a href="https://www.newfront.com" className="darken">
                   <h2
                     className="white absolute pa1 bottom-0 pl3 f6 fw4 ttu tracked"
@@ -27,7 +27,7 @@ const Intro = () => {
                   >
                     Newfront Insurance
                   </h2>
-                  <img className="w-100 br2" src="./assets/newfront-insurance-thumbnail.png" />
+                  <img className="w-100 br2" src="./assets/newfront-insurance-thumbnail.webp" />
                 </a>
               </div>
             </div>

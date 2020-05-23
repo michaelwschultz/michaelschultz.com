@@ -28,7 +28,7 @@ export default (props: PageProps) => {
 
     return Themes[i]
   }
-  
+
   const theme = chooseRandomTheme()
 
   return (
@@ -36,7 +36,7 @@ export default (props: PageProps) => {
       <div className="wrapper ph3">
         <div id="bg" className="backgroundImage">
           <img
-            src={`./assets/backgrounds/${theme.backgroundImage}.jpg`}
+            src={`./assets/backgrounds/${theme.backgroundImage}.webp`}
             alt="random foliage background"
             className="fadeIn"
           />
