@@ -1,4 +1,5 @@
 import React from 'react'
+import { Lazy } from 'react-lazy'
 
 export interface DribbblePostProps {
   description: string,
@@ -15,10 +16,12 @@ function DribbblePost({ post }) {
       <div className="relative hide-child">
         <span
           className="padded-border child absolute b--white br2 h-100 w-100"
-          style={{ pointerEvents: "none", zIndex: 10 }} 
+          style={{ pointerEvents: "none", zIndex: 10 }}
         />
         <a href={post.html_url}>
-          <img className="br2" src={post.images.hidpi} />
+          <Lazy>
+            <img className="br2" src={post.images.hidpi} alt={post.title} />
+          </Lazy>
         </a>
       </div>
       <div className="white pt2">
@@ -28,5 +31,5 @@ function DribbblePost({ post }) {
     </div>
   )
 }
-    
+
 export default DribbblePost
