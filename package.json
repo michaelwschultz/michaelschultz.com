@@ -17,6 +17,8 @@
     "next": "9.4.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-lazy": "^1.1.0",
+    "react-player": "^2.0.1",
     "react-spotify-api": "^3.0.0"
   },
   "devDependencies": {

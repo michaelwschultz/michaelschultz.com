@@ -35,11 +35,10 @@ export default (props: PageProps) => {
     <ThemeContext.Provider value={theme}>
       <div className="wrapper ph3">
         <div id="bg" className="backgroundImage">
-          <img
-            src={`./assets/backgrounds/${theme.backgroundImage}.webp`}
-            alt="random foliage background"
-            className="fadeIn"
-          />
+          <picture className="fadeIn">
+            <source srcSet={`./assets/backgrounds/${theme.backgroundImage}.webp`} type="image/webp" />
+            <img src={`./assets/backgrounds/${theme.backgroundImage}.webp`} alt="random foliage background" />
+          </picture>
         </div>
         <Nav />
         {props.children}

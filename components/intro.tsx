@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import { Lazy } from 'react-lazy'
 
 import { ThemeContext } from '../lib/themeContext'
 
@@ -20,20 +21,25 @@ const Intro = () => {
                   className="child absolute padded-border b--white br2 h-100 w-100"
                   style={{ pointerEvents: "none", zIndex: 10 }}
                 />
-                <a href="https://www.newfront.com" className="darken">
+                <a href="https://www.newfront.com" rel="noreferrer" className="darken" target="_blank">
                   <h2
                     className="white absolute pa1 bottom-0 pl3 f6 fw4 ttu tracked"
                     style={{ pointerEvents: "none", zIndex: 10 }}
                   >
                     Newfront Insurance
                   </h2>
-                  <img className="w-100 br2" src="./assets/newfront-insurance-thumbnail.webp" />
+                  <Lazy>
+                    <picture className="w-100 br2" >
+                      <source srcSet="./assets/newfront-insurance-thumbnail.webp" type="image/webp"/>
+                      <img className="w-100 br2" src="./assets/newfront-insurance-thumbnail.png" alt="newfront insurance" />
+                    </picture>
+                  </Lazy>
                 </a>
               </div>
             </div>
             <p className="white pb2 lh-copy">
               After designing public health tools at {` `}
-              <a href="https://iodine.com" className="white hover-purple" target="_blank">
+              <a href="https://iodine.com" rel="noreferrer" className="white hover-purple" target="_blank">
                 Iodine
               </a>
               , and a quick dip into politics at Sidewire, I joined Newfront Insurance in December of 2017 to help design and build a modern insurance brokerage.
@@ -43,7 +49,7 @@ const Intro = () => {
             </p>
             <p className="white pb2 lh-copy">
               If you're looking for commercial or personal insurance or are interested in helping build a big business, join us at {` `}
-              <a className="white hover-blue" href="https://www.newfront.com" target="_blank">
+              <a className="white hover-blue" href="https://www.newfront.com" rel="noreferrer" target="_blank">
               Newfront
               </a>.
             </p>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Lazy } from 'react-lazy'
 
 import { ThemeContext } from '../lib/themeContext'
 
@@ -15,7 +16,12 @@ const Friends = () => {
             style={{ pointerEvents: "none", zIndex: 10 }}
           />
           <a href="http://twitter.com/brian_lovin">
-            <img className="db w-100 br2" src="assets/friends/brian-lovin.webp" />
+            <Lazy>
+              <picture className="db w-100 br2">
+                <source srcSet="./assets/friends/brian-lovin.webp" type="image/webp" />
+                <img src="./assets/friends/brian-lovin.jpg" alt="brian lovin" />
+              </picture>
+            </Lazy>
           </a>
         </div>
         <div className="relative hide-child">
@@ -24,7 +30,12 @@ const Friends = () => {
             style={{ pointerEvents: "none", zIndex: 10 }}
           />
           <a href="http://twitter.com/anthonyshort">
-            <img className="db w-100 br2" src="assets/friends/anthony-short.webp" />
+            <Lazy>
+              <picture className="db w-100 br2">
+                <source srcSet="./assets/friends/anthony-short.webp" type="image/webp" />
+                <img src="./assets/friends/anthony-short.jpg" alt="anthony short" />
+              </picture>
+            </Lazy>
           </a>
         </div>
         <div className="relative hide-child">
@@ -33,7 +44,12 @@ const Friends = () => {
             style={{ pointerEvents: "none", zIndex: 10 }}
           />
           <a href="http://twitter.com/superbryntendo">
-            <img className="db w-100 br2" src="assets/friends/bryn-jackson.webp" />
+            <Lazy>
+              <picture className="db w-100 br2">
+                <source srcSet="./assets/friends/bryn-jackson.webp" type="image/webp" />
+                <img src="./assets/friends/bryn-jackson.jpg" alt="bryn jackson" />
+              </picture>
+            </Lazy>
           </a>
         </div>
         <div className="relative hide-child">
@@ -42,7 +58,12 @@ const Friends = () => {
             style={{ pointerEvents: "none", zIndex: 10 }}
           />
           <a href="http://twitter.com/kleinmaetschke">
-            <img className="db w-100 br2" src="assets/friends/klein-maetschke.webp" />
+            <Lazy>
+              <picture className="db w-100 br2">
+                <source srcSet="./assets/friends/klein-maetschke.webp" type="image/webp" />
+                <img src="./assets/friends/klein-maetschke.jpg" alt="klein maetschke" />
+              </picture>
+            </Lazy>
           </a>
         </div>
         <div className="relative hide-child">
@@ -51,7 +72,12 @@ const Friends = () => {
             style={{ pointerEvents: "none", zIndex: 10 }}
           />
           <a href="http://twitter.com/luketns">
-            <img className="db w-100 br2" src="assets/friends/luke-schultz.webp" />
+            <Lazy>
+              <picture className="db w-100 br2">
+                <source srcSet="./assets/friends/luke-schultz.webp" type="image/webp" />
+                <img src="./assets/friends/luke-schultz.png" alt="luke schultz" />
+              </picture>
+            </Lazy>
           </a>
         </div>
       </div>
