@@ -12,6 +12,7 @@ const DesignThoughts = (): JSX.Element => {
           scrolling='no'
           seamless
           src='https://embed.simplecast.com/c6d6f4c3'
+          title="Design Details interview with Michael Schultz"
           width='100%'
         />
       </Lazy>

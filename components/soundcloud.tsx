@@ -8,6 +8,7 @@ const Soundcloud = () => {
       <Lazy>
         <iframe
           width="100%"
+          title="Michael Schultz music via Soundcloud"
           height="450"
           frameBorder="no"
           scrolling="no"
