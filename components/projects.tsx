@@ -18,7 +18,7 @@ const Projects = () => {
             <Lazy>
               <picture className="w-100 br2" style= {{ minHeight: "225px" }}>
                 <source srcSet="./assets/cousins-podcast-thumbnail.webp" type="image/webp" />
-                <img src="./assets/cousins-podcast-thumbnail.png" alt="cousins podcast" />
+                <img className="w-100" src="./assets/cousins-podcast-thumbnail.png" alt="cousins podcast" />
               </picture>
             </Lazy>
           </a>
@@ -35,7 +35,7 @@ const Projects = () => {
             <Lazy>
               <picture className="w-100 br2" style= {{ minHeight: "225px" }}>
                 <source srcSet="./assets/timelapse-thumbnail.webp" type="image/webp" />
-                <img src="./assets/timelapse-thumbnail.png" alt="timelapse app" />
+                <img className="w-100" src="./assets/timelapse-thumbnail.png" alt="timelapse app" />
               </picture>
             </Lazy>
           </a>
@@ -52,7 +52,7 @@ const Projects = () => {
             <Lazy>
               <picture className="w-100 br2" style= {{ minHeight: "225px" }}>
                 <source srcSet="./assets/virgo-thumbnail.webp" type="image/webp" />
-                <img src="./assets/virgo-thumbnail.png" alt="virgo led game" />
+                <img className="w-100" src="./assets/virgo-thumbnail.png" alt="virgo led game" />
               </picture>
             </Lazy>
           </a>
@@ -69,7 +69,7 @@ const Projects = () => {
             <Lazy>
               <picture className="w-100 br2" style= {{ minHeight: "225px" }}>
                 <source srcSet="./assets/michael-schultz-music-thumbnail.webp" type="image/webp" />
-                <img src="./assets/michael-schultz-music-thumbnail.png" alt="michael schultz music" />
+                <img className="w-100" src="./assets/michael-schultz-music-thumbnail.png" alt="michael schultz music" />
               </picture>
             </Lazy>
           </a>
