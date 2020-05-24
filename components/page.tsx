@@ -37,7 +37,7 @@ export default (props: PageProps) => {
         <div id="bg" className="backgroundImage">
           <picture className="fadeIn">
             <source srcSet={`./assets/backgrounds/${theme.backgroundImage}.webp`} type="image/webp" />
-            <img src={`./assets/backgrounds/${theme.backgroundImage}.webp`} alt="random foliage background" />
+            <img src={`./assets/backgrounds/${theme.backgroundImage}.jpg`} alt="random foliage background" />
           </picture>
         </div>
         <Nav />
