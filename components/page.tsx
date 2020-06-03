@@ -1,5 +1,6 @@
 import React from 'react'
 // import Nav from './nav'
+import Head from 'next/head'
 
 import { ThemeContext, Themes } from '../lib/themeContext'
 
@@ -43,7 +44,9 @@ export default (props: PageProps) => {
         <Nav />
         {props.children}
       </div> */}
-
+      <Head>
+        <title>Michael Schultz | Product Designer & Engineer</title>
+      </Head>
       <div className="blm-wrapper">
         <div className="blm-text">
           <div>
