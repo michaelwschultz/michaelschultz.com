@@ -19,7 +19,7 @@ button:focus {
 }
 
 #bg {
-  position: fixed; 
+  position: fixed;
   top: -50%;
   left: -50%;
   width: 200%;
@@ -28,7 +28,7 @@ button:focus {
 }
 
 #bg img {
-  position: absolute; 
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -98,31 +98,6 @@ p {
     flex-direction: row !important;
   }
 }
-
-.shapes {
-  background-image: url(./assets/bg-shapes.svg);
-  background-repeat: repeat;
-  background-size: contain;
-}
-
-/* (todo) animation and coloring for shape layer
-#bg-shapes .shapes {
-    fill: #232B71;
-}
-#bg-shapes .shapes rect {
-    animation-name: spin;
-    animation-duration: 8000ms;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    transform-origin: 50% 50%;
-}
-#bg-shapes .shapes polygon {
-    animation-name: spin;
-    animation-duration: 20s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    transform-origin: 50% 50%;
-}*/
 
 /* flexbox */
 
