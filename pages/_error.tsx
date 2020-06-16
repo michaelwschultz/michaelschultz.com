@@ -3,17 +3,16 @@ import Head from 'next/head'
 
 import Nav from '../components/nav'
 import Page from '../components/page'
-import Dribbble from '../components/dribbble'
 
-const Design = () => (
+export default () => (
   <Page>
     <Head>
-      <title>Michael Schultz | Design</title>
+      <title>Michael Schultz | Error</title>
     </Head>
     <Nav />
-  
-    <Dribbble />
+
+    <div className="mw8 center">
+      <h1>Oops, nothing here.</h1>
+    </div>
   </Page>
 )
-
-export default Design

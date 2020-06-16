@@ -5,6 +5,7 @@ export default class extends Document {
   render = () => (
     <html lang="en">
       <Head>
+        <title>Michael Schultz | Product Designer & Engineer</title>
         <meta name="description" content="Designer and software engineer living in San Francisco, California. Currently building a modern insurance brokerage at Newfront." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#ffffff" />

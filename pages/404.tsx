@@ -1,17 +1,18 @@
 import React from 'react'
 import Head from 'next/head'
+
+import Nav from '../components/nav'
 import Page from '../components/page'
 
-const Resume = () => (
+export default () => (
   <Page>
     <Head>
-      <title>Michael Schultz | Resume</title>
+      <title>Michael Schultz | 404</title>
     </Head>
+    <Nav />
 
     <div className="mw8 center">
-      <h1>Resume Page</h1>
+      <h1>Oops, nothing here.</h1>
     </div>
   </Page>
 )
-
-export default Resume
