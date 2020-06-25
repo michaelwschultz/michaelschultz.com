@@ -19,13 +19,13 @@ function Music(props) {
   const userName = "michaelschultz";
   const mostRecentTrackLimit = 1;
   const weeklyLimit = 5;
-  const lastfm_recent_request = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${userName}&limit=${mostRecentTrackLimit}&api_key=${process.env.LASTFM_TOKEN}&format=json`;
-  const lastfm_weekly_request = `https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${userName}&limit=${weeklyLimit}&period=7day&api_key=${process.env.LASTFM_TOKEN}&format=json`;
-  
+  const lastfm_recent_request = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${userName}&limit=${mostRecentTrackLimit}&api_key=${process.env.NEXT_PUBLIC_LASTFM_TOKEN}&format=json`;
+  const lastfm_weekly_request = `https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${userName}&limit=${weeklyLimit}&period=7day&api_key=${process.env.NEXT_PUBLIC_LASTFM_TOKEN}&format=json`;
+
 
   const [{ data: lastfmRecentTrackData, loading: lastfmRecentTrackLoading, error: lastfmRecentTrackError }, lastfmRecentTrackRefresh] = useAxios(lastfm_recent_request);
   const [{ data: lastfmData, loading: lastfmLoading, error: lastfmError }, lastfmRefresh] = useAxios(lastfm_weekly_request);
-  
+
 
   // const getSpotifyData = async function(artist, spotifyAccessToken) {
   //   await axios({
@@ -117,7 +117,7 @@ function Music(props) {
               <div className="relative hide-child">
                 <span
                   className="child absolute ba b--white br2 h-100 w-100"
-                  style={{ pointerEvents: "none", zIndex: 10 }} 
+                  style={{ pointerEvents: "none", zIndex: 10 }}
                 />
                 <h2 className="white absolute pa1 bottom-0 pl3 f6 fw4 ttu tracked" style={{ pointerEvents: "none", zIndex: 10 }}>
                   {artistData.artist["#text"]}
@@ -150,7 +150,7 @@ function Music(props) {
                   <div className="relative hide-child ph1">
                     <span
                       className="child absolute ba b--white br2 h-100 w-100"
-                      style={{ pointerEvents: "none", zIndex: 10 }} 
+                      style={{ pointerEvents: "none", zIndex: 10 }}
                     />
                     <h2 className="white absolute pa1 bottom-0 pl3 f6 fw4 ttu tracked" style={{ pointerEvents: "none", zIndex: 10 }}>
                       {artistName}

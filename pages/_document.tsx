@@ -5,7 +5,7 @@ export default class extends Document {
   render = () => (
     <html lang="en">
       <Head>
-        <meta name="description" content="Designer and software engineer living in San Francisco, California. Currently building a modern insurance brokerage at Newfront." />
+        <meta name="description" content="Designing and building software in San Francisco, California. Currently building a modern insurance software at Newfront." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#ffffff" />
         <link rel="icon" href="./favicon.ico" />
@@ -19,7 +19,7 @@ export default class extends Document {
         {/* Global Site Tag (gtag.js) - Google Analytics */}
         <script
           async
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA_TRACKING_ID}`}
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_TRACKING_ID}`}
         />
         <script
           dangerouslySetInnerHTML={{
@@ -27,7 +27,7 @@ export default class extends Document {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', '${process.env.GA_TRACKING_ID}');
+          gtag('config', '${process.env.NEXT_PUBLIC_GA_TRACKING_ID}');
         `,
           }}
         />

@@ -25,7 +25,7 @@ function Dribbble() {
       try {
         if (!postsFetched) {
           dribbbleRes = await axios.get(
-            `https://api.dribbble.com/v2/user/shots?access_token=${process.env.DRIBBBLE_TOKEN}&page=${dribbblePage}&per_page=${SHOTS_PER_PAGE}`
+            `https://api.dribbble.com/v2/user/shots?access_token=${process.env.NEXT_PUBLIC_DRIBBBLE_TOKEN}&page=${dribbblePage}&per_page=${SHOTS_PER_PAGE}`
           );
           setPostsFetched(true);
         }
@@ -82,7 +82,7 @@ function Dribbble() {
           {dribbblePosts.map((post) => <DribbblePost key={post.id} post={post} />)}
         </div>
       )}
-        
+
 
       {isLoadingMore &&
         placeholderArr.map((i) => <div key={i} />)
@@ -97,7 +97,7 @@ function Dribbble() {
         .grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        
+
           grid-gap: 1rem;
         }
       `}</style>
