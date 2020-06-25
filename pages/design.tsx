@@ -8,10 +8,10 @@ import Dribbble from '../components/dribbble'
 const Design = () => (
   <Page>
     <Head>
-      <title>Michael Schultz | Design</title>
+      <title>Michael Schultz | Design work</title>
     </Head>
     <Nav />
-  
+
     <Dribbble />
   </Page>
 )

@@ -7,7 +7,7 @@ import Page from '../components/page'
 export default () => (
   <Page>
     <Head>
-      <title>Michael Schultz | 404</title>
+      <title>Michael Schultz | Not found</title>
     </Head>
     <Nav />
 

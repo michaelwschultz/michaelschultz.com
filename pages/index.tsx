@@ -1,4 +1,5 @@
 import React from 'react'
+import Head from 'next/head'
 
 import DesignThoughts from '../components/designThoughts'
 import Friends from '../components/friends'
@@ -14,6 +15,11 @@ const Home = () => {
 
   return (
     <Page>
+      <Head>
+        <title>
+          Michael Schultz | Designer & Software Engineer
+        </title>
+      </Head>
       <Nav />
       <Intro />
       <Projects />
