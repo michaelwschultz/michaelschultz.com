@@ -11,8 +11,10 @@ export default () => (
     </Head>
     <Nav />
 
-    <div className="mw8 center">
-      <h1>Oops, nothing here.</h1>
-    </div>
+    <section className="mw8 center mt6">
+      <div className="flex justify-between items-center">
+        <h2 className="white center">Oops, something went wrong.</h2>
+      </div>
+    </section>
   </Page>
 )
