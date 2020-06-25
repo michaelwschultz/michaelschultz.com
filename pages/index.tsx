@@ -17,7 +17,7 @@ const Home = () => {
     <Page>
       <Head>
         <title>
-          Michael Schultz | Designer & Software Engineer
+          Michael Schultz | Product Designer & Engineer
         </title>
       </Head>
       <Nav />

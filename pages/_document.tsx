@@ -5,7 +5,7 @@ export default class extends Document {
   render = () => (
     <html lang="en">
       <Head>
-        <meta name="description" content="Designer and software engineer living in San Francisco, California. Currently building a modern insurance brokerage at Newfront." />
+        <meta name="description" content="Designing and building software in San Francisco, California. Currently building a modern insurance software at Newfront." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#ffffff" />
         <link rel="icon" href="./favicon.ico" />
