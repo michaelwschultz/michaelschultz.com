@@ -6,7 +6,7 @@
     "node": "12.x"
   },
   "scripts": {
-    "dev": "now dev",
+    "dev": "vc dev",
     "build": "next build",
     "start": "next start"
   },
