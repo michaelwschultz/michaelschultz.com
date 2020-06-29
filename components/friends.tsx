@@ -1,11 +1,7 @@
 import React from 'react'
 import { Lazy } from 'react-lazy'
 
-import { ThemeContext } from '../lib/themeContext'
-
 const Friends = () => {
-  const theme = React.useContext(ThemeContext)
-
   return (
     <section className="mw8 center mv6">
       <h3 className="white f5 pb3">Designer friends</h3>
