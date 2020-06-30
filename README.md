@@ -4,14 +4,14 @@ michaelschultz.com - created Tue Nov 22 11:59:04 PST 2016
     http://github.com/michaelwschultz/basher
 
 ### About
-Designer and software engineer living in San Francisco, California. Currently building a modern insurance brokerage at newfrontinsurance.com
+Designer and software engineer living in San Francisco, California. Currently building a modern insurance brokerage at [newfront.com](https://newfront.com).
 
 ## Dev
 Locally: `yarn dev`
 
 
 ## Build
-This site is hosted on Vercel's Now service (https://vercel.com/michaelschultz/michaelschultz.com).
+This site is hosted on [Vercel](https://vercel.com/michaelschultz/michaelschultz.com). 
 
-CLI deploy method: `now --prod`
-Or merge into master branch on Github (https://github.com/michaelwschultz/michaelschultz.com) to autodeploy.
+CLI deploy method: `vercel --prod`
+Or merge into master branch on [Github](https://github.com/michaelwschultz/michaelschultz.com) to autodeploy.
