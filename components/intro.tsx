@@ -1,24 +1,16 @@
 import React from 'react'
 import Link from 'next/link'
 import { Lazy } from 'react-lazy'
-import useAxios from 'axios-hooks';
 
 import { ThemeContext } from '../lib/themeContext'
 
 const Intro = () => {
   const theme = React.useContext(ThemeContext)
-  const lilWeatherEndpoint = 'https://api.lil.software/weather?latitude=37.785251&longitude=-122.398867'
-  const [{ data: lilWeather, loading: lilLoading, error: lilError }] = useAxios(lilWeatherEndpoint)
 
   return (
     <section className="mw8 center mt5">
       <div className="flex justify-between items-center">
         <h2 className="white">Howdy, I'm Michael.</h2>
-        <h2 className="white">The weather is...
-          {lilLoading && 'loading'}
-          {lilWeather && JSON.stringify(lilWeather, null, 2)}
-          {lilError && console.log(lilError)}
-        </h2>
       </div>
       <div className="cf">
         <div className="fl w-100-m">
