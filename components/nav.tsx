@@ -2,6 +2,7 @@
 import React from 'react'
 import Link from 'next/link'
 
+import Hud from './hud'
 import { ThemeContext } from '../lib/themeContext'
 
 const Nav = () => {
@@ -9,7 +10,7 @@ const Nav = () => {
   const linkClasses = `${theme.textColor} hover-white link dib f6 fw4 ttu tracked pv3`;
 
   return (
-    <header className="mw8 center mt4">
+    <header className="mw8 center pt4 relative">
       {/* <h1>
         <Link href="/">
           <a className="flex-no-shrink f3 color-pink hover-pink link" style={{ flexShrink: 0 }}>
@@ -17,6 +18,7 @@ const Nav = () => {
           </a>
         </Link>
       </h1> */}
+      <Hud />
       <nav className="flex flex-column flex-row-ns justify-between items-center-ns">
         <div className="nowrap">
           <Link href="/">

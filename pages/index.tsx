@@ -8,7 +8,6 @@ import Nav from '../components/nav'
 import Page from '../components/page'
 import Projects from '../components/projects'
 import Soundcloud from '../components/soundcloud'
-import Stats from '../components/stats'
 // import Music from '../components/music'
 
 const Home = () => {
@@ -29,7 +28,6 @@ const Home = () => {
       <Soundcloud />
       <DesignThoughts />
       <Friends />
-      <Stats />
     </Page>
   )
 }
