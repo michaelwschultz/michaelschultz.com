@@ -14,9 +14,9 @@ export default function LocalWeather() {
   if (!weather) return <div>Loading forecast in SF...</div>
 
   return (
-  <div className='weather-forecast'>
+  <span className='weather-forecast'>
     San Francisco: {weather.forecast[0].temperature}&#8457; / {calculateCelsius(weather.forecast[0].temperature)}&#8451;
-  </div>
+  </span>
   )
 }
 
