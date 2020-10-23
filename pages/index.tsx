@@ -16,9 +16,7 @@ const Home = () => {
   return (
     <Page>
       <Head>
-        <title>
-          Michael Schultz | Product Designer & Engineer
-        </title>
+        <title>Michael Schultz | Product Designer & Engineer</title>
       </Head>
       <Nav />
       <Intro />
@@ -27,7 +25,7 @@ const Home = () => {
       {/* <Music spotifyAccessToken={spotifyAccessToken} /> */}
       <Soundcloud />
       <DesignThoughts />
-      <Friends />
+      {/* <Friends /> */}
     </Page>
   )
 }
