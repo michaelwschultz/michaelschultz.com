@@ -2,12 +2,10 @@ import React from 'react'
 
 import LocalWeather from './localWeather'
 
-export default function Stats() {
+const Stats = () => {
   return (
-    <section className="mw8 center mt5 pb6">
-      <h3 className="white f5 pb3">
-        Stats
-      </h3>
+    <section className='mw8 center mt5 pb6'>
+      <h3 className='white f5 pb3'>Stats</h3>
       <div className='forecast'>
         <LocalWeather />
       </div>
@@ -20,3 +18,5 @@ export default function Stats() {
     </section>
   )
 }
+
+export default Stats

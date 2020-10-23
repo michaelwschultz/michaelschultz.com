@@ -2,9 +2,13 @@ import React from 'react'
 
 import LocalWeather from './localWeather'
 
-export default function() {
+const Hud = () => {
   return (
-    <a className='forecast link' href='https://lil.software/api/' title='Weather provided by lilApi'>
+    <a
+      className='forecast link'
+      href='https://lil.software/api/'
+      title='Weather provided by lilApi'
+    >
       <LocalWeather />
       <style jsx>{`
         .forecast {
@@ -14,14 +18,14 @@ export default function() {
           font-size: 12px;
           color: white;
           opacity: 0.7;
-          background: rgba(255,255,255,0.1);
+          background: rgba(255, 255, 255, 0.1);
           padding: 16px;
           border-radius: 0 0 4px 4px;
           transition: background 0.1s linear;
         }
 
         .forecast:hover {
-          background: rgba(255,255,255,0.15);
+          background: rgba(255, 255, 255, 0.15);
         }
 
         @media screen and (max-width: 30em) {
@@ -33,3 +37,5 @@ export default function() {
     </a>
   )
 }
+
+export default Hud
