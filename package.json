@@ -14,7 +14,7 @@
     "axios": "^0.21.0",
     "axios-hooks": "^2.1.0",
     "instafeed.js": "^1.4.1",
-    "next": "^9.5.5",
+    "next": "^10.0.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-lazy": "^1.1.0",
