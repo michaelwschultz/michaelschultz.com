@@ -2,10 +2,9 @@ import React from 'react'
 import useSWR from 'swr'
 import fetcher from '../lib/fetcher'
 
-
 export default function LocalWeather() {
   function calculateCelsius(number) {
-    return Math.round((number - 32) * 5 / 9)
+    return Math.round(((number - 32) * 5) / 9)
   }
 
   const { data: weather, error } = useSWR('/api/weather', fetcher)
@@ -14,9 +13,9 @@ export default function LocalWeather() {
   if (!weather) return <div>Loading forecast in SF...</div>
 
   return (
-  <span className='weather-forecast'>
-    San Francisco: {weather.forecast[0].temperature}&#8457; / {calculateCelsius(weather.forecast[0].temperature)}&#8451;
-  </span>
+    <span className='weather-forecast'>
+      San Francisco: {weather.forecast[0].temperature}&#8457; /{' '}
+      {calculateCelsius(weather.forecast[0].temperature)}&#8451;
+    </span>
   )
 }
-

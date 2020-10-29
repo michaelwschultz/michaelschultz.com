@@ -1,4 +1,3 @@
-
 import React from 'react'
 import Link from 'next/link'
 
@@ -7,10 +6,10 @@ import { ThemeContext } from '../lib/themeContext'
 
 const Nav = () => {
   const theme = React.useContext(ThemeContext)
-  const linkClasses = `${theme.textColor} hover-white link dib f6 fw4 ttu tracked pv3`;
+  const linkClasses = `${theme.textColor} hover-white link dib f6 fw4 ttu tracked pv3`
 
   return (
-    <header className="mw8 center pt4 relative">
+    <header className='mw8 center pt4 relative'>
       {/* <h1>
         <Link href="/">
           <a className="flex-no-shrink f3 color-pink hover-pink link" style={{ flexShrink: 0 }}>
@@ -19,15 +18,19 @@ const Nav = () => {
         </Link>
       </h1> */}
       <Hud />
-      <nav className="flex flex-column flex-row-ns justify-between items-center-ns">
-        <div className="nowrap">
-          <Link href="/">
-            <a className={`${theme.textColor} hover-white f6 link br1 ba pa3 mr2 mv3 dib`}>
+      <nav className='flex flex-column flex-row-ns justify-between items-center-ns'>
+        <div className='nowrap'>
+          <Link href='/'>
+            <a
+              className={`${theme.textColor} hover-white f6 link br1 ba pa3 mr2 mv3 dib`}
+            >
               Home
             </a>
           </Link>
-          <Link href="/design">
-            <a className={`${theme.textColor} hover-white f6 link br1 ba pa3 mr2 mv3 dib`}>
+          <Link href='/design'>
+            <a
+              className={`${theme.textColor} hover-white f6 link br1 ba pa3 mr2 mv3 dib`}
+            >
               Design
             </a>
           </Link>
@@ -40,19 +43,31 @@ const Nav = () => {
           </Link> */}
         </div>
         <div>
-          <a href="http://twitter.com/michaelschultz" className={`${linkClasses} pr3`}>
+          <a
+            href='http://twitter.com/michaelschultz'
+            className={`${linkClasses} pr3`}
+          >
             Twitter
           </a>
-          <a href="http://github.com/michaelwschultz" className={`${linkClasses} pr3`}>
+          <a
+            href='http://github.com/michaelwschultz'
+            className={`${linkClasses} pr3`}
+          >
             Github
           </a>
-          <a href="http://linkedin.com/in/mikewschultz" className={`${linkClasses} pr3`}>
+          <a
+            href='http://linkedin.com/in/mikewschultz'
+            className={`${linkClasses} pr3`}
+          >
             LinkedIn
           </a>
-          <a href="http://dribbble.com/michaelschultz" className={`${linkClasses} pr3`}>
+          <a
+            href='http://dribbble.com/michaelschultz'
+            className={`${linkClasses} pr3`}
+          >
             Dribbble
           </a>
-          <a href="http://instagram.com/michaelschultz" className={linkClasses}>
+          <a href='http://instagram.com/michaelschultz' className={linkClasses}>
             Instagram
           </a>
           {/* <Link>

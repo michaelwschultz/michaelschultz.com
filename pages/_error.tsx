@@ -11,9 +11,9 @@ export default () => (
     </Head>
     <Nav />
 
-    <section className="mw8 center mt6">
-      <div className="flex justify-between items-center">
-        <h2 className="white center">Oops, something went wrong.</h2>
+    <section className='mw8 center mt6'>
+      <div className='flex justify-between items-center'>
+        <h2 className='white center'>Oops, something went wrong.</h2>
       </div>
     </section>
   </Page>

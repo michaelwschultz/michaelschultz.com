@@ -3,21 +3,28 @@ import * as React from 'react'
 const BlackLivesMatter = () => {
   return (
     <>
-      <div className="blm-wrapper">
-        <div className="blm-text">
+      <div className='blm-wrapper'>
+        <div className='blm-text'>
           <div>
             <h1>BLACK</h1>
             <h1>LIVES</h1>
             <h1>MATTER</h1>
           </div>
         </div>
-        <div className="blm">
-          <a href="https://www.joincampaignzero.org/#vision">
-            <img src="./assets/blm-tyler-pate.jpg" alt="Black Lives Matter" width="200%" height="200%" />
+        <div className='blm'>
+          <a href='https://www.joincampaignzero.org/#vision'>
+            <img
+              src='./assets/blm-tyler-pate.jpg'
+              alt='Black Lives Matter'
+              width='200%'
+              height='200%'
+            />
           </a>
         </div>
-        <div className="blm-credit">
-          <a href="https://dribbble.com/shots/11853647-Black-Lives-Matter">Art credit Tyler Pate</a>
+        <div className='blm-credit'>
+          <a href='https://dribbble.com/shots/11853647-Black-Lives-Matter'>
+            Art credit Tyler Pate
+          </a>
         </div>
       </div>
       <style jsx>{`
