@@ -1,14 +1,14 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+node_modules
 
 # testing
-/coverage
+coverage
 
 # next.js
-/.next/
-/out/
+.next/
+.vercel
 
 # production
 /build
@@ -21,6 +21,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-/.now
-/.vercel
