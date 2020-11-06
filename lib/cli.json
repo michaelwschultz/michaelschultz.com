@@ -1,0 +1,14 @@
+{
+  "actions": {
+    "help": {
+      "id": 1,
+      "label": "Help",
+      "description": "The help command should inform you of all the other commands"
+    },
+    "about": {
+      "id": 2,
+      "label": "About",
+      "description": "mOS is a cli tool built for michaelschultz.com by [Michael Schultz](/michael)"
+    }
+  }
+}
