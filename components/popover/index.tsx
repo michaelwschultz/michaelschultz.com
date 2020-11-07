@@ -15,8 +15,6 @@ const Popover = (props: Props) => {
   const { show, actions } = props
   const [showPopover, setShowPopover] = useState(false)
 
-  console.log('ACTIONS', actions)
-
   useEffect(() => {
     if (show) {
       setShowPopover(true)

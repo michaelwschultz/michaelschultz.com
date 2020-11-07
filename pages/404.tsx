@@ -4,7 +4,7 @@ import Head from 'next/head'
 import Nav from '../components/nav'
 import Page from '../components/page'
 
-export default () => (
+const NotFound = () => (
   <Page>
     <Head>
       <title>Michael Schultz | Not found</title>
@@ -20,3 +20,5 @@ export default () => (
     </section>
   </Page>
 )
+
+export default NotFound
