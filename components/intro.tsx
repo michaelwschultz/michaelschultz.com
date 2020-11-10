@@ -1,7 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Lazy } from 'react-lazy'
 
 import { ThemeContext } from '../lib/themeContext'
 
@@ -34,22 +33,14 @@ const Intro = () => {
                   >
                     Newfront Insurance
                   </h2>
-                  <Lazy>
-                    <picture className='w-100 br2'>
-                      <source
-                        srcSet='./assets/newfront-insurance-thumbnail.webp'
-                        type='image/webp'
-                      />
-                      <Image
-                        width='494'
-                        height='312'
-                        priority
-                        className='w-100 br2'
-                        src='/assets/newfront-insurance-thumbnail.png'
-                        alt='newfront insurance'
-                      />
-                    </picture>
-                  </Lazy>
+                  <Image
+                    width='494'
+                    height='312'
+                    priority
+                    className='w-100 br2'
+                    src='/assets/newfront-insurance-thumbnail.png'
+                    alt='newfront insurance'
+                  />
                 </a>
               </div>
             </div>
