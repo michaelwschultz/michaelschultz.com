@@ -2,9 +2,6 @@
   "name": "app",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "12.x"
-  },
   "scripts": {
     "dev": "vc dev",
     "build": "next build",
@@ -15,12 +12,14 @@
     "axios-hooks": "^2.1.0",
     "instafeed.js": "^1.4.1",
     "next": "^10.0.0",
-    "react": "17.0.1",
-    "react-dom": "17.0.1",
+    "node-fetch": "^2.6.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-lazy": "^1.1.0",
+    "react-notion": "^0.9.3",
     "react-player": "^2.6.2",
     "react-spotify-api": "^3.0.0",
-    "swr": "^0.3.6"
+    "swr": "^0.4.0"
   },
   "devDependencies": {
     "@types/node": "^14.14.2",
