@@ -16,6 +16,7 @@
     "instafeed.js": "^1.4.1",
     "next": "^10.0.0",
     "react": "17.0.1",
+    "react-audio-spectrum": "^0.1.0",
     "react-dom": "17.0.1",
     "react-lazy": "^1.1.0",
     "react-player": "^2.6.2",

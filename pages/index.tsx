@@ -2,12 +2,12 @@ import React from 'react'
 import Head from 'next/head'
 
 import DesignThoughts from '../components/designThoughts'
-import Friends from '../components/friends'
 import Intro from '../components/intro'
 import Nav from '../components/nav'
 import Page from '../components/page'
 import Projects from '../components/projects'
 import Soundcloud from '../components/soundcloud'
+import AudioVisualBlock from '../components/audioVisualBlock'
 // import Music from '../components/music'
 
 const Home = () => {
@@ -19,6 +19,7 @@ const Home = () => {
         <title>Michael Schultz | Product Designer & Engineer</title>
       </Head>
       <Nav />
+      <AudioVisualBlock />
       <Intro />
       <Projects />
       {/* Music I'm lisening to, coming soon */}
