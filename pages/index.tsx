@@ -2,7 +2,6 @@ import React from 'react'
 import Head from 'next/head'
 
 import DesignThoughts from '../components/designThoughts'
-import Friends from '../components/friends'
 import Intro from '../components/intro'
 import Nav from '../components/nav'
 import Page from '../components/page'

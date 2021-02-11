@@ -10,11 +10,11 @@ export default function LocalWeather() {
   const { data: weather, error } = useSWR('/api/weather', fetcher)
   // TODO: create a notification instead of this inline message
   if (error) return <div>Oh no, failed to load forecast. Try again later.</div>
-  if (!weather) return <div>Loading forecast in SF...</div>
+  if (!weather) return <div>Loading forecast...</div>
 
   return (
     <span className='weather-forecast'>
-      San Francisco: {weather.forecast[0].temperature}&#8457; /{' '}
+      Oakland: {weather.forecast[0].temperature}&#8457; /{' '}
       {calculateCelsius(weather.forecast[0].temperature)}&#8451;
     </span>
   )
