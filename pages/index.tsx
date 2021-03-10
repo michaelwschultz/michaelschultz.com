@@ -20,6 +20,15 @@ const Home = () => {
       <Nav />
       <Intro />
       <Projects />
+      {/* TODO: add this someplace nice */}
+      <iframe
+        src='https://open.spotify.com/embed-podcast/show/6vSG5RDA2SS94s0qNvynwj'
+        width='100%'
+        height='232'
+        frameBorder='0'
+        allowTransparency
+        allow='encrypted-media'
+      ></iframe>
       {/* Music I'm lisening to, coming soon */}
       {/* <Music spotifyAccessToken={spotifyAccessToken} /> */}
       <Soundcloud />
