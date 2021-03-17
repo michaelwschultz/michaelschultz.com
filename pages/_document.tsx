@@ -7,7 +7,7 @@ export default class extends Document {
       <Head>
         <meta
           name='description'
-          content='Designing and building software in San Francisco, California. Currently building a modern insurance software at Newfront.'
+          content='Designing and building software in San Francisco, California. Currently building data extraction tools at Sensible.'
         />
         <meta name='theme-color' content='#ffffff' />
         <link rel='icon' href='./favicon.ico' />

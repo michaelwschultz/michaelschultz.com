@@ -54,19 +54,7 @@ const Intro = () => {
               >
                 Iodine
               </a>
-              , and a quick dip into politics at Sidewire, I joined Newfront
-              Insurance in December of 2017 to help design and build a modern
-              insurance brokerage.
-            </p>
-            <p className='white pb2 lh-copy'>
-              At Newfront, we're building tools that make life easier for
-              brokers, their clients, and our account managers. Some of these
-              tools include automation and others improve the communication
-              process between each group.
-            </p>
-            <p className='white pb2 lh-copy'>
-              If you're looking for commercial or personal insurance or are
-              interested in helping build a big business, join us at {` `}
+              , and a quick dip into politics at Sidewire, I joined{' '}
               <a
                 className='white hover-blue'
                 href='https://www.newfront.com'
@@ -75,7 +63,33 @@ const Intro = () => {
               >
                 Newfront
               </a>
-              .
+              {` `}
+              Insurance in December of 2017 to help design and build a modern
+              insurance brokerage.
+            </p>
+            <p className='white pb2 lh-copy'>
+              At Newfront, I created tools that make life easier for brokers,
+              their clients, and Newfront account managers. Some of these tools
+              included automation and others improved the communication process
+              between each group.
+            </p>
+            <p className='white pb2 lh-copy'>
+              After several years at Newfront, and helping grow the team from 7
+              to 200+, I left to take a short break during 2020.
+            </p>
+            <p className='white pb2 lh-copy'>
+              After recharging I joined{' '}
+              <a
+                className='white hover-dark-red'
+                href='https://www.sensible.so'
+                rel='noreferrer'
+                target='_blank'
+              >
+                Sensible
+              </a>
+              . We're building incredible tools that deliver a mind blowing
+              developer experience for generating structured data from physical
+              documents.
             </p>
             <Link href='/design'>
               <a
