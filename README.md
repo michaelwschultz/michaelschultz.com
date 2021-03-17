@@ -4,7 +4,7 @@ michaelschultz.com - created Tue Nov 22 11:59:04 PST 2016
     http://github.com/michaelwschultz/basher
 
 ### About
-Designer and software engineer living in San Francisco, California. Currently building a modern insurance brokerage at [newfront.com](https://newfront.com).
+Designer and software engineer living in San Francisco, California. Currently building data extraction tools at [sensible.com](https://www.sensible.so).
 
 ## Dev
 Locally: `yarn dev`
