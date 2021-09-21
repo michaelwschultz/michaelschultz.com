@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
+import splitbee from '@splitbee/web'
 
 import DesignThoughts from '../components/designThoughts'
 import Intro from '../components/intro'
@@ -11,6 +12,7 @@ import Soundcloud from '../components/soundcloud'
 
 const Home = () => {
   // const { spotifyAccessToken } = props;
+  splitbee.track('Viewed home page')
 
   return (
     <Page>
