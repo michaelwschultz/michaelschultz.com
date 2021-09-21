@@ -1,8 +1,8 @@
 import App from 'next/app'
-import Router from 'next/router'
+import splitbee from '@splitbee/web'
 
-import * as gtag from '../lib/gtag'
-
-Router.events.on('routeChangeComplete', url => gtag.pageview(url))
+if (process.env.NODE_ENV === 'production') {
+  splitbee.init()
+}
 
 export default App

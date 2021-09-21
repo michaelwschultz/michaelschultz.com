@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "12.x"
+    "node": "14.x"
   },
   "scripts": {
     "dev": "vc dev",
@@ -11,8 +11,9 @@
     "start": "next start"
   },
   "dependencies": {
-    "axios": "^0.21.0",
-    "axios-hooks": "^2.1.0",
+    "@splitbee/web": "^0.3.0",
+    "axios": "^0.21.1",
+    "axios-hooks": "^2.3.0",
     "instafeed.js": "^1.4.1",
     "next": "^10.0.0",
     "react": "17.0.1",
