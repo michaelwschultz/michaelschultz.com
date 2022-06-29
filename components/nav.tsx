@@ -1,12 +1,9 @@
-import React from 'react'
 import Link from 'next/link'
 
 import Hud from './hud'
-import { ThemeContext } from '../lib/themeContext'
 
 const Nav = () => {
-  const theme = React.useContext(ThemeContext)
-  const linkClasses = `${theme.textColor} hover-white link dib f6 fw4 ttu tracked pv3`
+  const linkClasses = "green hover-white link dib f6 fw4 ttu tracked pv3"
 
   return (
     <header className='mw8 center pt4 relative'>
@@ -22,14 +19,14 @@ const Nav = () => {
         <div className='nowrap'>
           <Link href='/'>
             <a
-              className={`${theme.textColor} hover-white f6 link br1 ba pa3 mr2 mv3 dib`}
+              className="green hover-white f6 link br1 ba pa3 mr2 mv3 dib"
             >
               Home
             </a>
           </Link>
           <Link href='/design'>
             <a
-              className={`${theme.textColor} hover-white f6 link br1 ba pa3 mr2 mv3 dib`}
+              className="green hover-white f6 link br1 ba pa3 mr2 mv3 dib"
             >
               Design
             </a>
@@ -79,11 +76,6 @@ const Nav = () => {
           </Link> */}
         </div>
       </nav>
-      <style jsx>{`
-        nav {
-          text-align: center;
-        }
-      `}</style>
     </header>
   )
 }

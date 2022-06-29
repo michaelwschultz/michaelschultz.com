@@ -1,4 +1,3 @@
-import React from 'react'
 import Image from 'next/image'
 
 export interface DribbblePostProps {
@@ -10,7 +9,7 @@ export interface DribbblePostProps {
   title: string
 }
 
-function DribbblePost({ post }) {
+function DribbblePost({ post }: { post: any }) {
   if (!post.images.hidpi) {
     return null
   }

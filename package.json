@@ -1,9 +1,9 @@
 {
-  "name": "app",
-  "version": "0.1.0",
+  "name": "michaelschultz",
+  "version": "2.0.0",
   "private": true,
   "engines": {
-    "node": "14.x"
+    "node": "16.x"
   },
   "scripts": {
     "dev": "vc dev",
@@ -12,20 +12,22 @@
   },
   "dependencies": {
     "@splitbee/web": "^0.3.0",
-    "axios": "^0.21.1",
-    "axios-hooks": "^2.3.0",
-    "instafeed.js": "^1.4.1",
-    "next": "^10.0.0",
-    "react": "17.0.1",
-    "react-dom": "17.0.1",
-    "react-lazy": "^1.1.0",
-    "react-player": "^2.6.2",
+    "axios": "^0.27.2",
+    "axios-hooks": "^3.1.3",
+    "next": "^12.2.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-player": "^2.10.1",
     "react-spotify-api": "^3.0.0",
-    "swr": "^0.3.6"
+    "swr": "^1.3.0"
   },
   "devDependencies": {
-    "@types/node": "^14.14.2",
-    "@types/react": "^16.9.53",
-    "typescript": "^4.0.3"
+    "@types/node": "16.11.41",
+    "@types/react": "^16.14.28",
+    "autoprefixer": "^10.4.7",
+    "postcss": "^8.4.14",
+    "prop-types": "^15.8.1",
+    "tailwindcss": "^3.1.4",
+    "typescript": "^4.7.4"
   }
 }

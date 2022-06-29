@@ -1,5 +1,3 @@
-import React from 'react'
-
 import LocalWeather from './localWeather'
 
 const Hud = () => {
@@ -10,7 +8,7 @@ const Hud = () => {
       title='Weather provided by lilApi'
     >
       <LocalWeather />
-      <style jsx>{`
+      <style>{`
         .forecast {
           position: absolute;
           top: 0;

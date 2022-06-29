@@ -1,4 +1,7 @@
 /* styles written for michaelschultz.com */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 html {
   line-height: 0;
@@ -18,41 +21,21 @@ button:focus {
   contain: content;
 }
 
-#bg {
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  z-index: -1;
-}
-
-#bg img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  min-width: 50%;
-  min-height: 50%;
-}
-
-.fadeIn {
-  animation: fadein .5s;
-}
-
-@keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
 body {
-  font-family: "Open Sans", "Avant Garde", sans-serif;
-  font-size: 16px;
+  font-family: "Inter", "Open Sans", "Avant Garde", sans-serif;
+  font-size: 14px;
   font-style: normal;
   font-variant: normal;
   font-weight: 400;
+  @apply text-primary-100;
+}
+
+b, strong {
+  font-family: "Inter", "Open Sans", "Avant Garde", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 600;
 }
 
 h1 {

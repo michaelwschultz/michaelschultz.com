@@ -1,5 +1,3 @@
-import React from 'react'
-
 import LocalWeather from './localWeather'
 
 const Stats = () => {
@@ -9,12 +7,6 @@ const Stats = () => {
       <div className='forecast'>
         <LocalWeather />
       </div>
-      <style jsx>{`
-        .forecast {
-          font-size: 14px;
-          color: white;
-        }
-      `}</style>
     </section>
   )
 }

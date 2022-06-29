@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { Lazy } from 'react-lazy'
 
 const Soundcloud = () => {

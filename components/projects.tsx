@@ -1,4 +1,3 @@
-import React from 'react'
 import Image from 'next/image'
 
 const Projects = () => {
@@ -98,13 +97,6 @@ const Projects = () => {
           </a>
         </div>
       </div>
-      <style jsx>{`
-        .grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(224px, 1fr));
-          grid-gap: 1rem;
-        }
-      `}</style>
     </section>
   )
 }

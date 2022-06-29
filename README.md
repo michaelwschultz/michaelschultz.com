@@ -4,7 +4,7 @@ Designer and software engineer living in San Francisco, California. Currently bu
 
 ## Dev
 
-Locally: `yarn dev`
+Locally: `pnpm dev`
 
 ## Build
 

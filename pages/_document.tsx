@@ -1,8 +1,7 @@
-import React from 'react'
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import { Html, Head, Main, NextScript } from 'next/document'
 
-export default class extends Document {
-  render = () => (
+export default function Document() {
+  return (
     <Html lang='en'>
       <Head>
         <meta
@@ -11,8 +10,8 @@ export default class extends Document {
         />
         <meta name='theme-color' content='#ffffff' />
         <link rel='icon' href='./favicon.ico' />
-        <link rel='stylesheet' href='./tachyons.min.css' />
-        <link rel='stylesheet' href='./style.css' />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
         <link
           rel='apple-touch-icon'
           sizes='180x180'
@@ -36,16 +35,10 @@ export default class extends Document {
           color='#23205f'
         />
       </Head>
-      <body className='avenir bg-black'>
+      <body className="bg-primary-700">
         <Main />
         <NextScript />
       </body>
-      <style jsx>{`
-        body {
-          padding: 0;
-          margin: 0;
-        }
-      `}</style>
     </Html>
   )
 }

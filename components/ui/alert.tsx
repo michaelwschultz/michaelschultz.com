@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 function Alert(props: { children: string }) {
   const { children } = props

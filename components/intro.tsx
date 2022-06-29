@@ -1,12 +1,7 @@
-import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import { ThemeContext } from '../lib/themeContext'
-
 const Intro = () => {
-  const theme = React.useContext(ThemeContext)
-
   return (
     <section className='mw8 center mt5'>
       <div className='flex justify-between items-center'>
@@ -93,7 +88,7 @@ const Intro = () => {
             </p>
             <Link href='/design'>
               <a
-                className={`${theme.textColor} hover-white f6 link br1 ba hover pa3 mv3 dib nowrap`}
+                className="green hover-white f6 link br1 ba hover pa3 mv3 dib nowrap"
               >
                 See more of my work
               </a>
