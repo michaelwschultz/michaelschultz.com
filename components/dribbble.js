@@ -3,7 +3,6 @@ import axios from 'axios'
 import Alert from './ui/alert'
 import Button from './ui/button'
 import DribbblePost from './ui/dribbble_post'
-import { ThemeContext } from '../lib/themeContext'
 
 function Dribbble() {
   const SHOTS_PER_PAGE = 9
@@ -69,8 +68,6 @@ function Dribbble() {
     setIsLoadingMore(true)
   }
 
-  const theme = React.useContext(ThemeContext)
-
   return (
     <div className='mw8 center'>
       {isError && (
@@ -97,7 +94,6 @@ function Dribbble() {
         <Button
           onClick={loadMorePosts}
           isLoading={isLoading || isLoadingMore}
-          theme={theme}
         >
           Load More
         </Button>
