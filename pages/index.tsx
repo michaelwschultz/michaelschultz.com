@@ -13,7 +13,7 @@ const Home = () => {
       </Head>
       <main>
         <div className='py-4 bg-primary-400'>
-          <strong>Hi, I'm Michael</strong>
+          <strong>Hi, {`I'm`} Michael</strong>
         </div>
       </main>
     </Page>

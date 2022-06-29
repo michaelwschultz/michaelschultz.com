@@ -102,7 +102,7 @@ function Music(props) {
 
   return (
     <section className='mw8 center mt6'>
-      <h3 className='white f5 pb2'>Music I've been listening to this week</h3>
+      <h3 className='white f5 pb2'>Music {`I've`} been listening to this week</h3>
       <div className='flex items-center mb3'>
         <a
           className='pr2'
@@ -166,7 +166,7 @@ function Music(props) {
               if (index >= 5) return null
 
               return (
-                <div className='fl w-50'>
+                <div className='fl w-50' key={artistName}>
                   <div className='relative hide-child ph1'>
                     <span
                       className='child absolute ba b--white br2 h-100 w-100'

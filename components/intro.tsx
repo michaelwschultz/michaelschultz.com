@@ -5,7 +5,7 @@ const Intro = () => {
   return (
     <section className='mw8 center mt5'>
       <div className='flex justify-between items-center'>
-        <h2 className='white'>Howdy, I'm Michael.</h2>
+        <h2 className='white'>Howdy, {`I'm`} Michael.</h2>
       </div>
       <div className='cf'>
         <div className='fl w-100-m'>
@@ -82,7 +82,7 @@ const Intro = () => {
               >
                 Sensible
               </a>
-              . We're building incredible tools that deliver a mind blowing
+              . {`We're`} building incredible tools that deliver a mind blowing
               developer experience for generating structured data from physical
               documents.
             </p>

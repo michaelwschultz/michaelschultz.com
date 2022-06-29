@@ -3,7 +3,7 @@ import Image from 'next/image'
 const Projects = () => {
   return (
     <section className='mw8 center mt5'>
-      <h3 className='white f5 pb3'>Projects I'm working on</h3>
+      <h3 className='white f5 pb3'>Projects {`I'm`} working on</h3>
       <div className='grid'>
         <div className='relative hide-child'>
           <span
