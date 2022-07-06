@@ -1,8 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./components/**/*.{js,ts,jsx,tsx}",
-    "./pages/**/*.{js,ts,jsx,tsx}"
+    './components/**/*.{js,ts,jsx,tsx}',
+    './pages/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
@@ -13,11 +13,12 @@ module.exports = {
         'primary-400': '#627963',
         'primary-500': '#33432B',
         'primary-600': '#273322',
-        "primary-700": "#1C2519",
+        'primary-700': '#1C2519',
+        'primary-800': '#182016',
         'secondary-100': '#FBFBE4',
         'secondary-200': '#D8DDAD',
         'secondary-300': '#767B5D',
-      }
+      },
     },
   },
   plugins: [],
