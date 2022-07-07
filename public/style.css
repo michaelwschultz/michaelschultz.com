@@ -21,6 +21,7 @@ html, body {
   font-weight: 400;
   @apply text-primary-100;
   @apply antialiased;
+  @apply bg-primary-700;
 }
 
 b, strong {

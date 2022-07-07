@@ -10,8 +10,11 @@ export default function Document() {
         />
         <meta name='theme-color' content='#ffffff' />
         <link rel='icon' href='./favicon.ico' />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+        <link rel='preconnect' href='https://fonts.gstatic.com' />
+        <link
+          href='https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap'
+          rel='stylesheet'
+        />
         <link
           rel='apple-touch-icon'
           sizes='180x180'
@@ -35,7 +38,7 @@ export default function Document() {
           color='#23205f'
         />
       </Head>
-      <body className="bg-primary-700">
+      <body>
         <Main />
         <NextScript />
       </body>
