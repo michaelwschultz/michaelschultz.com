@@ -23,6 +23,17 @@ const Home = () => {
     </li>
   )
 
+  const createPost = async () => {
+    const response = await fetch('/api/createPost', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    console.log(response)
+  }
+
   return (
     <Page>
       <Head>
@@ -39,6 +50,8 @@ const Home = () => {
             documents into your system.
           </p>
         </div>
+
+        <button onClick={createPost}>Create a post</button>
 
         <section className='py-4'>
           <h3 className='text-primary-200 font-semibold px-4'>Work</h3>
