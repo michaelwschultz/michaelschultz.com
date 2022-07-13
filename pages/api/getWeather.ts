@@ -1,9 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function getWeather(
+export default async function handler(
   _req: NextApiRequest,
   res: NextApiResponse
 ) {
+  // cache response for 1 hour
+  res.setHeader('Cache-Control', 'maxage=0, s-maxage=3600')
+
   // const SF_COORDINATES = { lat: '37.7853', long: '-122.3989' }
   const OAKLAND_COORDINATES = { lat: '37.7310', long: '-122.1565' }
 
@@ -12,6 +15,6 @@ export default async function getWeather(
   const lilWeatherApi = `https://api.lil.software/weather?latitude=${OAKLAND_COORDINATES.lat}&longitude=${OAKLAND_COORDINATES.long}`
 
   await fetch(lilWeatherApi).then((response) => {
-    res.json(response.body)
+    res.status(200).json(response.body)
   })
 }

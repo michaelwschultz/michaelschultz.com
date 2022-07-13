@@ -4,6 +4,7 @@ import splitbee from '@splitbee/web'
 import Page from '../components/page'
 import PageNavigation from '../components/PageNavigation'
 import Footer from '../components/footer'
+import type { FormEvent } from 'react'
 
 type ProjectItem = {
   title: string
@@ -23,15 +24,19 @@ const Home = () => {
     </li>
   )
 
-  const createPost = async () => {
-    const response = await fetch('/api/createPost', {
+  const createPost = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const data = new FormData(event.currentTarget)
+    const body = JSON.stringify(Object.fromEntries(data))
+
+    await fetch('/api/createPost', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
+      body,
     })
-
-    console.log(response)
   }
 
   return (
@@ -51,7 +56,38 @@ const Home = () => {
           </p>
         </div>
 
-        <button onClick={createPost}>Create a post</button>
+        {/* Move this to a component */}
+        <form className='flex flex-col text-black' onSubmit={createPost}>
+          <input
+            name='headline'
+            type='text'
+            className='m-2 p-1'
+            placeholder='Headline'
+            required
+          />
+          <input
+            name='description'
+            type='text'
+            className='m-2 p-1'
+            placeholder='Description'
+            required
+          />
+          <input
+            name='body'
+            type='text'
+            className='m-2 p-1'
+            placeholder='Content of the post'
+            required
+          />
+          <input
+            name='slug'
+            type='text'
+            className='m-2 p-1'
+            placeholder='slug'
+            required
+          />
+          <button type='submit'>Create a post</button>
+        </form>
 
         <section className='py-4'>
           <h3 className='text-primary-200 font-semibold px-4'>Work</h3>

@@ -10,15 +10,9 @@ export default async function handle(
   if (req.method === 'POST') {
     let posts = {}
 
-    // todo: require a post body here to fill in the data
     try {
       posts = await prisma.post.create({
-        data: {
-          headline: 'First test post',
-          description: 'This is just a test',
-          body: 'This is the first test post content',
-          slug: 'test-post-2',
-        },
+        data: req.body,
       })
 
       res.status(200).json(posts)
@@ -26,6 +20,8 @@ export default async function handle(
       // show readable error in network tab
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         res.status(500).send(e.message)
+      } else {
+        res.status(500).send('Something went wrong')
       }
     }
   } else {
