@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Hud from './hud'
 
 const Nav = () => {
-  const linkClasses = "green hover-white link dib f6 fw4 ttu tracked pv3"
+  const linkClasses = 'green hover-white link dib f6 fw4 ttu tracked pv3'
 
   return (
     <header className='mw8 center pt4 relative'>
@@ -18,16 +18,12 @@ const Nav = () => {
       <nav className='flex flex-column flex-row-ns justify-between items-center-ns'>
         <div className='nowrap'>
           <Link href='/'>
-            <a
-              className="green hover-white f6 link br1 ba pa3 mr2 mv3 dib"
-            >
+            <a className='green hover-white f6 link br1 ba pa3 mr2 mv3 dib'>
               Home
             </a>
           </Link>
           <Link href='/design'>
-            <a
-              className="green hover-white f6 link br1 ba pa3 mr2 mv3 dib"
-            >
+            <a className='green hover-white f6 link br1 ba pa3 mr2 mv3 dib'>
               Design
             </a>
           </Link>

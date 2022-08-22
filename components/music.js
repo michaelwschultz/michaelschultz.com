@@ -102,7 +102,9 @@ function Music(props) {
 
   return (
     <section className='mw8 center mt6'>
-      <h3 className='white f5 pb2'>Music {`I've`} been listening to this week</h3>
+      <h3 className='white f5 pb2'>
+        Music {`I've`} been listening to this week
+      </h3>
       <div className='flex items-center mb3'>
         <a
           className='pr2'

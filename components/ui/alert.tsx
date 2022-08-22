@@ -1,5 +1,3 @@
-
-
 function Alert(props: { children: string }) {
   const { children } = props
 

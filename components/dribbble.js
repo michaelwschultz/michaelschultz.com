@@ -91,10 +91,7 @@ function Dribbble() {
       {isLoadingMore && placeholderArr.map((i) => <div key={i} />)}
 
       <div className='tc mv4'>
-        <Button
-          onClick={loadMorePosts}
-          isLoading={isLoading || isLoadingMore}
-        >
+        <Button onClick={loadMorePosts} isLoading={isLoading || isLoadingMore}>
           Load More
         </Button>
       </div>

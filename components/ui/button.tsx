@@ -12,7 +12,7 @@ function Button(props: buttonProps) {
   return (
     <button
       type='button'
-      className="green hover-white f6 link bn pa3 mr2 mv3 dib"
+      className='green hover-white f6 link bn pa3 mr2 mv3 dib'
       onClick={onClick}
       disabled={isLoading}
     >

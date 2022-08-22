@@ -1,5 +1,3 @@
-
-
 const Friends = () => {
   return (
     <section className='mw8 center mv6'>
