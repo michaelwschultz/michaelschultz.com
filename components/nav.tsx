@@ -1,15 +1,14 @@
-import React from 'react'
-import Link from 'next/link'
+import React from "react";
+import Link from "next/link";
 
-import Hud from './hud'
-import { ThemeContext } from '../lib/themeContext'
+import { ThemeContext } from "../lib/themeContext";
 
 const Nav = () => {
-  const theme = React.useContext(ThemeContext)
-  const linkClasses = `${theme.textColor} hover-white link dib f6 fw4 ttu tracked pv3`
+  const theme = React.useContext(ThemeContext);
+  const linkClasses = `${theme.textColor} hover-white link dib f6 fw4 ttu tracked pv3`;
 
   return (
-    <header className='mw8 center pt4 relative'>
+    <header className="mw8 center pt4 relative">
       {/* <h1>
         <Link href="/">
           <a className="flex-no-shrink f3 color-pink hover-pink link" style={{ flexShrink: 0 }}>
@@ -17,17 +16,17 @@ const Nav = () => {
           </a>
         </Link>
       </h1> */}
-      <Hud />
-      <nav className='flex flex-column flex-row-ns justify-between items-center-ns'>
-        <div className='nowrap'>
-          <Link href='/'>
+      {/* <Hud /> */}
+      <nav className="flex flex-column flex-row-ns justify-between items-center-ns">
+        <div className="nowrap">
+          <Link href="/">
             <a
               className={`${theme.textColor} hover-white f6 link br1 ba pa3 mr2 mv3 dib`}
             >
               Home
             </a>
           </Link>
-          <Link href='/design'>
+          <Link href="/design">
             <a
               className={`${theme.textColor} hover-white f6 link br1 ba pa3 mr2 mv3 dib`}
             >
@@ -44,30 +43,30 @@ const Nav = () => {
         </div>
         <div>
           <a
-            href='http://twitter.com/michaelschultz'
+            href="http://twitter.com/michaelschultz"
             className={`${linkClasses} pr3`}
           >
             Twitter
           </a>
           <a
-            href='http://github.com/michaelwschultz'
+            href="http://github.com/michaelwschultz"
             className={`${linkClasses} pr3`}
           >
             Github
           </a>
           <a
-            href='http://linkedin.com/in/mikewschultz'
+            href="http://linkedin.com/in/mikewschultz"
             className={`${linkClasses} pr3`}
           >
             LinkedIn
           </a>
           <a
-            href='http://dribbble.com/michaelschultz'
+            href="http://dribbble.com/michaelschultz"
             className={`${linkClasses} pr3`}
           >
             Dribbble
           </a>
-          <a href='http://instagram.com/michaelschultz' className={linkClasses}>
+          <a href="http://instagram.com/michaelschultz" className={linkClasses}>
             Instagram
           </a>
           {/* <Link>
@@ -85,7 +84,7 @@ const Nav = () => {
         }
       `}</style>
     </header>
-  )
-}
+  );
+};
 
-export default Nav
+export default Nav;
