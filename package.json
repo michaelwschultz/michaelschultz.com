@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "14.x"
+    "node": "16.x"
   },
   "scripts": {
     "dev": "vc dev",
@@ -15,7 +15,7 @@
     "axios": "^0.21.1",
     "axios-hooks": "^2.3.0",
     "instafeed.js": "^1.4.1",
-    "next": "^10.0.0",
+    "next": "^12.3.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-lazy": "^1.1.0",
@@ -24,8 +24,8 @@
     "swr": "^0.3.6"
   },
   "devDependencies": {
-    "@types/node": "^14.14.2",
+    "@types/node": "16.11.41",
     "@types/react": "^16.9.53",
-    "typescript": "^4.0.3"
+    "typescript": "^4.8.4"
   }
 }
