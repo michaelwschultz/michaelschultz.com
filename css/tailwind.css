@@ -22,6 +22,21 @@
   @apply my-5;
 }
 
+.project-card-blur::before {
+  content: '';
+  background-color: rgba(255,255,255,0.01);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backdrop-filter: blur(50px);
+  clip-path: polygon(evenodd, 
+    0 0, 
+    100% 0, 
+    100% 100%, 
+    0 100%, 
+    0 0, 0.3rem 0.3rem, calc(100% - 0.3rem) 0.3rem, calc(100% - 0.3rem) calc(100% - 0.3rem), 0.3rem calc(100% - 0.3rem), 0.3rem 0.3rem)
+}
+
 /* https://stackoverflow.com/questions/61083813/how-to-avoid-internal-autofill-selected-style-to-be-applied */
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
