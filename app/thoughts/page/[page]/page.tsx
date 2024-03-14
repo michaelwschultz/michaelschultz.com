@@ -11,9 +11,9 @@ export const generateStaticParams = async () => {
   return paths
 }
 
-export default function Page({ params }: { params: { page: string } }) {
+export default function Page({ params }: Readonly<{ params: { page: string } }>) {
   const posts = allCoreContent(sortPosts(allThoughts))
-  const pageNumber = parseInt(params.page as string)
+  const pageNumber = parseInt(params.page)
   const initialDisplayPosts = posts.slice(
     POSTS_PER_PAGE * (pageNumber - 1),
     POSTS_PER_PAGE * pageNumber

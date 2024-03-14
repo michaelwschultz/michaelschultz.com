@@ -5,17 +5,17 @@ import siteMetadata from '@/data/siteMetadata'
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = siteMetadata.siteUrl
 
-  const articleRoutes = allThoughts
+  const thoughtsRoutes = allThoughts
     .filter((post) => !post.draft)
     .map((post) => ({
       url: `${siteUrl}/${post.path}`,
       lastModified: post.lastmod ?? post.date,
     }))
 
-  const routes = ['', 'thoughts', 'projects', 'tags'].map((route) => ({
+  const routes = ['', 'thoughts', 'work', 'latest'].map((route) => ({
     url: `${siteUrl}/${route}`,
     lastModified: new Date().toISOString().split('T')[0],
   }))
 
-  return [...routes, ...articleRoutes]
+  return [...routes, ...thoughtsRoutes]
 }
