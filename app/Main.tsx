@@ -7,23 +7,32 @@ import ProjectCard from '@/components/ProjectCard'
 
 const MAX_DISPLAY = 1
 
+// Move the hero image here to a separate component that 'use client' and 'useEffect' to animate the image on load.
+// just like what is done in ThemeSwitch.tsx
+// This way the hero animation will only happen on page load.
+
 export default function Home({ posts, heroFontStyles }) {
   return (
-    <>
+    <div className="relative">
+      {/* NOTE: Animations might be a little much */}
+      <div className="animate-blob absolute -left-60 top-20 h-[380px] w-[380px] rounded-full bg-[#E2EFB0] opacity-5 blur-3xl filter" />
+      <div className="animate-blob absolute -right-20 top-60 h-[380px] w-[380px] rounded-full bg-[#B9FF46] opacity-5 blur-3xl filter" />
+
       <div className="relative overflow-hidden rounded-md bg-[#6D962A] p-10">
+        <h1
+          className={`${heroFontStyles} fade-in-down-headline text-4xl font-bold uppercase tracking-tighter text-[#DBE8A8] opacity-0 lg:text-[114px] lg:leading-[114px] xl:text-[168px] xl:leading-[168px]`}
+        >
+          Michael Schultz
+        </h1>
         <Image
           src="/static/images/michael_fullbody.png"
           alt="Michael Schultz"
           width={305}
           height={606}
-          className="absolute left-60 top-24 h-[606px] w-[305px]"
+          className={`image-animate-on-load absolute left-60 top-24 h-[606px] w-[305px] opacity-0 drop-shadow-2xl`}
         />
-        <h1
-          className={`${heroFontStyles} text-4xl font-bold uppercase tracking-tighter text-[#DBE8A8] lg:text-[114px] lg:leading-[114px] xl:text-[168px] xl:leading-[168px]`}
-        >
-          Michael Schultz
-        </h1>
-        <p className="pt-24 text-[#042C0E] xl:whitespace-pre">
+
+        <p className="fade-in-down pt-24 text-[#042C0E] opacity-0 xl:whitespace-pre">
           {`Software designer and engineer \nwith a passion for creating— \nfrom innovative web \nsolutions to video games, \nmusic, and impactful \nsoftware projects.`}
         </p>
       </div>
@@ -142,6 +151,6 @@ export default function Home({ posts, heroFontStyles }) {
           </Link>
         </div>
       )}
-    </>
+    </div>
   )
 }

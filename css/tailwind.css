@@ -22,6 +22,16 @@
   @apply my-5;
 }
 
+/* https://stackoverflow.com/questions/61083813/how-to-avoid-internal-autofill-selected-style-to-be-applied */
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition:
+    background-color 600000s 0s,
+    color 600000s 0s;
+}
+
+
+
 .project-card-blur::before {
   content: '';
   background-color: rgba(255,255,255,0.01);
@@ -37,14 +47,41 @@
     0 0, 0.3rem 0.3rem, calc(100% - 0.3rem) 0.3rem, calc(100% - 0.3rem) calc(100% - 0.3rem), 0.3rem calc(100% - 0.3rem), 0.3rem 0.3rem)
 }
 
-/* https://stackoverflow.com/questions/61083813/how-to-avoid-internal-autofill-selected-style-to-be-applied */
-input:-webkit-autofill,
-input:-webkit-autofill:focus {
-  transition:
-    background-color 600000s 0s,
-    color 600000s 0s;
+/* animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.katex-display {
-  overflow: auto hidden;
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(8px); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateX(-10px) translateY(10px); }
+  to { opacity: 1; transform: translateX(10px) translateY(-10px); }
+}
+
+.fade-in {
+  animation: fadeIn 200ms ease-in-out forwards;
+}
+
+.fade-in-down-headline {
+  animation: fadeInDown 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  animation-delay: 200ms;
+}
+
+.fade-in-down {
+  animation: fadeInDown 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  animation-delay: 100ms;
+}
+
+.image-animate-on-load {
+  animation: fadeInUp 400ms ease-out forwards;
+  animation-delay: 200ms;
+}
+
+.fix-blur {
+  transform: translateZ(0);
 }

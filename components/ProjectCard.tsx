@@ -15,7 +15,7 @@ interface Props {
 const ProjectCard = ({ title, imgSrc, href, children, buttonText, buttonColor }: Props) => (
   <div className="project-card-blur relative w-full md:w-1/2 md:max-w-[400px] xl:w-1/3 xl:max-w-[330px]">
     <div className="flex h-full flex-col justify-between p-6">
-      <div>
+      <div className="pb-8">
         {imgSrc && (
           <Image
             alt={title}
