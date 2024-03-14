@@ -43,11 +43,11 @@ const computedFields: ComputedFields = {
 }
 
 /**
- * Count the occurrences of all tags across blog posts and write to json file
+ * Count the occurrences of all tags across thoughts posts and write to json file
  */
-function createTagCount(allBlogs) {
+function createTagCount(allThoughts) {
   const tagCount: Record<string, number> = {}
-  allBlogs.forEach((file) => {
+  allThoughts.forEach((file) => {
     if (file.tags && (!isProduction || file.draft !== true)) {
       file.tags.forEach((tag) => {
         const formattedTag = slug(tag)
@@ -62,22 +62,22 @@ function createTagCount(allBlogs) {
   writeFileSync('./app/tag-data.json', JSON.stringify(tagCount))
 }
 
-function createSearchIndex(allBlogs) {
+function createSearchIndex(allThoughts) {
   if (
     siteMetadata?.search?.provider === 'kbar' &&
     siteMetadata.search.kbarConfig.searchDocumentsPath
   ) {
     writeFileSync(
       `public/${siteMetadata.search.kbarConfig.searchDocumentsPath}`,
-      JSON.stringify(allCoreContent(sortPosts(allBlogs)))
+      JSON.stringify(allCoreContent(sortPosts(allThoughts)))
     )
     console.log('Local search index generated...')
   }
 }
 
-export const Blog = defineDocumentType(() => ({
-  name: 'Blog',
-  filePathPattern: 'blog/**/*.mdx',
+export const Thoughts = defineDocumentType(() => ({
+  name: 'Thoughts',
+  filePathPattern: 'thoughts/**/*.mdx',
   contentType: 'mdx',
   fields: {
     title: { type: 'string', required: true },
@@ -98,10 +98,10 @@ export const Blog = defineDocumentType(() => ({
       type: 'json',
       resolve: (doc) => ({
         '@context': 'https://schema.org',
-        '@type': 'BlogPosting',
+        '@type': 'Thought',
         headline: doc.title,
         datePublished: doc.date,
-        dateModified: doc.lastmod || doc.date,
+        dateModified: doc.lastmod ?? doc.date,
         description: doc.summary,
         image: doc.images ? doc.images[0] : siteMetadata.socialBanner,
         url: `${siteMetadata.siteUrl}/${doc._raw.flattenedPath}`,
@@ -120,7 +120,7 @@ export const Authors = defineDocumentType(() => ({
     occupation: { type: 'string' },
     company: { type: 'string' },
     email: { type: 'string' },
-    twitter: { type: 'string' },
+    x: { type: 'string' },
     linkedin: { type: 'string' },
     github: { type: 'string' },
     layout: { type: 'string' },
@@ -130,7 +130,7 @@ export const Authors = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: 'data',
-  documentTypes: [Blog, Authors],
+  documentTypes: [Thoughts, Authors],
   mdx: {
     cwd: process.cwd(),
     remarkPlugins: [
@@ -150,8 +150,8 @@ export default makeSource({
     ],
   },
   onSuccess: async (importData) => {
-    const { allBlogs } = await importData()
-    createTagCount(allBlogs)
-    createSearchIndex(allBlogs)
+    const { allThoughts } = await importData()
+    createTagCount(allThoughts)
+    createSearchIndex(allThoughts)
   },
 })

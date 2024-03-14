@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { formatDate } from 'pliny/utils/formatDate'
 import { CoreContent } from 'pliny/utils/contentlayer'
-import type { Blog } from 'contentlayer/generated'
+import type { Thoughts } from 'contentlayer/generated'
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
@@ -14,13 +14,13 @@ interface PaginationProps {
   currentPage: number
 }
 interface ListLayoutProps {
-  posts: CoreContent<Blog>[]
+  posts: CoreContent<Thoughts>[]
   title: string
-  initialDisplayPosts?: CoreContent<Blog>[]
+  initialDisplayPosts?: CoreContent<Thoughts>[]
   pagination?: PaginationProps
 }
 
-function Pagination({ totalPages, currentPage }: PaginationProps) {
+function Pagination({ totalPages, currentPage }: Readonly<PaginationProps>) {
   const pathname = usePathname()
   const basePath = pathname.split('/')[1]
   const prevPage = currentPage - 1 > 0
@@ -65,16 +65,16 @@ export default function ListLayout({
   title,
   initialDisplayPosts = [],
   pagination,
-}: ListLayoutProps) {
+}: Readonly<ListLayoutProps>) {
   const [searchValue, setSearchValue] = useState('')
-  const filteredBlogPosts = posts.filter((post) => {
+  const filteredThoughtsPosts = posts.filter((post) => {
     const searchContent = post.title + post.summary + post.tags?.join(' ')
     return searchContent.toLowerCase().includes(searchValue.toLowerCase())
   })
 
   // If initialDisplayPosts exist, display it if no searchValue is specified
   const displayPosts =
-    initialDisplayPosts.length > 0 && !searchValue ? initialDisplayPosts : filteredBlogPosts
+    initialDisplayPosts.length > 0 && !searchValue ? initialDisplayPosts : filteredThoughtsPosts
 
   return (
     <>
@@ -111,7 +111,7 @@ export default function ListLayout({
           </div>
         </div>
         <ul>
-          {!filteredBlogPosts.length && 'No posts found.'}
+          {!filteredThoughtsPosts.length && 'No posts found.'}
           {displayPosts.map((post) => {
             const { path, date, title, summary, tags } = post
             return (

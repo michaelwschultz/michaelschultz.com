@@ -14,7 +14,7 @@ export function genPageMetadata({ title, description, image, ...rest }: PageSEOP
     title,
     openGraph: {
       title: `${title} | ${siteMetadata.title}`,
-      description: description || siteMetadata.description,
+      description: description ?? siteMetadata.description,
       url: './',
       siteName: siteMetadata.title,
       images: image ? [image] : [siteMetadata.socialBanner],

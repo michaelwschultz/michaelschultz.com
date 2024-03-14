@@ -355,12 +355,6 @@ For more information on the required variables, check out `.env.sample.`
 Two components are exported, a default `NewsletterForm` and a `BlogNewsletterForm` component, which is also passed in as an MDX component
 and can be used in a blog post:
 
-```jsx
-<BlogNewsletterForm title="Like what you are reading?" />
-```
-
-<BlogNewsletterForm title="Like what you are reading?" />
-
 The component relies on nextjs's [API routes](https://nextjs.org/docs/api-routes/introduction) which requires a server-side instance of nextjs to be setup
 and is not compatible with a 100% static site export. Users should either self-host or use a compatible platform like Vercel or Netlify which supports this functionality.
 

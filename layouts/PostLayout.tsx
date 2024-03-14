@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { CoreContent } from 'pliny/utils/contentlayer'
-import type { Blog, Authors } from 'contentlayer/generated'
+import type { Thoughts, Authors } from 'contentlayer/generated'
 import Comments from '@/components/Comments'
 import Link from '@/components/Link'
 import PageTitle from '@/components/PageTitle'
@@ -10,8 +10,8 @@ import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 
-const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
-const discussUrl = (path) =>
+const editUrl = (path: string) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
+const discussUrl = (path: string) =>
   `https://mobile.twitter.com/search?q=${encodeURIComponent(`${siteMetadata.siteUrl}/${path}`)}`
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
@@ -22,14 +22,20 @@ const postDateTemplate: Intl.DateTimeFormatOptions = {
 }
 
 interface LayoutProps {
-  content: CoreContent<Blog>
+  content: CoreContent<Thoughts>
   authorDetails: CoreContent<Authors>[]
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
   children: ReactNode
 }
 
-export default function PostLayout({ content, authorDetails, next, prev, children }: LayoutProps) {
+export default function PostLayout({
+  content,
+  authorDetails,
+  next,
+  prev,
+  children,
+}: Readonly<LayoutProps>) {
   const { filePath, path, slug, date, title, tags } = content
   const basePath = path.split('/')[0]
 
@@ -76,12 +82,12 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                         <dd className="text-gray-900 dark:text-gray-100">{author.name}</dd>
                         <dt className="sr-only">Twitter</dt>
                         <dd>
-                          {author.twitter && (
+                          {author.x && (
                             <Link
-                              href={author.twitter}
+                              href={author.x}
                               className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                             >
-                              {author.twitter.replace('https://twitter.com/', '@')}
+                              {author.x.replace('https://x.com/', '@')}
                             </Link>
                           )}
                         </dd>
@@ -125,7 +131,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 )}
                 {(next || prev) && (
                   <div className="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8">
-                    {prev && prev.path && (
+                    {prev?.path && (
                       <div>
                         <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
                           Previous Article
@@ -135,7 +141,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                         </div>
                       </div>
                     )}
-                    {next && next.path && (
+                    {next?.path && (
                       <div>
                         <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
                           Next Article
@@ -152,9 +158,9 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 <Link
                   href={`/${basePath}`}
                   className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                  aria-label="Back to the blog"
+                  aria-label="Back"
                 >
-                  &larr; Back to the blog
+                  &larr; Back
                 </Link>
               </div>
             </footer>

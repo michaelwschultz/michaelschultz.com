@@ -1,19 +1,15 @@
 import ListLayout from '@/layouts/ListLayoutWithTags'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
-import { allBlogs } from 'contentlayer/generated'
+import { allThoughts } from 'contentlayer/generated'
+import { genPageMetadata } from 'app/seo'
 
 const POSTS_PER_PAGE = 5
 
-export const generateStaticParams = async () => {
-  const totalPages = Math.ceil(allBlogs.length / POSTS_PER_PAGE)
-  const paths = Array.from({ length: totalPages }, (_, i) => ({ page: (i + 1).toString() }))
+export const metadata = genPageMetadata({ title: 'Thoughts' })
 
-  return paths
-}
-
-export default function Page({ params }: { params: { page: string } }) {
-  const posts = allCoreContent(sortPosts(allBlogs))
-  const pageNumber = parseInt(params.page as string)
+export default function ThoughtPage() {
+  const posts = allCoreContent(sortPosts(allThoughts))
+  const pageNumber = 1
   const initialDisplayPosts = posts.slice(
     POSTS_PER_PAGE * (pageNumber - 1),
     POSTS_PER_PAGE * pageNumber

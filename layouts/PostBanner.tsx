@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import Image from '@/components/Image'
 import Bleed from 'pliny/ui/Bleed'
 import { CoreContent } from 'pliny/utils/contentlayer'
-import type { Blog } from 'contentlayer/generated'
+import type { Thoughts } from 'contentlayer/generated'
 import Comments from '@/components/Comments'
 import Link from '@/components/Link'
 import PageTitle from '@/components/PageTitle'
@@ -11,13 +11,13 @@ import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 
 interface LayoutProps {
-  content: CoreContent<Blog>
+  content: CoreContent<Thoughts>
   children: ReactNode
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
 }
 
-export default function PostMinimal({ content, next, prev, children }: LayoutProps) {
+export default function PostMinimal({ content, next, prev, children }: Readonly<LayoutProps>) {
   const { slug, title, images } = content
   const displayImage =
     images && images.length > 0 ? images[0] : 'https://picsum.photos/seed/picsum/800/400'
@@ -47,7 +47,7 @@ export default function PostMinimal({ content, next, prev, children }: LayoutPro
           )}
           <footer>
             <div className="flex flex-col text-sm font-medium sm:flex-row sm:justify-between sm:text-base">
-              {prev && prev.path && (
+              {prev?.path && (
                 <div className="pt-4 xl:pt-8">
                   <Link
                     href={`/${prev.path}`}
@@ -58,7 +58,7 @@ export default function PostMinimal({ content, next, prev, children }: LayoutPro
                   </Link>
                 </div>
               )}
-              {next && next.path && (
+              {next?.path && (
                 <div className="pt-4 xl:pt-8">
                   <Link
                     href={`/${next.path}`}
