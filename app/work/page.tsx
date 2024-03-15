@@ -12,7 +12,7 @@ export default function Work() {
           Work
         </h1>
         <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-          Showcase your projects with a hero image (16 x 9)
+          Projects I've worked on over the years
         </p>
       </div>
       <div className="container py-12">
