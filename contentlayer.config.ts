@@ -50,7 +50,7 @@ function createTagCount(allThoughts) {
   const filteredPosts = allThoughts.filter((post) => post.draft !== true)
 
   filteredPosts.forEach((file) => {
-    if (file.tags && !isProduction) {
+    if (file.tags) {
       file.tags.forEach((tag) => {
         const formattedTag = slug(tag)
         if (formattedTag in tagCount) {
