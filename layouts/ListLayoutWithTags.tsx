@@ -127,9 +127,9 @@ export default function ListLayoutWithTags({
                   <article className="flex flex-col space-y-2 xl:space-y-0">
                     <dl>
                       <dt className="sr-only">Published on</dt>
-                      <dd className="darjustify-between flex justify-between text-base font-medium leading-6 text-gray-500">
+                      <dd className="flex justify-between text-base font-medium leading-6 text-gray-500">
                         <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
-                        {post.draft && <div>Draft</div>}
+                        {post.draft && <div className="text-red-400">Draft</div>}
                       </dd>
                     </dl>
                     <div className="space-y-3">
