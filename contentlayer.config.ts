@@ -47,8 +47,10 @@ const computedFields: ComputedFields = {
  */
 function createTagCount(allThoughts) {
   const tagCount: Record<string, number> = {}
-  allThoughts.forEach((file) => {
-    if (file.tags && (!isProduction || file.draft !== true)) {
+  const filteredPosts = allThoughts.filter((post) => post.draft !== true)
+
+  filteredPosts.forEach((file) => {
+    if (file.tags && !isProduction) {
       file.tags.forEach((tag) => {
         const formattedTag = slug(tag)
         if (formattedTag in tagCount) {
