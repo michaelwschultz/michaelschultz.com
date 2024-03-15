@@ -14,9 +14,19 @@ const MAX_DISPLAY = 1
 export default function Home({ posts, heroFontStyles }) {
   return (
     <div className="relative">
-      {/* NOTE: Animations might be a little much */}
-      <div className="animate-blob absolute -left-60 top-20 h-[380px] w-[380px] rounded-full bg-[#E2EFB0] opacity-5 blur-3xl filter" />
-      <div className="animate-blob absolute -right-20 top-60 h-[380px] w-[380px] rounded-full bg-[#B9FF46] opacity-5 blur-3xl filter" />
+      {/* NOTE: Animations might be a little much, also animate-blob is on a second line to get around prettier ordering error */}
+      <div
+        className={
+          `absolute -left-60 top-20 h-[380px] w-[380px] rounded-full bg-[#E2EFB0] opacity-5 blur-3xl filter` +
+          `animate-blob`
+        }
+      />
+      <div
+        className={
+          `absolute -right-20 top-60 h-[380px] w-[380px] rounded-full bg-[#B9FF46] opacity-5 blur-3xl filter` +
+          `animate-blob`
+        }
+      />
 
       <div className="relative overflow-hidden rounded-md bg-[#6D962A] p-10">
         <h1
