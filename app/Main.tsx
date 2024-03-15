@@ -7,10 +7,6 @@ import Hero from '@/components/Hero'
 
 const MAX_DISPLAY = 1
 
-// Move the hero image here to a separate component that 'use client' and 'useEffect' to animate the image on load.
-// just like what is done in ThemeSwitch.tsx
-// This way the hero animation will only happen on page load.
-
 export default function Home({ posts, heroFontStyles }) {
   return (
     <div className="relative">
@@ -36,7 +32,7 @@ export default function Home({ posts, heroFontStyles }) {
           title="Hemolog 2.0"
           href="https://hemolog.com"
           buttonText="Try Now"
-          buttonColor="bg-green-800 hover:bg-green-700"
+          buttonColor="bg-[#FF1E68] hover:bg-[#FF4D9E]"
         >
           A free health tracking tool for people with Hemophilia, rebuilt from the ground up to be
           simple and more insightful than ever.
@@ -48,7 +44,7 @@ export default function Home({ posts, heroFontStyles }) {
         <ProjectCard
           title="Pack Rat"
           href="https://tokoroko.itch.io/pack-rat"
-          buttonText="Coming Soon"
+          buttonText="Play Now"
           buttonColor="bg-green-800 hover:bg-green-700"
         >
           A point-and-click adventure built for the Cozy Autumn Game Jam 2023.

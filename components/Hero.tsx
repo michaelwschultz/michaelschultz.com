@@ -1,16 +1,18 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
 const Hero = ({ heroFontStyles }) => {
-  const hasAnimated = sessionStorage.getItem('heroHasAnimated')
   const [animate, setAnimate] = useState(false)
 
-  if (!hasAnimated) {
-    setAnimate(true)
-    sessionStorage.setItem('heroHasAnimated', 'true')
-  }
+  useEffect(() => {
+    const hasAnimated = sessionStorage.getItem('heroHasAnimated')
+    if (!hasAnimated) {
+      setAnimate(true)
+      sessionStorage.setItem('heroHasAnimated', 'true')
+    }
+  }, [])
 
   return (
     <div className="relative overflow-hidden rounded-md bg-[#6D962A] p-10">
@@ -27,14 +29,14 @@ const Hero = ({ heroFontStyles }) => {
         alt="Michael Schultz"
         width={305}
         height={606}
-        className={`absolute left-60 top-24 h-[606px] w-[305px] opacity-0 drop-shadow-2xl ${
+        className={`xs:-right-10 absolute right-0 top-0 h-[606px] w-[305px] opacity-0 drop-shadow-2xl xl:left-60 xl:top-24 ${
           animate ? 'image-animate-on-load' : 'opacity-100'
         }`}
         priority
       />
 
       <p
-        className={`pt-24 text-[#042C0E] opacity-0 xl:whitespace-pre ${
+        className={`max-w-[300px] pt-24 text-[#042C0E] opacity-0 xl:whitespace-pre ${
           animate ? 'fade-in-down' : 'opacity-100'
         }`}
       >
