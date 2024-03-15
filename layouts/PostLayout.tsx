@@ -36,7 +36,7 @@ export default function PostLayout({
   prev,
   children,
 }: Readonly<LayoutProps>) {
-  const { filePath, path, slug, date, title, tags } = content
+  const { filePath, path, slug, date, title, tags, draft } = content
   const basePath = path.split('/')[0]
 
   return (
@@ -66,6 +66,7 @@ export default function PostLayout({
               <dt className="sr-only">Authors</dt>
               <dd>
                 <ul className="flex flex-wrap justify-center gap-4 sm:space-x-12 xl:block xl:space-x-0 xl:space-y-8">
+                  {draft && <dd className="text-red-400">THIS IS A DRAFT</dd>}
                   {authorDetails.map((author) => (
                     <li className="flex items-center space-x-2" key={author.name}>
                       {author.avatar && (
