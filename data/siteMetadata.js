@@ -5,7 +5,7 @@ const siteMetadata = {
   headerTitle: 'Michael Schultz',
   description: 'Michael Schultz | software and design',
   language: 'en-us',
-  theme: 'system', // system, dark or light
+  theme: 'dark', // system, dark or light
   siteUrl: 'https://michaelschultz.com',
   siteRepo: 'https://github.com/michaelwschultz/michaelschultz.com',
   siteLogo: '/static/images/logo.png',
@@ -61,7 +61,7 @@ const siteMetadata = {
       metadata: '0',
       // theme example: light, dark, dark_dimmed, dark_high_contrast
       // transparent_dark, preferred_color_scheme, custom
-      theme: 'light',
+      theme: 'dark',
       // theme when dark mode
       darkTheme: 'transparent_dark',
       // If the theme option above is set to 'custom`
