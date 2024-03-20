@@ -1,0 +1,65 @@
+---
+title: 'My First Game Jam: Why Didn’t I Do This Sooner?'
+date: '2024-03-19'
+tags: ['games', 'development', 'devlog']
+summary: 'After working on a few game projects over the years, my cousin Luke and I finally competed in our first game jam. It was a doozy, and something I’ve been meaning to write about. Not to spoil anything, but you can play our game now on itch.io, link in the story.'
+---
+
+## TLDR: go play the game!
+<iframe frameBorder="0" src="https://itch.io/embed/2290024?dark=true" width="552" height="167"></iframe>
+
+## Pack Rat: A Point & Click Adventure Game!
+
+Back in October 2023, [Luketns](https://www.twitch.tv/luketns) and I competed in the [Cozy Autumn Game Jam 2023](https://itch.io/jam/cozy-autumn-game-jam-2023) hosted by [Firith Studio](https://firith.itch.io/), 
+who is someone I've followed on YouTube for a while.
+This came at a time when both Luke and I were able to collaborate for a few days without much interruption.
+We found out that having time to collaborate like this was key. After working on a few game projects, we both felt
+like we needed to take a project to completion. A game jam was the perfect way to do that.
+Not to mention we would hopefully get some feedback from the community and (hopefully 🤞) have a game to show for it!
+
+## Day 1
+
+Since we had been working on another game for a bit, I had a pretty good idea of how I wanted to start building
+the project so there was a lot of setup that needed to be done no matter what game we ended up making.
+I got started as we were talking about ideas for what we wanted to make.
+
+We built Pack Rat in GameMaker. A while back I decided on learning GameMaker because most of the games I want to make are 2D.
+At the time, GameMaker had a lot of impressive games that had been made using it and it was gaining a lot of traction online.
+This was before Godot really took off. There are a number of awesome resources for GameMaker that just weren't there for
+Godot at the time and GameMaker seemed to be leaning really hard into JavaScript, which is what I'm good at, so it seemed like the perfect fit.
+
+![luke drawing our main character](/static/images/pack-rat-game-jam/packrat-1.png)
+
+## Halfway Point
+
+We had a lot of the game mechanics in place but none of them felt right. Our other projects we had worked on were all controller based.
+Pack Rat however, is a mouse only game. Using the mouse as an input device wasn't something I had done before, so it took a little getting used to.
+Not to mention, pathfinding and object interaction was a lot more complicated than I had anticipated. We had to scrap a lot of the work I had done near
+the end and redo some of it. Luckily, I found a much better API that put most of the work on the engine.
+
+```js:player.step.event
+// This line does it all! Tells the player to walk to the mouse position
+// and find their way around any walls.
+mp_linear_step_object(mouse.x, mouse.y, 0.5, obj_wall)
+```
+
+## Final Day
+
+Unfortunately we didn't get to work on the jam the full time we were allowed. We ended up submitting the game about a day and a half early. That being said,
+we had a blast and are so proud of what we were able to produce in such a short time.
+
+By the end of the jam, Luke had redrawn almost all the art again, and I had rewritten all of the complicated bits to make them much simpler.
+Not to mention created an inventory system that was called out a few times in the comments for being pretty nice.
+I was shocked how well it came out considering I had never built anything like this before.
+
+![early screenshot of the game](/static/images/pack-rat-game-jam/packrat-2.png)
+
+## Jam Results!
+
+We ended up placing **35th** out of 125 entries on itch.io. Not bad for our first game jam! We got a lot of great feedback and we're really happy with the game.
+If you're interested in following our game dev journeys, follow us on [Twitch/tokorokogame](https://twitch.tv/tokorokogame).
+
+![pack rat placed 35th out of 125 entries on itch.io](/static/images/pack-rat-game-jam/packrat-4.png)
+
+Here are a few of our favorite comments. People were way too nice 😊.
+![some of our favorite comments from itch.io](/static/images/pack-rat-game-jam/packrat-3.png)
