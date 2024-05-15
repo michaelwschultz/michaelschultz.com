@@ -3,6 +3,7 @@ interface Work {
   description: string
   href?: string
   imgSrc?: string
+  buttonText?: string
 }
 
 const workData: Work[] = [

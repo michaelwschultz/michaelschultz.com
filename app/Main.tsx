@@ -29,6 +29,28 @@ export default function Home({ posts, heroFontStyles }) {
       {/* PROJECTS - move to component */}
       <div className="flex flex-wrap gap-4 pt-24">
         <ProjectCard
+          title="Prism Quest 🔮"
+          href="https://ratracestudio.itch.io/prism-quest"
+          buttonText="Play Game"
+          buttonColor="bg-[#6BB0D4] hover:bg-[#8BCEF1]"
+        >
+          Our kaizo inspired platformer built for the 2024 1-Bit game jam where we placed 20th out
+          of 108 entries.
+          <span className="block pt-4">Many have tried, few have overcome. Will you?</span>
+        </ProjectCard>
+        <ProjectCard
+          title="Pack Rat 🐭"
+          href="https://ratracestudio.itch.io/pack-rat"
+          buttonText="Play Game"
+          buttonColor="bg-green-800 hover:bg-green-700"
+        >
+          A point-and-click adventure game built for the Cozy Autumn Game Jam 2023.
+          <span className="block pt-4">
+            The game was designed and built in 8 days and lots of coffee. This was also the first
+            ever game published by <Link href="https://ratrace.studio">RatRace.studio</Link>
+          </span>
+        </ProjectCard>
+        <ProjectCard
           title="Hemolog 2.0"
           href="https://hemolog.com"
           buttonText="Try Now"
@@ -41,18 +63,6 @@ export default function Home({ posts, heroFontStyles }) {
           Tired of not having a quality phone stand that rotated nicely with one hand, I decided to
           design my own. Made with strong, recyclable plastics and eco-friendly Jesmonite.
         </ProjectCard>
-        <ProjectCard
-          title="Pack Rat"
-          href="https://tokoroko.itch.io/pack-rat"
-          buttonText="Play Now"
-          buttonColor="bg-green-800 hover:bg-green-700"
-        >
-          A point-and-click adventure built for the Cozy Autumn Game Jam 2023.
-          <span className="block pt-4">
-            The game was designed and built in 8 days and lots of coffee. This was also the first
-            ever game published by <Link href="https://ratrace.studio">RatRace.studio</Link>
-          </span>
-        </ProjectCard>
         <ProjectCard title="Time Between The Stars" buttonText="Coming Soon">
           Space simulation game influenced by the short story{' '}
           <Link href="https://www.amazon.com/Slow-Between-Stars-Reaches-collection-ebook/dp/B0C4QX2FSF">
@@ -63,9 +73,9 @@ export default function Home({ posts, heroFontStyles }) {
         <ProjectCard title="Toko Roko" buttonText="Coming Soon">
           Hand drawn parkour platformer for PC and consoles.
           <span className="block pt-4">
-            This will be the first official game from{' '}
-            <Link href="https://ratrace.studio">RatRace.studio</Link> a collaboration between me and
-            Luke Schultz.
+            This will be the first full-length game from{' '}
+            <Link href="https://ratrace.studio">RatRace.studio</Link>, a collaboration with{' '}
+            <Link href="https://luketns.com">Luke Schultz</Link>.
           </span>
         </ProjectCard>
       </div>
