@@ -1,7 +1,6 @@
 {
   "name": "michaelschultz.com",
   "version": "4.0.0",
-  "private": true,
   "scripts": {
     "start": "next dev",
     "dev": "cross-env INIT_CWD=$PWD next dev",
