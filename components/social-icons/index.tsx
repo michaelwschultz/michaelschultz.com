@@ -30,6 +30,7 @@ const SocialIcon = ({ kind, href, size = 8 }: SocialIconProps) => {
       target="_blank"
       rel="noopener noreferrer"
       href={href}
+      data-umami-event={`Clicked ${kind}`}
     >
       <span className="sr-only">{kind}</span>
       <SocialSvg

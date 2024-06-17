@@ -12,10 +12,24 @@ const CustomLink = ({ href, ...rest }: LinkProps & AnchorHTMLAttributes<HTMLAnch
   }
 
   if (isAnchorLink) {
-    return <a href={href} {...rest} />
+    return (
+      <a href={href} {...rest}>
+        {rest.children}
+      </a>
+    )
   }
 
-  return <a target="_blank" rel="noopener noreferrer" href={href} {...rest} />
+  return (
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      href={href}
+      {...rest}
+      data-umami-event={`Clicked link ${href}`}
+    >
+      {rest.children}
+    </a>
+  )
 }
 
 export default CustomLink

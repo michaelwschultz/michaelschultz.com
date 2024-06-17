@@ -27,7 +27,7 @@ const ProjectCard = ({ title, imgSrc, href, children, buttonText, buttonColor }:
         )}
         <h2 className="mb-3 text-2xl font-bold leading-8 tracking-tight">
           {href ? (
-            <Link href={href} aria-label={`Link to ${title}`}>
+            <Link href={href} aria-label={`Link to ${title}`} data-umami-event={`Clicked ${title}`}>
               {title}
             </Link>
           ) : (

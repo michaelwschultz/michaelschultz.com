@@ -74,8 +74,17 @@ export default function Home({ posts, heroFontStyles }) {
           Hand drawn parkour platformer for PC and consoles.
           <span className="block pt-4">
             This will be the first full-length game from{' '}
-            <Link href="https://ratrace.studio">RatRace.studio</Link>, a collaboration with{' '}
-            <Link href="https://luketns.com">Luke Schultz</Link>.
+            <Link
+              href="https://ratrace.studio"
+              data-umami-event={`Clicked link https://ratrace.studio`}
+            >
+              RatRace.studio
+            </Link>
+            , a collaboration with{' '}
+            <Link href="https://luketns.com" data-umami-event={`Clicked link https://luketns.com`}>
+              Luke Schultz
+            </Link>
+            .
           </span>
         </ProjectCard>
       </div>

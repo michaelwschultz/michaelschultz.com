@@ -10,7 +10,7 @@ const Card = ({ title, description, imgSrc, href, buttonText }) => (
     >
       {imgSrc &&
         (href ? (
-          <Link href={href} aria-label={`Link to ${title}`}>
+          <Link href={href} aria-label={`Link to ${title}`} data-umami-event={`Clicked ${title}`}>
             <Image
               alt={title}
               src={imgSrc}
@@ -31,7 +31,7 @@ const Card = ({ title, description, imgSrc, href, buttonText }) => (
       <div className="p-6">
         <h2 className="mb-3 text-2xl font-bold leading-8 tracking-tight">
           {href ? (
-            <Link href={href} aria-label={`Link to ${title}`}>
+            <Link href={href} aria-label={`Link to ${title}`} data-umami-event={`Clicked ${title}`}>
               {title}
             </Link>
           ) : (
@@ -46,6 +46,7 @@ const Card = ({ title, description, imgSrc, href, buttonText }) => (
             href={href}
             className="text-base font-medium leading-6 text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
             aria-label={`Link to ${title}`}
+            data-umami-event={`Clicked ${title}`}
           >
             {buttonText ?? 'Learn more'} &rarr;
           </Link>
