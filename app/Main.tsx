@@ -29,6 +29,16 @@ export default function Home({ posts, heroFontStyles }) {
       {/* PROJECTS - move to component */}
       <div className="flex flex-wrap gap-4 pt-24">
         <ProjectCard
+          title="Light The Night ✨"
+          href="https://ratracestudio.itch.io/light-the-night"
+          buttonText="Play Game"
+          buttonColor="bg-[#0f175a] hover:bg-[#141c64]"
+        >
+          A modern take on the one-button infinite runner. Travel across a lively pond while
+          collecting more light to hold back the encroching night.
+          <span className="block pt-4">If nothing else, check it out for the good vibes.</span>
+        </ProjectCard>
+        <ProjectCard
           title="Prism Quest 🔮"
           href="https://ratracestudio.itch.io/prism-quest"
           buttonText="Play Game"

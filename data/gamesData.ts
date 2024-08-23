@@ -8,6 +8,13 @@ interface Game {
 
 const gamesData: Game[] = [
   {
+    title: 'Light The Night ✨',
+    description: `A modern take on the infinite runner for web and mobile.`,
+    imgSrc: '/static/images/games/light-the-night-cover-art.png',
+    href: 'https://ratracestudio.itch.io/light-the-night',
+    buttonText: 'Play on Itch.io',
+  },
+  {
     title: 'Prism Quest 🔮',
     description: `Our kaizo inspired platformer built for the 2024 1-Bit game jam where we placed 20th out
 of 108 entries.`,
