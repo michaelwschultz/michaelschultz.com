@@ -1,5 +1,5 @@
-import { ReactNode } from 'react'
-import { CoreContent } from 'pliny/utils/contentlayer'
+import type { ReactNode } from 'react'
+import type { CoreContent } from 'pliny/utils/contentlayer'
 import type { Thoughts, Authors } from 'contentlayer/generated'
 import Comments from '@/components/Comments'
 import Link from '@/components/Link'
@@ -12,7 +12,7 @@ import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 
 const editUrl = (path: string) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
 const discussUrl = (path: string) =>
-  `https://mobile.twitter.com/search?q=${encodeURIComponent(`${siteMetadata.siteUrl}/${path}`)}`
+  `https://bsky.app/search?q=${encodeURIComponent(`${siteMetadata.siteUrl}/${path}`)}`
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   weekday: 'long',
@@ -81,14 +81,14 @@ export default function PostLayout({
                       <dl className="whitespace-nowrap text-sm font-medium leading-5">
                         <dt className="sr-only">Name</dt>
                         <dd className="text-gray-900 dark:text-gray-100">{author.name}</dd>
-                        <dt className="sr-only">Twitter</dt>
+                        <dt className="sr-only">Bluesky</dt>
                         <dd>
-                          {author.x && (
+                          {author.bluesky && (
                             <Link
-                              href={author.x}
+                              href={author.bluesky}
                               className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                             >
-                              {author.x.replace('https://x.com/', '@')}
+                              {author.bluesky.replace('https://bsky.app/profile/', '@')}
                             </Link>
                           )}
                         </dd>
@@ -102,9 +102,9 @@ export default function PostLayout({
               <div className="prose max-w-none pb-8 pt-10 dark:prose-invert">{children}</div>
               <div className="pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300">
                 <Link href={discussUrl(path)} rel="nofollow">
-                  Discuss on Twitter
+                  Discuss on Bluesky
                 </Link>
-                {` • `}
+                {' • '}
                 <Link href={editUrl(filePath)}>View on GitHub</Link>
               </div>
               {siteMetadata.comments && (

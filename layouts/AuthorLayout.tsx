@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import type { Authors } from 'contentlayer/generated'
 import SocialIcon from '@/components/social-icons'
 import Image from '@/components/Image'
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function AuthorLayout({ children, content }: Readonly<Props>) {
-  const { name, avatar, occupation, company, email, x, linkedin, github } = content
+  const { name, avatar, occupation, company, email, bluesky, linkedin, github } = content
 
   return (
     <div className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -35,6 +35,7 @@ export default function AuthorLayout({ children, content }: Readonly<Props>) {
           <div className="flex space-x-3 pt-6">
             <SocialIcon kind="mail" href={`mailto:${email}`} />
             <SocialIcon kind="github" href={github} />
+            <SocialIcon kind="bluesky" href={bluesky} />
             <SocialIcon kind="linkedin" href={linkedin} />
           </div>
         </div>

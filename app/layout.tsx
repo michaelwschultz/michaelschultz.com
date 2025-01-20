@@ -2,14 +2,14 @@ import 'css/tailwind.css'
 import 'pliny/search/algolia.css'
 
 import { Space_Grotesk } from 'next/font/google'
-import { Analytics, AnalyticsConfig } from 'pliny/analytics'
-import { SearchProvider, SearchConfig } from 'pliny/search'
+import { Analytics, type AnalyticsConfig } from 'pliny/analytics'
+import { SearchProvider, type SearchConfig } from 'pliny/search'
 import Header from '@/components/Header'
 import SectionContainer from '@/components/SectionContainer'
 import Footer from '@/components/Footer'
 import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
 const space_grotesk = Space_Grotesk({
   subsets: ['latin'],

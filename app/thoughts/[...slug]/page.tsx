@@ -9,7 +9,7 @@ import type { Authors, Thoughts } from 'contentlayer/generated'
 import PostSimple from '@/layouts/PostSimple'
 import PostLayout from '@/layouts/PostLayout'
 import PostBanner from '@/layouts/PostBanner'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import siteMetadata from '@/data/siteMetadata'
 import { notFound } from 'next/navigation'
 
@@ -80,7 +80,8 @@ export const generateStaticParams = async () => {
 }
 
 export default async function Page({ params }: Readonly<{ params: { slug: string[] } }>) {
-  const slug = decodeURI(params.slug.join('/'))
+  const awaitedParams = await params
+  const slug = decodeURI(awaitedParams.slug.join('/'))
   // Filter out drafts in production
   const sortedCoreContents = allCoreContent(sortPosts(allThoughts))
   const postIndex = sortedCoreContents.findIndex((p) => p.slug === slug)
@@ -93,12 +94,13 @@ export default async function Page({ params }: Readonly<{ params: { slug: string
   const post = allThoughts.find((p) => p.slug === slug) as Thoughts
   const authorList = post?.authors || ['default']
   const authorDetails = authorList.map((author) => {
+    console.log(author)
     const authorResults = allAuthors.find((p) => p.slug === author)
     return coreContent(authorResults as Authors)
   })
   const mainContent = coreContent(post)
   const jsonLd = post.structuredData
-  jsonLd['author'] = authorDetails.map((author) => {
+  jsonLd.author = authorDetails.map((author) => {
     return {
       '@type': 'Person',
       name: author.name,

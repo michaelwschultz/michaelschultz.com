@@ -1,11 +1,13 @@
-import { writeFileSync, mkdirSync } from 'fs'
-import path from 'path'
+import { writeFileSync, mkdirSync } from 'node:fs'
+import path from 'node:path'
 import { slug } from 'github-slugger'
 import { escape } from 'pliny/utils/htmlEscaper.js'
 import siteMetadata from '../data/siteMetadata.js'
-import tagData from '../app/tag-data.json' assert { type: 'json' }
+// import tagData from '../app/tag-data.json' assert { type: 'json' }
 import { allThoughts } from '../.contentlayer/generated/index.mjs'
 import { sortPosts } from 'pliny/utils/contentlayer.js'
+
+const tagData = await import('../app/tag-data.json').then((module) => module.default)
 
 const generateRssItem = (config, post) => `
   <item>
