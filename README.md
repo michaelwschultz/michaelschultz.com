@@ -5,6 +5,4 @@ Hey I'm Michael, a software engineer and designer. I love building things that t
 
 You can run this site locally by running `yarn dev` and visiting `http://localhost:3000`. Check it out at [michaelschultz.com](https://michaelschultz.com).
 
-Hosted on [Vercel](https://vercel.com).
-
 ![Alt](https://repobeats.axiom.co/api/embed/4d2560fc21344db7bfe7207c5773071f884f95e1.svg "Repobeats analytics image")
