@@ -14,7 +14,7 @@ export default defineConfig({
 			// experimentalReactChildren: true,
 		}),
 		tailwind({
-			applyBaseStyles: false,
+			applyBaseStyles: true,
 		}),
 	],
 });

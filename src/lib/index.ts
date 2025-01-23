@@ -6,7 +6,6 @@ export {
 	getPostsByTag,
 } from "./post";
 export {
-	cn,
 	slugify,
 	formatDate,
 	reformatDate,
