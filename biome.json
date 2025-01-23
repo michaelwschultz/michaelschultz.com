@@ -10,6 +10,7 @@
 		}
 	},
 	"files": {
-		"ignore": ["dist/*", ".astro/*"]
+		"ignoreUnknown": true,
+		"ignore": ["dist/*", ".astro/*", "**/*.css"]
 	}
 }

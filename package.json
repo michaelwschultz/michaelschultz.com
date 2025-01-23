@@ -1,8 +1,8 @@
 {
-	"name": "@dani/astro-gaia",
+	"name": "michaelschultz.com",
 	"type": "module",
 	"version": "0.0.1",
-	"description": "AstroGaia: Template using Astro, Tailwind CSS, ReactJS and shadcn/ui.",
+	"description": "Personal internet archive of Michael Schultz.",
 	"scripts": {
 		"dev": "astro dev",
 		"build": "astro check && astro build",
@@ -17,19 +17,13 @@
 		"@astrojs/react": "^4.1.6",
 		"@astrojs/sitemap": "^3.2.1",
 		"@astrojs/tailwind": "^5.1.5",
-		"@headlessui/tailwindcss": "^0.2.1",
-		"@radix-ui/react-tooltip": "^1.0.7",
 		"@tailwindcss/typography": "^0.5.13",
 		"astro": "^5.1.8",
-		"caniuse-lite": "^1.0.30001695",
-		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
-		"lucide-react": "^0.473.0",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
 		"tailwind-merge": "^2.6.0",
 		"tailwindcss": "^3.4.17",
-		"tailwindcss-animate": "^1.0.7",
 		"typescript": "^5.7.3"
 	},
 	"devDependencies": {
