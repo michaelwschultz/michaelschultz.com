@@ -11,6 +11,6 @@
 	},
 	"files": {
 		"ignoreUnknown": true,
-		"ignore": ["dist/*", ".astro/*", "**/*.css"]
+		"ignore": ["dist/*", ".astro/*", "**/*.css", "node_modules/*"]
 	}
 }
