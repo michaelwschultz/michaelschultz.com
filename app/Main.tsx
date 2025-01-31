@@ -1,11 +1,11 @@
+import Hero from '@/components/Hero'
 import Link from '@/components/Link'
+import ProjectCard from '@/components/ProjectCard'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
-import ProjectCard from '@/components/ProjectCard'
-import Hero from '@/components/Hero'
 
-const MAX_DISPLAY = 1
+const MAX_DISPLAY = 2
 
 export default function Home({ posts, heroFontStyles }) {
   return (
