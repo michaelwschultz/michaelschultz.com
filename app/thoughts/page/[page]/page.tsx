@@ -13,7 +13,8 @@ export const generateStaticParams = async () => {
   return paths
 }
 
-export default function Page({ params }: Readonly<{ params: { page: string } }>) {
+export default async function Page(props: Readonly<{ params: Promise<{ page: string }> }>) {
+  const params = await props.params
   const posts = allCoreContent(sortPosts(allThoughts))
   const pageNumber = Number.parseInt(params.page)
   const initialDisplayPosts = posts.slice(
