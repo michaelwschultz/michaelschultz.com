@@ -27,7 +27,7 @@ const layouts = {
 export async function generateMetadata({
 	params,
 }): Promise<Metadata | undefined> {
-	const { slug } = params;
+	const { slug } = await params;
 	const newslug = decodeURI(slug?.join("/"));
 	const post = allThoughts.find((p) => p.slug === newslug);
 	const authorList = post?.authors || ["default"];
@@ -83,7 +83,7 @@ export const generateStaticParams = async () => {
 };
 
 export default async function Page({ params }) {
-	const { slug } = params;
+	const { slug } = await params;
 	const newslug = decodeURI(slug?.join("/"));
 	// Filter out drafts in production
 	const sortedCoreContents = allCoreContent(sortPosts(allThoughts));
