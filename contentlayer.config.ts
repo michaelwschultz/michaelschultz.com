@@ -9,7 +9,6 @@ import { slug } from "github-slugger";
 import {
 	extractTocHeadings,
 	remarkCodeTitles,
-	remarkExtractFrontmatter,
 	remarkImgToJsx,
 } from "pliny/mdx-plugins/index.js";
 import { allCoreContent, sortPosts } from "pliny/utils/contentlayer.js";
@@ -24,7 +23,7 @@ import rehypeSlug from "rehype-slug";
 // Remark packages
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
-import siteMetadata from "./data/siteMetadata";
+import siteMetadata from "./data/siteMetadata.js";
 
 const root = process.cwd();
 // const isProduction = process.env.NODE_ENV === "production";
@@ -140,7 +139,7 @@ export default makeSource({
 	mdx: {
 		cwd: process.cwd(),
 		remarkPlugins: [
-			remarkExtractFrontmatter,
+			// remarkExtractFrontmatter,
 			remarkGfm,
 			remarkCodeTitles,
 			remarkMath,

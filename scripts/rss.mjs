@@ -2,17 +2,17 @@ import { mkdirSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { slug } from 'github-slugger'
 import { sortPosts } from 'pliny/utils/contentlayer.js'
-import { escape } from 'pliny/utils/htmlEscaper.js'
+import { escape as escaper } from 'pliny/utils/htmlEscaper.js'
 import { allThoughts } from '../.contentlayer/generated/index.mjs'
-import tagData from '../app/tag-data.json' assert { type: 'json' }
+import tagData from '../app/tag-data.json' with { type: 'json' }
 import siteMetadata from '../data/siteMetadata.js'
 
 const generateRssItem = (config, post) => `
   <item>
     <guid>${config.siteUrl}/thoughts/${post.slug}</guid>
-    <title>${escape(post.title)}</title>
+    <title>${escaper(post.title)}</title>
     <link>${config.siteUrl}/thoughts/${post.slug}</link>
-    ${post.summary && `<description>${escape(post.summary)}</description>`}
+    ${post.summary && `<description>${escaper(post.summary)}</description>`}
     <pubDate>${new Date(post.date).toUTCString()}</pubDate>
     <author>${config.email} (${config.author})</author>
     ${post?.tags.map((t) => `<category>${t}</category>`).join('')}
@@ -22,9 +22,9 @@ const generateRssItem = (config, post) => `
 const generateRss = (config, posts, page = 'feed.xml') => `
   <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-      <title>${escape(config.title)}</title>
+      <title>${escaper(config.title)}</title>
       <link>${config.siteUrl}/thoughts</link>
-      <description>${escape(config.description)}</description>
+      <description>${escaper(config.description)}</description>
       <language>${config.language}</language>
       <managingEditor>${config.email} (${config.author})</managingEditor>
       <webMaster>${config.email} (${config.author})</webMaster>
