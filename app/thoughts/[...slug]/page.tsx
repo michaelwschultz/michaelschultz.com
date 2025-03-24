@@ -14,7 +14,7 @@ import PostSimple from "@/layouts/PostSimple";
 import PostLayout from "@/layouts/PostLayout";
 import PostBanner from "@/layouts/PostBanner";
 import type { Metadata } from "next";
-import siteMetadata from "@/data/siteMetadata";
+import siteMetadata from "@/data/siteMetadata.mjs";
 import { notFound } from "next/navigation";
 
 const defaultLayout = "PostLayout";

@@ -23,7 +23,7 @@ import rehypeSlug from "rehype-slug";
 // Remark packages
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
-import siteMetadata from "./data/siteMetadata.js";
+import siteMetadata from "./data/siteMetadata.mjs";
 
 const root = process.cwd();
 // const isProduction = process.env.NODE_ENV === "production";

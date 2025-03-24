@@ -3,7 +3,7 @@
 
 import Link from "@/components/Link";
 import Tag from "@/components/Tag";
-import siteMetadata from "@/data/siteMetadata";
+import siteMetadata from "@/data/siteMetadata.mjs";
 import tagData from "app/tag-data.json" with { type: "json" };
 import type { Thoughts } from "contentlayer/generated";
 import { slug } from "github-slugger";

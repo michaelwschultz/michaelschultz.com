@@ -2,7 +2,7 @@ import Hero from "@/components/Hero";
 import Link from "@/components/Link";
 import ProjectCard from "@/components/ProjectCard";
 import Tag from "@/components/Tag";
-import siteMetadata from "@/data/siteMetadata";
+import siteMetadata from "@/data/siteMetadata.mjs";
 import { formatDate } from "pliny/utils/formatDate";
 
 const MAX_DISPLAY = 2;

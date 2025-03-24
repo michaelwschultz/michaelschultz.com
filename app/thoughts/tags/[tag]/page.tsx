@@ -1,4 +1,4 @@
-import siteMetadata from "@/data/siteMetadata";
+import siteMetadata from "@/data/siteMetadata.mjs";
 import ListLayout from "@/layouts/ListLayoutWithTags";
 import { genPageMetadata } from "app/seo";
 import tagData from "app/tag-data.json" with { type: "json" };

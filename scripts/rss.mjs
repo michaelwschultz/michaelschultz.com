@@ -5,7 +5,7 @@ import { sortPosts } from 'pliny/utils/contentlayer.js'
 import { escape as escaper } from 'pliny/utils/htmlEscaper.js'
 import { allThoughts } from '../.contentlayer/generated/index.mjs'
 import tagData from '../app/tag-data.json' with { type: 'json' }
-import siteMetadata from '../data/siteMetadata.js'
+import siteMetadata from '../data/siteMetadata.mjs'
 
 const generateRssItem = (config, post) => `
   <item>
