@@ -64,7 +64,13 @@ export default function Home({ posts, heroFontStyles }) {
 					<span className="block pt-4">
 						The game was designed and built in 8 days and lots of coffee. This
 						was also the first ever game published by{" "}
-						<Link href="https://ratrace.studio">RatRace.studio</Link>
+						<Link
+							href="https://ratrace.studio"
+							data-umami-event="outbound-link-click"
+							data-umami-event-url="https://ratrace.studio"
+						>
+							RatRace.studio
+						</Link>
 					</span>
 				</ProjectCard>
 				<ProjectCard
@@ -83,7 +89,11 @@ export default function Home({ posts, heroFontStyles }) {
 				</ProjectCard>
 				<ProjectCard title="Time Between The Stars" buttonText="Coming Soon">
 					Space simulation game influenced by the short story{" "}
-					<Link href="https://www.amazon.com/Slow-Between-Stars-Reaches-collection-ebook/dp/B0C4QX2FSF">
+					<Link
+						href="https://www.amazon.com/Slow-Between-Stars-Reaches-collection-ebook/dp/B0C4QX2FSF"
+						data-umami-event="outbound-link-click"
+						data-umami-event-url="https://www.amazon.com/Slow-Between-Stars-Reaches-collection-ebook/dp/B0C4QX2FSF"
+					>
 						Slow Time Between The Stars by John Scalzi
 					</Link>
 					.
@@ -94,14 +104,16 @@ export default function Home({ posts, heroFontStyles }) {
 						This will be the first full-length game from{" "}
 						<Link
 							href="https://ratrace.studio"
-							data-umami-event={"Clicked link https://ratrace.studio"}
+							data-umami-event="outbound-link-click"
+							data-umami-event-url="https://ratrace.studio"
 						>
 							RatRace.studio
 						</Link>
 						, a collaboration with{" "}
 						<Link
 							href="https://luketns.com"
-							data-umami-event={"Clicked link https://luketns.com"}
+							data-umami-event="outbound-link-click"
+							data-umami-event-url="https://luketns.com"
 						>
 							Luke Schultz
 						</Link>
