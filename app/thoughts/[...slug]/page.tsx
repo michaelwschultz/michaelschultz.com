@@ -42,15 +42,11 @@ export async function generateMetadata({
 	const publishedAt = new Date(post.date).toISOString();
 	const modifiedAt = new Date(post.lastmod ?? post.date).toISOString();
 	const authors = authorDetails.map((author) => author.name);
-	let imageList = [siteMetadata.socialBanner];
-	if (post.images) {
-		imageList = typeof post.images === "string" ? [post.images] : post.images;
-	}
-	const ogImages = imageList.map((img) => {
-		return {
-			url: img.includes("http") ? img : siteMetadata.siteUrl + img,
-		};
-	});
+
+	// Generate dynamic ogImage and imageList
+	const ogImageUrl = `/api/og?title=${encodeURIComponent(post.title)}`;
+	const ogImages = [ogImageUrl];
+	const imageList = [ogImageUrl];
 
 	return {
 		title: post.title,
