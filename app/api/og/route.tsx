@@ -16,7 +16,7 @@ export async function GET(request: Request) {
       (
         <div
           style={{
-            backgroundColor: 'black',
+            backgroundColor: '#000E04',
             backgroundSize: '150px 150px',
             height: '100%',
             width: '100%',
@@ -28,16 +28,6 @@ export async function GET(request: Request) {
             flexWrap: 'nowrap',
           }}
         >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              justifyItems: 'center',
-            }}
-          >
-            Icon
-          </div>
           <div
             style={{
               fontSize: 60,
