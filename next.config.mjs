@@ -1,7 +1,7 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createRequire } from 'node:module'
-import { withContentlayer } from 'next-contentlayer'
+import { withContentlayer } from 'next-contentlayer2'
 
 
 const require = createRequire(import.meta.url)

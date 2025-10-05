@@ -1,0 +1,6 @@
+onlyBuiltDependencies:
+  - '@biomejs/biome'
+  - contentlayer2
+  - esbuild
+  - protobufjs
+  - sharp

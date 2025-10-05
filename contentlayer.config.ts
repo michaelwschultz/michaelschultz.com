@@ -4,7 +4,7 @@ import {
 	type ComputedFields,
 	defineDocumentType,
 	makeSource,
-} from "contentlayer/source-files";
+} from "contentlayer2/source-files";
 import { slug } from "github-slugger";
 import {
 	extractTocHeadings,
