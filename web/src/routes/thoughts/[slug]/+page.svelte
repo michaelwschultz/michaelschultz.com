@@ -1,0 +1,107 @@
+<script lang="ts">
+	import Tag from '$lib/components/Tag.svelte';
+	import { author } from '$lib/config/author';
+	import { site } from '$lib/config/site';
+	import { formatDateLong } from '$lib/utils/format';
+
+	let { data } = $props();
+
+	const post = $derived(data.post);
+	const prev = $derived(data.prev);
+	const next = $derived(data.next);
+	const PostContent = $derived(post.Content);
+	const ogImage = $derived(post.images?.[0] ?? site.socialBanner);
+</script>
+
+<svelte:head>
+	<title>{post.title} | {site.title}</title>
+	<meta name="description" content={post.summary ?? site.description} />
+	<meta property="og:title" content={post.title} />
+	<meta property="og:description" content={post.summary ?? site.description} />
+	<meta property="og:image" content="{site.siteUrl}{ogImage}" />
+	<meta name="twitter:card" content="summary_large_image" />
+</svelte:head>
+
+<article class="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
+	<header class="pt-6 xl:pb-6">
+		<div class="space-y-1 text-center">
+			<p class="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+				<time datetime={post.date}>{formatDateLong(post.date, site.locale)}</time>
+			</p>
+			<h1 class="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14">
+				{post.title}
+			</h1>
+			<div class="flex flex-wrap justify-center pt-4">
+				{#each post.tags as tag}
+					<Tag text={tag} />
+				{/each}
+			</div>
+		</div>
+	</header>
+
+	<div class="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0">
+		<aside class="pb-10 pt-6 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
+			<ul class="flex flex-wrap justify-center gap-4 xl:block xl:space-y-8">
+				<li class="flex items-center space-x-2">
+					{#if author.avatar}
+						<img
+							src={author.avatar}
+							width="38"
+							height="38"
+							alt=""
+							class="h-10 w-10 rounded-full"
+						/>
+					{/if}
+					<div class="text-sm font-medium leading-5">
+						<p class="text-gray-900 dark:text-gray-100">{author.name}</p>
+						{#if author.bluesky}
+							<a
+								href={author.bluesky}
+								class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+							>
+								{author.bluesky.replace('https://', '').replace(/\/$/, '')}
+							</a>
+						{/if}
+					</div>
+				</li>
+			</ul>
+		</aside>
+
+		<div class="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
+			<div class="prose max-w-none pb-8 pt-10 dark:prose-invert">
+				<PostContent />
+			</div>
+		</div>
+	</div>
+
+	<footer class="pt-4 xl:pt-8">
+		<div class="flex flex-col gap-4 text-sm font-medium sm:flex-row sm:justify-between">
+			{#if prev}
+				<a href="/thoughts/{prev.slug}" class="text-primary-500 hover:text-primary-600">
+					← {prev.title}
+				</a>
+			{:else}
+				<span></span>
+			{/if}
+			{#if next}
+				<a href="/thoughts/{next.slug}" class="text-primary-500 hover:text-primary-600">
+					{next.title} →
+				</a>
+			{/if}
+		</div>
+		<div class="mt-6 flex flex-wrap gap-4 text-sm text-gray-500 dark:text-gray-400">
+			<a
+				href="{site.siteRepo}/blob/main/data/thoughts/{post.slug}.mdx"
+				class="hover:text-primary-500"
+			>
+				View on GitHub
+			</a>
+			<a
+				href="https://bsky.app/search?q={encodeURIComponent(`${site.siteUrl}/thoughts/${post.slug}`)}"
+				class="hover:text-primary-500"
+			>
+				Discuss on Bluesky
+			</a>
+		</div>
+	</footer>
+</article>
