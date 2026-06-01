@@ -1,11 +1,12 @@
 import ListLayout from '@/layouts/ListLayoutWithTags'
-import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
-import { allThoughts } from 'contentlayer/generated'
 import { genPageMetadata } from 'app/seo'
+import { allThoughts } from 'contentlayer/generated'
+import type { Metadata } from 'next'
+import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
 
 const POSTS_PER_PAGE = 5
 
-export const metadata = genPageMetadata({ title: 'Thoughts' })
+export const metadata: Metadata = genPageMetadata({ title: 'Thoughts' })
 
 export default function ThoughtPage() {
   const posts = allCoreContent(sortPosts(allThoughts))

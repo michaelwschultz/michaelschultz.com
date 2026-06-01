@@ -1,0 +1,6 @@
+allowBuilds:
+  '@biomejs/biome': true
+  contentlayer2: true
+  esbuild: true
+  protobufjs: true
+  sharp: true

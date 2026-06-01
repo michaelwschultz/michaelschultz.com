@@ -1,8 +1,9 @@
-import gamesData from "@/data/gamesData";
 import Card from "@/components/Card";
+import gamesData from "@/data/gamesData";
 import { genPageMetadata } from "app/seo";
+import type { Metadata } from "next";
 
-export const metadata = genPageMetadata({ title: "Games" });
+export const metadata: Metadata = genPageMetadata({ title: "Games" });
 
 export default function Games() {
 	return (

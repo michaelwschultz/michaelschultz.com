@@ -3,8 +3,9 @@ import Tag from "@/components/Tag";
 import { genPageMetadata } from "app/seo";
 import tagData from "app/tag-data.json" with { type: "json" };
 import { slug } from "github-slugger";
+import type { Metadata } from "next";
 
-export const metadata = genPageMetadata({
+export const metadata: Metadata = genPageMetadata({
 	title: "Tags",
 	description: "Things I write about",
 });
