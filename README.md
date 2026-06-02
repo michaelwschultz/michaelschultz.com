@@ -8,3 +8,23 @@ You can run this site locally by running `yarn dev` and visiting `http://localho
 Hosted on [Vercel](https://vercel.com).
 
 ![Alt](https://repobeats.axiom.co/api/embed/4d2560fc21344db7bfe7207c5773071f884f95e1.svg "Repobeats analytics image")
+
+## Development
+
+Requires **Node.js 24.x** (see `.nvmrc`). With [nvm](https://github.com/nvm-sh/nvm): `nvm install && nvm use`.
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Search (Pagefind) is only available after a production build:
+
+```bash
+pnpm build
+pnpm preview
+```
+
+## Environment
+
+Copy `.env.example` to `.env` and set `PUBLIC_UMAMI_ID` for analytics.

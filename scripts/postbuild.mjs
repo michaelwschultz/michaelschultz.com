@@ -1,7 +1,12 @@
-import rss from './rss.mjs'
+import { execSync } from 'node:child_process';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-async function postbuild() {
-  await rss()
-}
+const projectRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 
-postbuild()
+execSync('pagefind --site build --output-subdir pagefind', {
+	stdio: 'inherit',
+	cwd: projectRoot
+});
+
+console.log('Pagefind index generated.');
