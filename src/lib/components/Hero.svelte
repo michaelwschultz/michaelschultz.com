@@ -15,7 +15,7 @@
 			alt="Michael Schultz"
 			width="305"
 			height="606"
-			class="image-animate-on-load absolute -bottom-10 right-0 w-[160px] opacity-0 drop-shadow-2xl md:right-48 md:top-24 md:w-[305px] xl:left-60"
+			class="image-animate-up-on-load absolute -bottom-10 right-0 w-[160px] opacity-0 drop-shadow-2xl md:right-48 md:top-24 md:w-[305px] xl:left-60"
 		/>
 	</div>
 </div>

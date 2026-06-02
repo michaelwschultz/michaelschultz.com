@@ -43,6 +43,17 @@
 	}
 }
 
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(8px) translateX(-8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(-8px) translateX(8px);
+	}
+}
+
 .fade-in-down-headline {
 	animation: fadeInDown 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
 	animation-delay: 200ms;
@@ -55,6 +66,11 @@
 
 .image-animate-on-load {
 	animation: fadeInDown 800ms cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+	animation-delay: 400ms;
+}
+
+.image-animate-up-on-load {
+	animation: fadeInUp 800ms cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
 	animation-delay: 400ms;
 }
 
