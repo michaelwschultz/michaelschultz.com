@@ -24,7 +24,7 @@
 
 	/** Top-weighted tint on the glass border (matches legacy Next project cards). */
 	const borderBackground = $derived(
-		`linear-gradient(180deg, color-mix(in srgb, ${borderAccent} 50%, transparent) 0%, rgba(255, 255, 255, 0.01) 45%, rgba(255, 255, 255, 0.01) 100%)`
+		`linear-gradient(0deg, color-mix(in srgb, ${borderAccent} 30%, transparent) 0%, rgba(255, 255, 255, 0.05) 45%, rgba(255, 255, 255, 0.05) 100%)`
 	);
 
 	function accentFromButtonColor(classes: string): string {
