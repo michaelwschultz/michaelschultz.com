@@ -4,9 +4,13 @@
 	import SiteFooter from '$lib/components/SiteFooter.svelte';
 	import SiteHeader from '$lib/components/SiteHeader.svelte';
 	import PagefindSearch from '$lib/components/PagefindSearch.svelte';
+	import SocialMeta from '$lib/components/SocialMeta.svelte';
 	import { site } from '$lib/config/site';
+	import { getPageSocialMeta } from '$lib/utils/social-meta';
 
 	let { children } = $props();
+
+	const socialMeta = $derived(getPageSocialMeta(page));
 
 	const umamiId = site.umami.websiteId;
 	let openSearch = $state(() => {});
@@ -16,6 +20,8 @@
 		page.url.pathname === '/' ? '/' : page.url.pathname.replace(/\/$/, '')
 	);
 </script>
+
+<SocialMeta meta={socialMeta} />
 
 <svelte:head>
 	{#if umamiId}

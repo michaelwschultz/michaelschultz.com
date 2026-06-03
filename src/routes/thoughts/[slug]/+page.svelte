@@ -9,19 +9,11 @@
 	const prev = $derived(data.prev);
 	const next = $derived(data.next);
 	const PostContent = $derived(post.Content);
-	const ogImage = $derived(post.images?.[0] ?? site.socialBanner);
 </script>
 
 <svelte:head>
 	<title>{post.title} | {site.title}</title>
 	<meta name="description" content={post.summary ?? site.description} />
-	<meta property="og:title" content={post.title} />
-	<meta
-		property="og:description"
-		content={post.summary ?? site.description}
-	/>
-	<meta property="og:image" content="{site.siteUrl}{ogImage}" />
-	<meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
 <article class="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
