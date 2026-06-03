@@ -1,12 +1,13 @@
 import { getPostsByTag, getTagCounts } from '$lib/content/posts';
 import { error } from '@sveltejs/kit';
+import type { PageLoad } from './$types';
 
 export function entries() {
 	const tagCounts = getTagCounts();
 	return Object.keys(tagCounts).map((tag) => ({ tag }));
 }
 
-export function load({ params }) {
+export const load: PageLoad = ({ params }) => {
 	const tag = decodeURIComponent(params.tag);
 	const posts = getPostsByTag(tag);
 	if (posts.length === 0) {
@@ -14,4 +15,4 @@ export function load({ params }) {
 	}
 	const title = tag[0].toUpperCase() + tag.slice(1);
 	return { tag, title, posts };
-}
+};

@@ -26,6 +26,16 @@
 		</h1>
 	</div>
 	<div class="flex sm:space-x-24">
+		<div class="w-full">
+			<ul class="divide-y divide-gray-200 dark:divide-gray-700">
+				{#each displayPosts as post (post.slug)}
+					<PostListItem {post} />
+				{/each}
+			</ul>
+			{#if totalPages > 1}
+				<Pagination basePath="thoughts" currentPage={pageNumber} {totalPages} />
+			{/if}
+		</div>
 		<div class="hidden h-full max-h-screen max-w-[280px] min-w-[280px] flex-wrap overflow-auto rounded bg-gray-50 pt-5 shadow-md dark:bg-gray-900/70 dark:shadow-gray-800/40 sm:flex">
 			<div class="px-6 py-4">
 				{#each sortedTags as tag}
@@ -37,16 +47,6 @@
 					</a>
 				{/each}
 			</div>
-		</div>
-		<div class="w-full">
-			<ul class="divide-y divide-gray-200 dark:divide-gray-700">
-				{#each displayPosts as post (post.slug)}
-					<PostListItem {post} />
-				{/each}
-			</ul>
-			{#if totalPages > 1}
-				<Pagination basePath="thoughts" currentPage={pageNumber} {totalPages} />
-			{/if}
 		</div>
 	</div>
 </div>

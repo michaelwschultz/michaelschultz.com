@@ -3,6 +3,7 @@
 - Follow SvelteKit and Svelte idioms; reuse existing content, components, and patterns rather than porting React-style structure.
 - When extending the site, migrate and normalize content first, then build UI to match the existing look.
 - Keep the work page intro prominent; list past tech roles in a minimal, de-emphasized way with no company logos.
+- Avoid implicit `any`; type route `+page.ts` loaders with `PageLoad` from `./$types`.
 
 ## Learned Workspace Facts
 
@@ -13,3 +14,5 @@
 - `export const trailingSlash = 'always'` in `src/routes/+layout.ts` emits directory-style HTML (`work/index.html`) for correct Pagefind paths.
 - Layout sets `data-pagefind-meta` with clean route URLs (e.g. `url:/work`); `content-check` routes use `data-pagefind-ignore` so they are not indexed.
 - Node is locked to 24.x (`engines` in `package.json`, `.nvmrc`, `.node-version`).
+- Open Graph and Twitter meta come from `SocialMeta` in the root layout and `getPageSocialMeta` in `$lib/utils/social-meta.ts`; default image is `site.socialBanner` (`/static/images/michael-schultz-social.jpg`).
+- `pnpm check` runs `svelte-check` then `tsc --noEmit` so untyped route loaders are caught in CI and locally.

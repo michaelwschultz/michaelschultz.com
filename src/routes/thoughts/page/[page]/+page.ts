@@ -1,5 +1,6 @@
 import { getPublishedPosts, POSTS_PER_PAGE } from '$lib/content/posts';
 import { error } from '@sveltejs/kit';
+import type { PageLoad } from './$types';
 
 export function entries() {
 	const totalPages = Math.ceil(getPublishedPosts().length / POSTS_PER_PAGE) || 1;
@@ -9,7 +10,7 @@ export function entries() {
 	}));
 }
 
-export function load({ params }) {
+export const load: PageLoad = ({ params }) => {
 	const pageNumber = Number.parseInt(params.page, 10);
 	const posts = getPublishedPosts();
 	const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE) || 1;
@@ -31,4 +32,4 @@ export function load({ params }) {
 			POSTS_PER_PAGE * pageNumber
 		)
 	};
-}
+};

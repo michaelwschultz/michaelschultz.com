@@ -10,8 +10,8 @@
 		"dev": "vite dev",
 		"build": "vite build && node scripts/postbuild.mjs",
 		"preview": "vite preview",
-		"prepare": "svelte-kit sync || echo ''",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"prepare": "svelte-kit sync || echo '' && husky",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && tsc --noEmit",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
 	"devDependencies": {
@@ -25,6 +25,7 @@
 		"@types/node": "^24.12.4",
 		"autoprefixer": "^10.4.21",
 		"github-slugger": "^2.0.0",
+		"husky": "^9.1.7",
 		"mdsvex": "^0.12.7",
 		"pagefind": "^1.5.2",
 		"postcss": "^8.5.15",
