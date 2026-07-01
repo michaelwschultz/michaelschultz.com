@@ -7,7 +7,9 @@
 
 ## Learned Workspace Facts
 
-- SvelteKit static site at the repo root: `@sveltejs/adapter-static`, mdsvex (`.svx` in `src/content/thoughts/`), and `$lib/content/*` plus `$lib/config/*` for posts, work, games, and site config.
+- SvelteKit site at the repo root: `@sveltejs/adapter-node` (hybrid — most routes prerendered, `/listening` is SSR), mdsvex (`.svx` in `src/content/thoughts/`), and `$lib/content/*` plus `$lib/config/*` for posts, work, games, and site config.
+- `/listening` reads recent Last.fm scrobbles from SQLite (`better-sqlite3`); sync runs via in-process `node-cron` (~5×/day) and `GET /api/cron/sync-listening` (Bearer `CRON_SECRET`).
+- Docker deployment: `Dockerfile` + `docker-compose.yml`; SQLite DB at `DATABASE_PATH` (default `/app/data/listening.db` in Docker).
 - Static assets live under `static/static/` so URLs stay `/static/images/...`.
 - Search is Pagefind: `pnpm build` runs `vite build` then `scripts/postbuild.mjs` to index `build/`.
 - Pagefind UI uses the `pagefind-modal` web component; dev search needs a production build (index is not available in `vite dev`).

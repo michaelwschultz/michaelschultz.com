@@ -16,7 +16,8 @@ const routeTitles: Record<string, string> = {
 	'/thoughts': 'Thoughts',
 	'/thoughts/latest': 'Latest',
 	'/thoughts/tags': 'Tags',
-	'/games': 'Games'
+	'/games': 'Games',
+	'/listening': 'Listening'
 };
 
 /** Normalize pathname to a canonical path without trailing slash (except `/`). */

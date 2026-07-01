@@ -4,7 +4,7 @@ import { getPublishedPosts } from '$lib/content/posts';
 export const prerender = true;
 
 export function GET() {
-	const staticRoutes = ['', 'thoughts', 'work', 'games', 'thoughts/latest', 'thoughts/tags'];
+	const staticRoutes = ['', 'thoughts', 'work', 'games', 'listening', 'thoughts/latest', 'thoughts/tags'];
 	const today = new Date().toISOString().split('T')[0];
 
 	const urls = [
