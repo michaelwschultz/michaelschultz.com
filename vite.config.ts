@@ -5,7 +5,7 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig, type Plugin } from 'vite';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
-const pagefindDir = path.join(root, 'build', 'pagefind');
+const pagefindDir = path.join(root, 'build', 'client', 'pagefind');
 
 const mimeTypes: Record<string, string> = {
 	'.js': 'application/javascript',

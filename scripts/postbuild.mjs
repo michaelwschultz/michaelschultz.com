@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const projectRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 
-execSync('pagefind --site build --output-subdir pagefind', {
+execSync('pagefind --site build/prerendered --output-path build/client/pagefind', {
 	stdio: 'inherit',
 	cwd: projectRoot
 });

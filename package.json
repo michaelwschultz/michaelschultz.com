@@ -12,11 +12,13 @@
 		"start": "node build",
 		"preview": "node build",
 		"sync:listening": "node scripts/sync-listening.mjs",
+		"status": "node scripts/set-status.mjs",
 		"prepare": "svelte-kit sync || echo '' && (command -v husky >/dev/null 2>&1 && husky || true)",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && tsc --noEmit",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
 	"devDependencies": {
+		"@atproto/api": "^0.15.15",
 		"@sveltejs/adapter-node": "^5.5.7",
 		"@sveltejs/kit": "^2.57.0",
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",

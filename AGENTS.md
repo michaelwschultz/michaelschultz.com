@@ -9,6 +9,7 @@
 
 - SvelteKit site at the repo root: `@sveltejs/adapter-node` (hybrid — most routes prerendered, `/listening` is SSR), mdsvex (`.svx` in `src/content/thoughts/`), and `$lib/content/*` plus `$lib/config/*` for posts, work, games, and site config.
 - `/listening` reads recent Last.fm scrobbles from SQLite (`better-sqlite3`); sync runs via in-process `node-cron` (~5×/day at server startup) and stale refresh on page load; `GET /api/cron/sync-listening` (Bearer `CRON_SECRET`) is optional for external/manual HTTP sync only.
+- Homepage status line reads `com.michaelschultz.status/self` from Bluesky via `/api/status` (60s server cache); publish with `pnpm status` using `BLUESKY_APP_PASSWORD` locally (not needed at runtime).
 - Docker deployment: `Dockerfile` + `docker-compose.yml`; joins an external Docker network for reverse-proxy routing; SQLite DB at `DATABASE_PATH` (default `/app/data/listening.db` in Docker); `deploy/docker-entrypoint.sh` chowns the `listening-data` volume for SQLite writes.
 - Production deploy is automated via `.github/workflows/deploy.yml` (SSH pull + `deploy/write-env.sh` + `deploy/deploy.sh`); app and infrastructure settings live in GitHub Environment secrets, not in the repo.
 - Static assets live under `static/static/` so URLs stay `/static/images/...`.
