@@ -52,6 +52,11 @@ function toStatus(record: StatusRecord): BlueskyStatus {
 	};
 }
 
+function activeStatus(status: BlueskyStatus | null): BlueskyStatus | null {
+	if (!status || isExpired(status)) return null;
+	return status;
+}
+
 async function resolveDid(repo: string): Promise<string> {
 	if (repo.startsWith('did:')) return repo;
 
@@ -125,7 +130,7 @@ async function fetchStatusFromBluesky(): Promise<BlueskyStatus | null> {
 export async function getBlueskyStatus(): Promise<BlueskyStatus | null> {
 	const now = Date.now();
 	if (cache && now - cache.fetchedAt < bluesky.cacheTtlMs) {
-		return cache.status;
+		return activeStatus(cache.status);
 	}
 
 	try {
@@ -134,7 +139,7 @@ export async function getBlueskyStatus(): Promise<BlueskyStatus | null> {
 		return status;
 	} catch (error) {
 		if (cache) {
-			return cache.status;
+			return activeStatus(cache.status);
 		}
 		throw error;
 	}
