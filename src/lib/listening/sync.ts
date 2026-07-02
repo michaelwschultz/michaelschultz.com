@@ -14,7 +14,9 @@ function getApiKey(): string | undefined {
 	return env.LASTFM_API_KEY;
 }
 
-export async function syncListening(): Promise<ListeningData> {
+let syncInFlight: Promise<ListeningData> | null = null;
+
+async function runSyncListening(): Promise<ListeningData> {
 	const apiKey = getApiKey();
 	if (!apiKey) {
 		throw new Error('LASTFM_API_KEY is not configured');
@@ -29,6 +31,16 @@ export async function syncListening(): Promise<ListeningData> {
 
 	saveListeningPlays(plays, getLastFmProfileUrl(username));
 	return getListeningFromDb();
+}
+
+export function syncListening(): Promise<ListeningData> {
+	if (!syncInFlight) {
+		syncInFlight = runSyncListening().finally(() => {
+			syncInFlight = null;
+		});
+	}
+
+	return syncInFlight;
 }
 
 export function isListeningCacheStale(syncedAt: string | null): boolean {
