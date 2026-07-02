@@ -10,7 +10,9 @@ RUN apt-get update \
 
 RUN corepack enable
 
-COPY package.json pnpm-lock.yaml .npmrc ./
+ENV HUSKY=0
+
+COPY package.json pnpm-lock.yaml .npmrc pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile
 
 COPY . .
@@ -26,9 +28,10 @@ RUN apt-get update \
 
 RUN corepack enable
 
-COPY package.json pnpm-lock.yaml .npmrc ./
-RUN pnpm install --frozen-lockfile --prod --ignore-scripts \
-	&& pnpm rebuild better-sqlite3
+ENV HUSKY=0
+
+COPY package.json pnpm-lock.yaml .npmrc pnpm-workspace.yaml ./
+RUN pnpm install --frozen-lockfile --prod
 
 COPY --from=build /app/build ./build
 
