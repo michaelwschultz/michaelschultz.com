@@ -3,7 +3,7 @@ services:
     build: .
     restart: unless-stopped
     ports:
-      - '127.0.0.1:3000:3000'
+      - '127.0.0.1:1337:3000'
     volumes:
       - listening-data:/app/data
     env_file:

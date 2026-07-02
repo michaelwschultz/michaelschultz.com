@@ -53,6 +53,6 @@ cp .env.example .env
 docker compose up -d --build
 ```
 
-The app listens on `127.0.0.1:3000`. Put Caddy or Nginx in front for TLS and public traffic.
+The app listens on `127.0.0.1:1337`. Put Nginx (or Caddy) in front for TLS and public traffic.
 
 Listening data persists in the `listening-data` Docker volume at `/app/data/listening.db`.
