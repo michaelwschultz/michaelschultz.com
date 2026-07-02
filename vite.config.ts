@@ -48,5 +48,8 @@ function pagefindDevPlugin(): Plugin {
 }
 
 export default defineConfig({
-	plugins: [sveltekit(), pagefindDevPlugin()]
+	plugins: [sveltekit(), pagefindDevPlugin()],
+	ssr: {
+		external: ['better-sqlite3']
+	}
 });

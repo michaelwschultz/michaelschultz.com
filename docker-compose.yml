@@ -1,0 +1,17 @@
+services:
+  web:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - listening-data:/app/data
+    env_file:
+      - .env
+    networks:
+      - pangolin
+
+volumes:
+  listening-data:
+
+networks:
+  pangolin:
+    external: true
