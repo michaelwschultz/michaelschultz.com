@@ -1,0 +1,32 @@
+{
+	"lexicon": 1,
+	"id": "com.michaelschultz.status",
+	"defs": {
+		"main": {
+			"type": "record",
+			"description": "A short sentence describing what Michael is doing right now.",
+			"key": "literal:self",
+			"record": {
+				"type": "object",
+				"required": ["text", "createdAt"],
+				"properties": {
+					"text": {
+						"type": "string",
+						"maxLength": 280,
+						"maxGraphemes": 140,
+						"description": "A brief status sentence."
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "datetime"
+					},
+					"expiresAt": {
+						"type": "string",
+						"format": "datetime",
+						"description": "Optional time after which the status should no longer be shown."
+					}
+				}
+			}
+		}
+	}
+}

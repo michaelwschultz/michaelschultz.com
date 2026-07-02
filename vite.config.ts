@@ -5,7 +5,8 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig, type Plugin } from 'vite';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
-const pagefindDir = path.join(root, 'build', 'pagefind');
+const pagefindDir = path.join(root, 'build', 'client', 'pagefind');
+const pagefindIndexBuilt = fs.existsSync(path.join(pagefindDir, 'pagefind-entry.json'));
 
 const mimeTypes: Record<string, string> = {
 	'.js': 'application/javascript',
@@ -47,9 +48,12 @@ function pagefindDevPlugin(): Plugin {
 	};
 }
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
 	plugins: [sveltekit(), pagefindDevPlugin()],
+	define: {
+		__PAGEFIND_INDEX_BUILT__: JSON.stringify(mode === 'production' ? true : pagefindIndexBuilt)
+	},
 	ssr: {
 		external: ['better-sqlite3']
 	}
-});
+}));

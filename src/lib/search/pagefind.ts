@@ -1,3 +1,5 @@
+import { goto } from '$app/navigation';
+
 type PagefindModal = HTMLElement & {
 	open: () => void;
 	close: () => void;
@@ -6,12 +8,30 @@ type PagefindModal = HTMLElement & {
 
 let loadPromise: Promise<void> | null = null;
 
+declare const __PAGEFIND_INDEX_BUILT__: boolean;
+
+async function pagefindIndexAvailable(): Promise<boolean> {
+	if (import.meta.env.DEV && !__PAGEFIND_INDEX_BUILT__) {
+		return false;
+	}
+
+	try {
+		const response = await fetch('/pagefind/pagefind-entry.json', { method: 'HEAD' });
+		return response.ok;
+	} catch {
+		return false;
+	}
+}
+
 export function loadPagefindComponentUi(): Promise<void> {
 	if (!loadPromise) {
-		loadPromise = new Promise((resolve, reject) => {
+		loadPromise = (async () => {
 			if (typeof document === 'undefined') {
-				reject(new Error('No document'));
-				return;
+				throw new Error('No document');
+			}
+
+			if (!(await pagefindIndexAvailable())) {
+				throw new Error('Pagefind index not found');
 			}
 
 			if (!document.querySelector('link[data-pagefind-ui-css]')) {
@@ -24,20 +44,22 @@ export function loadPagefindComponentUi(): Promise<void> {
 
 			const existing = document.querySelector('script[data-pagefind-ui-js]');
 			if (existing) {
-				customElements.whenDefined('pagefind-modal').then(() => resolve()).catch(reject);
+				await customElements.whenDefined('pagefind-modal');
 				return;
 			}
 
-			const script = document.createElement('script');
-			script.type = 'module';
-			script.src = '/pagefind/pagefind-component-ui.js';
-			script.dataset.pagefindUiJs = '';
-			script.onload = () => {
-				customElements.whenDefined('pagefind-modal').then(() => resolve()).catch(reject);
-			};
-			script.onerror = () => reject(new Error('Failed to load Pagefind UI'));
-			document.head.appendChild(script);
-		});
+			await new Promise<void>((resolve, reject) => {
+				const script = document.createElement('script');
+				script.type = 'module';
+				script.src = '/pagefind/pagefind-component-ui.js';
+				script.dataset.pagefindUiJs = '';
+				script.onload = () => {
+					customElements.whenDefined('pagefind-modal').then(() => resolve()).catch(reject);
+				};
+				script.onerror = () => reject(new Error('Failed to load Pagefind UI'));
+				document.head.appendChild(script);
+			});
+		})();
 	}
 
 	return loadPromise;
@@ -46,21 +68,65 @@ export function loadPagefindComponentUi(): Promise<void> {
 const RESULT_LINK_SELECTOR =
 	'a.pf-result-link, a.pf-searchbox-result, a.pf-heading-link, a.pf-searchbox-subresult';
 
+function withTrailingSlash(pathname: string): string {
+	if (pathname === '/') return '/';
+	return pathname.endsWith('/') ? pathname : `${pathname}/`;
+}
+
+function resolveInternalPath(href: string): string | null {
+	try {
+		const url = new URL(href, window.location.origin);
+		if (url.origin !== window.location.origin) return null;
+		return withTrailingSlash(url.pathname) + url.search + url.hash;
+	} catch {
+		return null;
+	}
+}
+
+function findResultLink(target: EventTarget | null, modal: PagefindModal): HTMLAnchorElement | null {
+	if (!(target instanceof Element)) return null;
+	const link = target.closest(RESULT_LINK_SELECTOR);
+	if (!(link instanceof HTMLAnchorElement) || !modal.contains(link)) return null;
+	return link;
+}
+
+function followResultLink(link: HTMLAnchorElement, modal: PagefindModal): void {
+	const href = link.getAttribute('href');
+	if (!href || href === '#' || href.startsWith('javascript:')) return;
+
+	modal.close();
+
+	const internalPath = resolveInternalPath(href);
+	if (internalPath !== null) {
+		void goto(internalPath);
+		return;
+	}
+
+	window.location.assign(href);
+}
+
 /** Close the search modal when the user follows a result link (click or Enter). */
 export function attachCloseOnResultNavigate(modal: PagefindModal): () => void {
-	const closeIfResultLink = (target: EventTarget | null) => {
-		if (!(target instanceof Element)) return;
-		const link = target.closest(RESULT_LINK_SELECTOR);
-		if (!link || !modal.contains(link)) return;
-		const href = link.getAttribute('href');
-		if (!href || href === '#' || href.startsWith('javascript:')) return;
-		modal.close();
+	const onClick = (event: MouseEvent) => {
+		if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+			return;
+		}
+
+		const link = findResultLink(event.target, modal);
+		if (!link) return;
+
+		event.preventDefault();
+		followResultLink(link, modal);
 	};
 
-	const onClick = (event: MouseEvent) => closeIfResultLink(event.target);
 	const onKeydown = (event: KeyboardEvent) => {
 		if (event.key !== 'Enter') return;
-		closeIfResultLink(event.target);
+
+		const link = findResultLink(event.target, modal);
+		if (!link) return;
+
+		event.preventDefault();
+		followResultLink(link, modal);
 	};
 
 	modal.addEventListener('click', onClick);

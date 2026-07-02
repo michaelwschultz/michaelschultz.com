@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
+import { loadEnvFile } from './load-env.mjs';
+
+loadEnvFile();
+
 const url = process.env.SYNC_URL ?? 'http://127.0.0.1:3000/api/cron/sync-listening';
 const secret = process.env.CRON_SECRET;
 
