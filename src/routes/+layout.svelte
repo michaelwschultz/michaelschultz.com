@@ -24,7 +24,6 @@
 
 	const socialMeta = $derived(getPageSocialMeta(page));
 
-	const umamiId = site.umami.websiteId;
 	let openSearch = $state(() => {});
 
 	/** Paths used in nav and static routes (no trailing slash, no .html). */
@@ -36,9 +35,6 @@
 <SocialMeta meta={socialMeta} />
 
 <svelte:head>
-	{#if umamiId}
-		<script defer src={site.umami.src} data-website-id={umamiId}></script>
-	{/if}
 	<link
 		rel="alternate"
 		type="application/rss+xml"

@@ -13,8 +13,4 @@ export const site = {
 	github: 'https://github.com/michaelwschultz',
 	bluesky: 'https://bsky.app/profile/michaelschultz.com',
 	locale: 'en-US',
-	umami: {
-		websiteId: import.meta.env.PUBLIC_UMAMI_ID ?? '',
-		src: 'https://cloud.umami.is/script.js'
-	}
 } as const;

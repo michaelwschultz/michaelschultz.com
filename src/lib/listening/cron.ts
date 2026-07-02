@@ -1,7 +1,9 @@
 import cron from 'node-cron';
 import { syncListening } from '$lib/listening/sync';
 
-const DEFAULT_CRON = '0 1,6,11,16,21 * * *';
+const DEFAULT_CRON = '0 7,11,14,17,21 * * *';
+
+
 
 let started = false;
 

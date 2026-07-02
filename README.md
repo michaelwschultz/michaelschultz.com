@@ -27,7 +27,6 @@ pnpm start
 
 Copy `.env.example` to `.env` and configure:
 
-- `PUBLIC_UMAMI_ID` — analytics
 - `LASTFM_API_KEY` — Last.fm API key for `/listening`
 - `LASTFM_USER` — Last.fm username (default: `michaelschultz`)
 - `CRON_SECRET` — protects `GET /api/cron/sync-listening`
