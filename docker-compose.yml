@@ -2,12 +2,16 @@ services:
   web:
     build: .
     restart: unless-stopped
-    ports:
-      - '127.0.0.1:1337:3000'
     volumes:
       - listening-data:/app/data
     env_file:
       - .env
+    networks:
+      - pangolin
 
 volumes:
   listening-data:
+
+networks:
+  pangolin:
+    external: true

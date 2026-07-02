@@ -24,7 +24,7 @@ jobs:
           port: ${{ secrets.VPS_PORT || 22 }}
           script: |
             set -euo pipefail
-            cd ~/michaelschultz.com
+            cd /root/michaelschultz.com
             git fetch origin main
             git checkout main
             git pull --ff-only origin main

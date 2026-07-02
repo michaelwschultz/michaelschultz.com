@@ -21,7 +21,7 @@ FROM node:24-bookworm-slim AS runtime
 WORKDIR /app
 
 RUN apt-get update \
-	&& apt-get install -y --no-install-recommends python3 make g++ \
+	&& apt-get install -y --no-install-recommends python3 make g++ gosu \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN corepack enable
@@ -31,10 +31,12 @@ RUN pnpm install --frozen-lockfile --prod
 
 COPY --from=build /app/build ./build
 
-RUN mkdir -p /app/data \
+COPY deploy/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh \
+	&& mkdir -p /app/data \
 	&& chown -R node:node /app
 
-USER node
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 ENV NODE_ENV=production
 ENV PORT=3000

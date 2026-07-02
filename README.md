@@ -44,15 +44,18 @@ pnpm sync:listening
 
 ## Docker deployment
 
-Build and run on a VPS:
+On the VPS the app lives at `/root/michaelschultz.com`. Public traffic and TLS are handled by Pangolin over the shared `pangolin` Docker network (no nginx).
 
 ```bash
+cd /root/michaelschultz.com
 cp .env.example .env
-# edit .env with LASTFM_API_KEY, CRON_SECRET, etc.
+# edit .env with LASTFM_API_KEY, etc.
 
 docker compose up -d --build
 ```
 
-The app listens on `127.0.0.1:1337`. Put Nginx (or Caddy) in front for TLS and public traffic.
+GitHub Actions deploys on push to `main`: SSH to the VPS, pull `main`, and run `deploy/deploy.sh`.
+
+The container listens on port 3000 inside the `pangolin` network. Configure Pangolin to route `michaelschultz.com` to this service.
 
 Listening data persists in the `listening-data` Docker volume at `/app/data/listening.db`.

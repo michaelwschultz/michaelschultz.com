@@ -8,8 +8,9 @@
 ## Learned Workspace Facts
 
 - SvelteKit site at the repo root: `@sveltejs/adapter-node` (hybrid — most routes prerendered, `/listening` is SSR), mdsvex (`.svx` in `src/content/thoughts/`), and `$lib/content/*` plus `$lib/config/*` for posts, work, games, and site config.
-- `/listening` reads recent Last.fm scrobbles from SQLite (`better-sqlite3`); sync runs via in-process `node-cron` (~5×/day) and `GET /api/cron/sync-listening` (Bearer `CRON_SECRET`).
-- Docker deployment: `Dockerfile` + `docker-compose.yml`; SQLite DB at `DATABASE_PATH` (default `/app/data/listening.db` in Docker).
+- `/listening` reads recent Last.fm scrobbles from SQLite (`better-sqlite3`); sync runs via in-process `node-cron` (~5×/day at server startup) and stale refresh on page load; `GET /api/cron/sync-listening` (Bearer `CRON_SECRET`) is optional for external/manual HTTP sync only.
+- Docker deployment: `Dockerfile` + `docker-compose.yml`; joins external Docker network `pangolin` (no host port publish — Pangolin routes to the container on port 3000); SQLite DB at `DATABASE_PATH` (default `/app/data/listening.db`); `deploy/docker-entrypoint.sh` chowns the `listening-data` volume for SQLite writes.
+- VPS deploy: app at `/root/michaelschultz.com`; `.github/workflows/deploy.yml` SSHs there on push to `main` (or manual dispatch) and runs `deploy/deploy.sh` (`docker compose up -d --build`); GitHub `production` environment secrets `VPS_HOST`, `VPS_USER`, `VPS_SSH_KEY`, optional `VPS_PORT`; Pangolin handles TLS and public routing.
 - Static assets live under `static/static/` so URLs stay `/static/images/...`.
 - Search is Pagefind: `pnpm build` runs `vite build` then `scripts/postbuild.mjs` to index `build/`.
 - Pagefind UI uses the `pagefind-modal` web component; dev search needs a production build (index is not available in `vite dev`).
