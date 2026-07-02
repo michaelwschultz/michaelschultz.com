@@ -19,6 +19,18 @@ type CacheEntry = {
 	fetchedAt: number;
 };
 
+type DescribeRepoResponse = {
+	didDoc?: {
+		service?: Array<{
+			id?: string;
+			type?: string;
+			serviceEndpoint?: string;
+		}>;
+	};
+};
+
+const relay = bluesky.relay;
+
 let cache: CacheEntry | null = null;
 
 function isStatusRecord(value: unknown): value is StatusRecord {
@@ -40,9 +52,53 @@ function toStatus(record: StatusRecord): BlueskyStatus {
 	};
 }
 
+async function resolveDid(repo: string): Promise<string> {
+	if (repo.startsWith('did:')) return repo;
+
+	const url = new URL('/xrpc/com.atproto.identity.resolveHandle', relay);
+	url.searchParams.set('handle', repo);
+
+	const response = await fetch(url);
+	if (!response.ok) {
+		throw new Error(`Failed to resolve Bluesky handle: ${response.status}`);
+	}
+
+	const data = (await response.json()) as { did?: string };
+	if (!data.did) {
+		throw new Error('Bluesky handle did not resolve to a DID');
+	}
+
+	return data.did;
+}
+
+async function resolvePdsEndpoint(did: string): Promise<string> {
+	const url = new URL('/xrpc/com.atproto.repo.describeRepo', relay);
+	url.searchParams.set('repo', did);
+
+	const response = await fetch(url);
+	if (!response.ok) {
+		throw new Error(`Failed to describe Bluesky repo: ${response.status}`);
+	}
+
+	const data = (await response.json()) as DescribeRepoResponse;
+	const pds = data.didDoc?.service?.find(
+		(service) => service.id === '#atproto_pds' || service.type === 'AtprotoPersonalDataServer'
+	);
+	const endpoint = pds?.serviceEndpoint?.replace(/\/$/, '');
+
+	if (!endpoint) {
+		throw new Error('Bluesky PDS endpoint not found');
+	}
+
+	return endpoint;
+}
+
 async function fetchStatusFromBluesky(): Promise<BlueskyStatus | null> {
-	const url = new URL('/xrpc/com.atproto.repo.getRecord', bluesky.apiBase);
-	url.searchParams.set('repo', bluesky.handle);
+	const did = await resolveDid(bluesky.handle);
+	const pds = await resolvePdsEndpoint(did);
+
+	const url = new URL('/xrpc/com.atproto.repo.getRecord', pds);
+	url.searchParams.set('repo', did);
 	url.searchParams.set('collection', bluesky.statusCollection);
 	url.searchParams.set('rkey', bluesky.statusRkey);
 

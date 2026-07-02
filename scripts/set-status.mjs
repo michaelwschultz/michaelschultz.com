@@ -1,4 +1,7 @@
 import { BskyAgent } from '@atproto/api';
+import { loadEnvFile } from './load-env.mjs';
+
+loadEnvFile();
 
 const COLLECTION = 'com.michaelschultz.status';
 const text = process.argv.slice(2).join(' ').trim();

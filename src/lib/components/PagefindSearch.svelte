@@ -27,7 +27,7 @@
 			.catch(() => {
 				registerOpen(() => {
 					console.warn(
-						'Pagefind search is not available. Run `pnpm build` in web/ (or use `pnpm preview`) to generate the search index.'
+						'Pagefind search is not available. Run `pnpm build` once, then use `pnpm dev` or `pnpm preview`.'
 					);
 				});
 			});

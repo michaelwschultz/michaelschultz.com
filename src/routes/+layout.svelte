@@ -46,9 +46,14 @@
 <div class="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
 	<div class="flex min-h-screen flex-col justify-between font-sans">
 		<SiteHeader onSearchClick={() => openSearch()} />
-		<main class="mb-auto" data-pagefind-body>
-			<span class="sr-only" data-pagefind-meta={`url:${pagefindUrl}`}
-			></span>
+		<main
+			class="mb-auto"
+			data-pagefind-body={pagefindUrl === '/' ? undefined : true}
+			data-pagefind-ignore={pagefindUrl === '/' ? 'all' : undefined}
+		>
+			{#if pagefindUrl !== '/'}
+				<span class="sr-only" data-pagefind-meta={`url:${pagefindUrl}`}></span>
+			{/if}
 			{@render children()}
 		</main>
 		<SiteFooter />
