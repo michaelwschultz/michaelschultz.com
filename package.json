@@ -12,7 +12,7 @@
 		"start": "node build",
 		"preview": "node build",
 		"sync:listening": "node scripts/sync-listening.mjs",
-		"prepare": "svelte-kit sync || echo '' && husky",
+		"prepare": "svelte-kit sync || echo '' && (command -v husky >/dev/null 2>&1 && husky || true)",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && tsc --noEmit",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
