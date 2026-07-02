@@ -7,9 +7,14 @@ let initialized = false;
 
 function ensureListeningInfrastructure(): void {
 	if (initialized || building) return;
-	initialized = true;
-	getDb();
-	startListeningCron();
+
+	try {
+		getDb();
+		if (!startListeningCron()) return;
+		initialized = true;
+	} catch (error) {
+		console.error('Failed to initialize listening infrastructure:', error);
+	}
 }
 
 export const handle: Handle = async ({ event, resolve }) => {

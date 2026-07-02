@@ -54,7 +54,9 @@ function mapTrack(track: LastFmTrack, index: number): ListeningPlay {
 	const playedAt = isNowPlaying
 		? new Date().toISOString()
 		: new Date(Number(track.date?.uts) * 1000).toISOString();
-	const id = isNowPlaying ? `now-playing-${index}` : (track.date?.uts ?? `track-${index}`);
+	const id = isNowPlaying
+		? `now-playing-${index}`
+		: `${track.date?.uts ?? 'track'}-${index}`;
 
 	return {
 		id,
