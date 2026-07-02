@@ -14,7 +14,7 @@ FROM base AS prod-deps
 
 COPY package.json pnpm-lock.yaml .npmrc pnpm-workspace.yaml ./
 RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
-	pnpm install --frozen-lockfile --prod --store-dir=/pnpm/store
+	pnpm install --frozen-lockfile --prod --ignore-scripts --store-dir=/pnpm/store
 
 FROM base AS build
 

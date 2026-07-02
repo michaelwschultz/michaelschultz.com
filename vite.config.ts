@@ -2,7 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig, type Plugin } from 'vite';
+import tailwindcss from '@tailwindcss/vite';
+import { defineConfig, type Plugin, type PluginOption } from 'vite';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const pagefindDir = path.join(root, 'build', 'client', 'pagefind');
@@ -49,7 +50,7 @@ function pagefindDevPlugin(): Plugin {
 }
 
 export default defineConfig(({ mode }) => ({
-	plugins: [sveltekit(), pagefindDevPlugin()],
+	plugins: [tailwindcss(), sveltekit(), pagefindDevPlugin()] as PluginOption[],
 	define: {
 		__PAGEFIND_INDEX_BUILT__: JSON.stringify(mode === 'production' ? true : pagefindIndexBuilt)
 	},

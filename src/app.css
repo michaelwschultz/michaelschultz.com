@@ -1,6 +1,113 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@source './**/*.{html,js,svelte,ts,svx}';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+@theme {
+	--font-sans: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+		'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+	--font-hero: Antonio, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+		'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+	--leading-11: 2.75rem;
+	--leading-12: 3rem;
+	--leading-13: 3.25rem;
+	--leading-14: 3.5rem;
+
+	--animate-blob: blob 10s infinite;
+
+	--color-primary-50: var(--color-green-50);
+	--color-primary-100: var(--color-green-100);
+	--color-primary-200: var(--color-green-200);
+	--color-primary-300: var(--color-green-300);
+	--color-primary-400: var(--color-green-400);
+	--color-primary-500: var(--color-green-500);
+	--color-primary-600: var(--color-green-600);
+	--color-primary-700: var(--color-green-700);
+	--color-primary-800: var(--color-green-800);
+	--color-primary-900: var(--color-green-900);
+	--color-primary-950: var(--color-green-950);
+}
+
+@keyframes blob {
+	0%,
+	100% {
+		transform: translate(0, 0) scale(1);
+	}
+	25% {
+		transform: translate(20px, -50px) scale(1.1);
+	}
+	50% {
+		transform: translate(0, 20px) scale(1);
+	}
+	75% {
+		transform: translate(-20px, -15px) scale(0.9);
+	}
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: var(--color-gray-200, currentcolor);
+	}
+
+	.prose :where(a):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+		color: var(--color-primary-500);
+
+		&:hover {
+			color: var(--color-primary-600);
+		}
+	}
+
+	.prose :where(a code):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+		color: var(--color-primary-400);
+	}
+
+	.prose :where(h1, h2):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+		font-weight: 700;
+		letter-spacing: var(--tracking-tight);
+	}
+
+	.prose :where(h3):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+		font-weight: 600;
+	}
+
+	.prose :where(code):not(:where([class~='not-prose'], [class~='not-prose'] *)):not(a code) {
+		color: var(--color-indigo-500);
+	}
+
+	.prose-invert :where(a):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+		color: var(--color-primary-500);
+
+		&:hover {
+			color: var(--color-primary-400);
+		}
+	}
+
+	.prose-invert :where(a code):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+		color: var(--color-primary-400);
+	}
+
+	.prose-invert
+		:where(h1, h2, h3, h4, h5, h6):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+		color: var(--color-gray-100);
+	}
+}
 
 .project-card-blur::before {
 	content: '';
