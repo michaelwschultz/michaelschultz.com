@@ -17,15 +17,22 @@ jobs:
     steps:
       - name: Deploy over SSH
         uses: appleboy/ssh-action@v1.2.5
+        env:
+          LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
+          LASTFM_USER: ${{ secrets.LASTFM_USER }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          SYNC_CRON: ${{ secrets.SYNC_CRON }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT || 22 }}
+          envs: LASTFM_API_KEY,LASTFM_USER,CRON_SECRET,SYNC_CRON
           script: |
             set -euo pipefail
-            cd /root/michaelschultz.com
+            cd "${{ secrets.DEPLOY_APP_DIR }}"
             git fetch origin main
             git checkout main
             git pull --ff-only origin main
+            ./deploy/write-env.sh
             ./deploy/deploy.sh

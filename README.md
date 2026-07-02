@@ -1,61 +1,71 @@
-![michael-schultz-social](/public/static/images/michael-schultz-social.jpg)
+![michael-schultz-social](static/static/images/michael-schultz-social.jpg)
 
-# Home on the net
-Hey I'm Michael, a software engineer and designer. I love building things that try to solve real problems and hack on things that don't. I've always got a bunch of projects going on. Reach out if you find something here you're interested in and want to know more or talk about over coffee ☕.
+# michaelschultz.com
 
-You can run this site locally by running `pnpm dev` and visiting `http://localhost:5173`. Check it out at [michaelschultz.com](https://michaelschultz.com).
+Personal site of [Michael Schultz](https://michaelschultz.com) — portfolio, writing, projects, and a live [/listening](https://michaelschultz.com/listening) page backed by Last.fm.
 
-![Alt](https://repobeats.axiom.co/api/embed/4d2560fc21344db7bfe7207c5773071f884f95e1.svg "Repobeats analytics image")
+Built with **SvelteKit**, **Tailwind CSS**, and **mdsvex** for markdown posts. Most pages are prerendered; `/listening` is server-rendered and backed by SQLite.
 
-## Development
+## Local development
 
-Requires **Node.js 24.x** (see `.nvmrc`). With [nvm](https://github.com/nvm-sh/nvm): `nvm install && nvm use`.
+Requires **Node.js 24.x** (see `.nvmrc`).
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-Search (Pagefind) is only available after a production build:
+Open [http://localhost:5173](http://localhost:5173).
+
+Search uses [Pagefind](https://pagefind.app/) and is only available after a production build:
 
 ```bash
 pnpm build
 pnpm start
 ```
 
+Type-checking:
+
+```bash
+pnpm check
+```
+
 ## Environment
 
-Copy `.env.example` to `.env` and configure:
+Copy `.env.example` to `.env` for local development:
 
-- `LASTFM_API_KEY` — Last.fm API key for `/listening`
-- `LASTFM_USER` — Last.fm username (default: `michaelschultz`)
-- `CRON_SECRET` — protects `GET /api/cron/sync-listening`
-- `DATABASE_PATH` — SQLite path (default: `./data/listening.db`)
+| Variable | Purpose |
+|----------|---------|
+| `LASTFM_API_KEY` | Last.fm API key for `/listening` |
+| `LASTFM_USER` | Last.fm username (default: `michaelschultz`) |
+| `DATABASE_PATH` | SQLite path (default: `./data/listening.db`) |
+| `CRON_SECRET` | Optional bearer token for `GET /api/cron/sync-listening` |
 
-## Listening page
+The listening page syncs recent plays from Last.fm into SQLite on a schedule and when the cache is stale. An in-process cron job handles most updates; `CRON_SECRET` is only needed if you want to trigger syncs over HTTP.
 
-Recent plays are synced from Last.fm into SQLite about five times per day via an in-process cron job. On first load (or when the cache is stale), `/listening` triggers a sync if `LASTFM_API_KEY` is set.
-
-Manual sync while the server is running:
+Manual sync while the dev server is running:
 
 ```bash
 pnpm sync:listening
 ```
 
-## Docker deployment
-
-On the VPS the app lives at `/root/michaelschultz.com`. Public traffic and TLS are handled by Pangolin over the shared `pangolin` Docker network (no nginx).
+## Docker
 
 ```bash
-cd /root/michaelschultz.com
 cp .env.example .env
-# edit .env with LASTFM_API_KEY, etc.
+# edit .env
 
 docker compose up -d --build
 ```
 
-GitHub Actions deploys on push to `main`: SSH to the VPS, pull `main`, and run `deploy/deploy.sh`.
+The container serves the app on port **3000**. Attach your own reverse proxy for TLS and public routing. Listening data is stored in the `listening-data` Docker volume.
 
-The container listens on port 3000 inside the `pangolin` network. Configure Pangolin to route `michaelschultz.com` to this service.
+Production configuration for this site is managed outside the repo (GitHub Environment secrets and deploy automation). Do not commit `.env` files.
 
-Listening data persists in the `listening-data` Docker volume at `/app/data/listening.db`.
+## Project structure
+
+- `src/routes/` — pages and API routes
+- `src/content/thoughts/` — blog posts (`.svx`)
+- `src/lib/content/` — work, games, and post metadata
+- `src/lib/listening/` — Last.fm sync and SQLite cache
+- `deploy/` — deployment scripts
