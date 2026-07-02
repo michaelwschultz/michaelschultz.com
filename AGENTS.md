@@ -10,11 +10,10 @@
 - SvelteKit site at the repo root: `@sveltejs/adapter-node` (hybrid — most routes prerendered, `/listening` is SSR), mdsvex (`.svx` in `src/content/thoughts/`), and `$lib/content/*` plus `$lib/config/*` for posts, work, games, and site config.
 - `/listening` reads recent Last.fm scrobbles from SQLite (`better-sqlite3`); sync runs via in-process `node-cron` (~5×/day at server startup) and stale refresh on page load; `GET /api/cron/sync-listening` (Bearer `CRON_SECRET`) is optional for external/manual HTTP sync only.
 - Homepage status line reads `com.michaelschultz.status/self` from Bluesky via `/api/status` (60s server cache); publish with `pnpm status` using `BLUESKY_APP_PASSWORD` locally (not needed at runtime).
-- Docker deployment: `Dockerfile` + `docker-compose.yml`; joins an external Docker network for reverse-proxy routing; SQLite DB at `DATABASE_PATH` (default `/app/data/listening.db` in Docker); `deploy/docker-entrypoint.sh` chowns the `listening-data` volume for SQLite writes.
+- Docker deployment: multi-stage `Dockerfile` + `docker-compose.yml` on external network `pangolin` for reverse-proxy routing; shared pnpm store cache mount with separate `prod-deps` and `build` stages (runtime copies prod `node_modules` from `prod-deps`, `build/` from `build`); `pnpm-workspace.yaml` sets `trustLockfile: true`; `deploy/deploy.sh` uses `docker buildx build` with local layer cache at `/var/lib/michaelschultzcom-build-cache`; SQLite at `DATABASE_PATH` (default `/app/data/listening.db`); `deploy/docker-entrypoint.sh` chowns the `listening-data` volume.
 - Production deploy is automated via `.github/workflows/deploy.yml` (SSH pull + `deploy/write-env.sh` + `deploy/deploy.sh`); app and infrastructure settings live in GitHub Environment secrets, not in the repo.
 - Static assets live under `static/static/` so URLs stay `/static/images/...`.
-- Search is Pagefind: `pnpm build` runs `vite build` then `scripts/postbuild.mjs` to index `build/`.
-- Pagefind UI uses the `pagefind-modal` web component; dev search needs a production build (index is not available in `vite dev`).
+- Search is Pagefind: `pnpm build` runs `vite build` then `scripts/postbuild.mjs` to index `build/`; UI uses the `pagefind-modal` web component; dev search needs a production build (index not available in `vite dev`).
 - `export const trailingSlash = 'always'` in `src/routes/+layout.ts` emits directory-style HTML (`work/index.html`) for correct Pagefind paths.
 - Layout sets `data-pagefind-meta` with clean route URLs (e.g. `url:/work`); `content-check` routes use `data-pagefind-ignore` so they are not indexed.
 - Node is locked to 24.x (`engines` in `package.json`, `.nvmrc`, `.node-version`).

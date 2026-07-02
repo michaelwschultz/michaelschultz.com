@@ -1,18 +1,26 @@
 # syntax=docker/dockerfile:1
 
-FROM node:24-bookworm-slim AS build
+FROM node:24-bookworm-slim AS base
 
 WORKDIR /app
+
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable && corepack prepare pnpm@11.9.0 --activate
+
+ENV HUSKY=0
+
+FROM base AS prod-deps
+
+COPY package.json pnpm-lock.yaml .npmrc pnpm-workspace.yaml ./
+RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
+	pnpm install --frozen-lockfile --prod --store-dir=/pnpm/store
+
+FROM base AS build
 
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends python3 make g++ \
 	&& rm -rf /var/lib/apt/lists/*
-
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
-
-ENV HUSKY=0
 
 COPY package.json pnpm-lock.yaml .npmrc pnpm-workspace.yaml ./
 RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
@@ -20,7 +28,6 @@ RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
 
 COPY . .
 RUN pnpm build
-RUN pnpm prune --prod
 
 FROM node:24-bookworm-slim AS runtime
 
@@ -30,8 +37,8 @@ RUN apt-get update \
 	&& apt-get install -y --no-install-recommends gosu \
 	&& rm -rf /var/lib/apt/lists/*
 
-COPY --from=build /app/node_modules ./node_modules
-COPY --from=build /app/package.json ./package.json
+COPY --from=prod-deps /app/node_modules ./node_modules
+COPY --from=prod-deps /app/package.json ./package.json
 COPY --from=build /app/build ./build
 
 COPY deploy/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh

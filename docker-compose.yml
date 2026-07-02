@@ -1,6 +1,7 @@
 services:
   web:
     build: .
+    image: michaelschultzcom-web
     restart: unless-stopped
     volumes:
       - listening-data:/app/data
