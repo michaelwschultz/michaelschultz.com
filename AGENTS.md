@@ -19,3 +19,10 @@
 - Node is locked to 24.x (`engines` in `package.json`, `.nvmrc`, `.node-version`).
 - Open Graph and Twitter meta come from `SocialMeta` in the root layout and `getPageSocialMeta` in `$lib/utils/social-meta.ts`; default image is `site.socialBanner` (`/static/images/michael-schultz-social.jpg`).
 - `pnpm check` runs `svelte-check` then `tsc --noEmit` so untyped route loaders are caught in CI and locally.
+
+## Cursor Cloud specific instructions
+
+- Node 24 is required (`engine-strict=true` in `.npmrc`); pnpm install will refuse to run on older Node. The VM has an `/exec-daemon/node` (Node 22) that shadows nvm on `PATH`, so run commands in a login shell (`bash -lc '...'`) where `~/.bashrc` puts nvm's Node 24 first. Verify with `node --version` before running pnpm.
+- Standard commands are in `README.md`/`package.json`: `pnpm dev` (Vite dev server on `http://localhost:5173`, routes use `trailingSlash: 'always'` so bare paths 308-redirect to the trailing-slash URL), `pnpm check`, `pnpm build` (also runs Pagefind indexing over `build/`), `pnpm start` (serves the built app on port 3000).
+- No secrets are needed to run/lint/build/test locally. Without `LASTFM_API_KEY` the `/listening` page renders normally but shows "No recent plays yet"; `pnpm status` (Bluesky) is a publishing script and not needed to run the site.
+- There is no automated test suite; `pnpm check` (svelte-check + tsc) is the type/lint gate and the `.husky/pre-commit` hook runs it on commit.
