@@ -14,7 +14,7 @@
 	<meta name="description" content={site.description} />
 </svelte:head>
 
-<div class="relative">
+<div class="relative overflow-x-clip">
 	<div
 		class="absolute -left-60 top-20 h-[380px] w-[380px] animate-blob rounded-full bg-[#E2EFB0] opacity-5 blur-3xl"
 	></div>
