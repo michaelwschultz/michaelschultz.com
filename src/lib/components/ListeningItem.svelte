@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { CirclePlay, Music } from '@lucide/svelte';
 	import type { ListeningPlay } from '$lib/listening/types';
 	import { site } from '$lib/config/site';
 	import { formatRelativeTime } from '$lib/utils/relative-time';
@@ -31,11 +32,7 @@
 					class="flex h-16 w-16 items-center justify-center rounded-md bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-400"
 					aria-hidden="true"
 				>
-					<svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor">
-						<path
-							d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"
-						/>
-					</svg>
+					<Music class="h-7 w-7" aria-hidden="true" />
 				</div>
 			{/if}
 		</div>
@@ -88,11 +85,7 @@
 						rel="noopener noreferrer"
 						aria-label="Search {play.track} on YouTube Music"
 					>
-						<svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-							<path
-								d="M10 15.5v-7l6 3.5-6 3.5zm12-3.5a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"
-							/>
-						</svg>
+						<CirclePlay class="h-5 w-5" aria-hidden="true" />
 					</a>
 				</div>
 			</div>

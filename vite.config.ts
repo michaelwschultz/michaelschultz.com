@@ -54,7 +54,14 @@ export default defineConfig(({ mode }) => ({
 	define: {
 		__PAGEFIND_INDEX_BUILT__: JSON.stringify(mode === 'production' ? true : pagefindIndexBuilt)
 	},
+	optimizeDeps: {
+		exclude: ['kokoro-js', '@huggingface/transformers']
+	},
+	build: {
+		chunkSizeWarningLimit: 2500,
+		cssMinify: 'esbuild'
+	},
 	ssr: {
-		external: ['better-sqlite3']
+		external: ['better-sqlite3', 'kokoro-js', '@huggingface/transformers']
 	}
 }));

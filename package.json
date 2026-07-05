@@ -46,9 +46,11 @@
 	},
 	"dependencies": {
 		"@ewanc26/svelte-standard-site": "^0.2.4",
+		"@lucide/svelte": "^1.23.0",
 		"better-sqlite3": "^12.11.1",
 		"gray-matter": "^4.0.3",
 		"js-yaml": "3.14.1",
+		"kokoro-js": "^1.2.1",
 		"markdown-it": "^14.1.0",
 		"node-cron": "^4.5.0",
 		"onedollarstats": "^0.0.23",
