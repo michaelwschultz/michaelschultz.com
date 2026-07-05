@@ -3,14 +3,14 @@ import { StandardSitePublisher } from '@ewanc26/svelte-standard-site/publisher';
 import { transformContent } from '@ewanc26/svelte-standard-site/content';
 import { getPublicationAtUri } from '@ewanc26/svelte-standard-site/verification';
 import matter from 'gray-matter';
-import { buildMarkpubContent, extractRkey, toIsoDate } from './lib/markpub.mjs';
+import { buildMarkpubContent, extractRkey, toIsoDate } from './markpub.mjs';
 import {
 	getPublisherConfig,
 	readThoughtFile,
 	requirePublicationRkey,
 	siteUrl,
 	thoughtsDir
-} from './lib/standard-site.mjs';
+} from './standard-site.mjs';
 
 export async function publishThought(slug, publisher, publicationAtUri) {
 	const { path, raw } = readThoughtFile(slug);

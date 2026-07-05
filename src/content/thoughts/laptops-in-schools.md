@@ -1,14 +1,19 @@
 ---
-title: 'Why Laptops Alone Aren’t Boosting Kids’ Learning—And What Might'
+title: Why Laptops Alone Aren’t Boosting Kids’ Learning—And What Might
 date: '2025-01-17'
-tags: ['education', 'exploration']
+tags:
+  - education
+  - exploration
 draft: false
-summary: 'I’ve often been intrigued by the idea that
-if kids have the right tools, they can learn almost anything on their own—especially now that
-computers, smartphones, and the internet are practically everywhere. However, some research (like
-the OECD’s 2015 study on technology in classrooms) show that simply giving students laptops hasn’t
-dramatically improved their scores in most subjects. So while devices are more accessible than ever,
-the “supercharged” learning we expected still isn’t a reality.'
+summary: >-
+  I’ve often been intrigued by the idea that if kids have the right tools, they
+  can learn almost anything on their own—especially now that computers,
+  smartphones, and the internet are practically everywhere. However, some
+  research (like the OECD’s 2015 study on technology in classrooms) show that
+  simply giving students laptops hasn’t dramatically improved their scores in
+  most subjects. So while devices are more accessible than ever, the
+  “supercharged” learning we expected still isn’t a reality.
+atprotoRkey: 3mpwog6mnlc6v
 ---
 
 I’ve often been intrigued by the idea that if kids have the right tools, they can learn almost
