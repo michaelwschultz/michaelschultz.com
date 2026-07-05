@@ -8,6 +8,7 @@ export type PostMeta = {
 	layout?: string;
 	images?: string[];
 	canonicalUrl?: string;
+	atprotoRkey?: string;
 };
 
 export type PostListItem = PostMeta & {
@@ -18,5 +19,5 @@ export type PostListItem = PostMeta & {
 };
 
 export type Post = PostListItem & {
-	Content: import('svelte').Component;
+	body: string;
 };

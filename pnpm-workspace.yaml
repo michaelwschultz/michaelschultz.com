@@ -1,3 +1,7 @@
 allowBuilds:
   better-sqlite3: true
 trustLockfile: true
+overrides:
+  '@ewanc26/atproto': '0.2.12'
+  '@ewanc26/tid': '1.1.3'
+  '@ewanc26/utils': '0.1.5'

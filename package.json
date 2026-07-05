@@ -6,7 +6,7 @@
 	"engines": {
 		"node": ">=24.0.0 <25.0.0"
 	},
-	"packageManager": "pnpm@11.9.0",
+	"packageManager": "pnpm@11.10.0",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && node scripts/postbuild.mjs",
@@ -14,6 +14,10 @@
 		"preview": "node build",
 		"sync:listening": "node scripts/sync-listening.mjs",
 		"status": "node scripts/set-status.mjs",
+		"publish-publication": "node scripts/publish-publication.mjs",
+		"publish-thought": "node scripts/publish-thought.mjs",
+		"publish-thoughts": "node scripts/publish-thoughts.mjs",
+		"write-well-known": "node scripts/write-well-known.mjs",
 		"prepare": "command -v svelte-kit >/dev/null 2>&1 && svelte-kit sync || true; command -v husky >/dev/null 2>&1 && husky || true",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && tsc --noEmit",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
@@ -27,11 +31,12 @@
 		"@tailwindcss/typography": "^0.5.19",
 		"@tailwindcss/vite": "^4.3.2",
 		"@types/better-sqlite3": "^7.6.13",
+		"@types/js-yaml": "^4.0.9",
+		"@types/markdown-it": "^14.1.2",
 		"@types/node": "^24.12.4",
 		"@types/node-cron": "^3.0.11",
 		"github-slugger": "^2.0.0",
 		"husky": "^9.1.7",
-		"mdsvex": "^0.12.7",
 		"pagefind": "^1.5.2",
 		"svelte": "^5.55.2",
 		"svelte-check": "^4.4.6",
@@ -40,8 +45,13 @@
 		"vite": "^8.1.2"
 	},
 	"dependencies": {
+		"@ewanc26/svelte-standard-site": "^0.2.4",
 		"better-sqlite3": "^12.11.1",
+		"gray-matter": "^4.0.3",
+		"js-yaml": "3.14.1",
+		"markdown-it": "^14.1.0",
 		"node-cron": "^4.5.0",
-		"onedollarstats": "^0.0.23"
+		"onedollarstats": "^0.0.23",
+		"zod": "^3.24.0"
 	}
 }

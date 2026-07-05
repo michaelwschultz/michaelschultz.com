@@ -1,23 +1,20 @@
 import { slug as slugify } from 'github-slugger';
+import { parseFrontmatter } from './parse-frontmatter';
 import type { Post, PostListItem, PostMeta } from './types';
 
-type PostModule = {
-	default: import('svelte').Component;
-	metadata: PostMeta;
-};
-
-const modules = import.meta.glob<PostModule>('../../content/thoughts/*.svx', {
-	eager: true
-});
-
-const rawModules = import.meta.glob<string>('../../content/thoughts/*.svx', {
+const rawModules = import.meta.glob<string>('../../content/thoughts/*.md', {
 	query: '?raw',
 	import: 'default',
 	eager: true
 });
 
-function stripFrontmatter(raw: string): string {
-	return raw.replace(/^---[\s\S]*?---\n?/, '');
+function filepathToSlug(filepath: string): string {
+	const name = filepath.split('/').pop() ?? '';
+	return name.replace(/\.md$/, '');
+}
+
+function parseMarkdownFile(raw: string): { metadata: PostMeta; body: string } {
+	return parseFrontmatter(raw);
 }
 
 export function countWords(text: string): number {
@@ -29,19 +26,7 @@ export function formatReadingTime(wordCount: number): string {
 	return `${minutes} min read`;
 }
 
-function rawBodyForSlug(slug: string): string {
-	const path = Object.keys(rawModules).find((filepath) => filepathToSlug(filepath) === slug);
-	if (!path) return '';
-	return stripFrontmatter(rawModules[path]);
-}
-
-function filepathToSlug(filepath: string): string {
-	const name = filepath.split('/').pop() ?? '';
-	return name.replace(/\.svx$/, '');
-}
-
-function metaToListItem(slug: string, metadata: PostMeta): PostListItem {
-	const body = rawBodyForSlug(slug);
+function metaToListItem(slug: string, metadata: PostMeta, body: string): PostListItem {
 	const wordCount = countWords(body || metadata.summary || '');
 	return {
 		...metadata,
@@ -53,10 +38,13 @@ function metaToListItem(slug: string, metadata: PostMeta): PostListItem {
 	};
 }
 
+const parsedPosts = Object.entries(rawModules).map(([path, raw]) => {
+	const { metadata, body } = parseMarkdownFile(raw);
+	return { slug: filepathToSlug(path), metadata, body };
+});
+
 export function getAllPosts(): PostListItem[] {
-	return Object.entries(modules).map(([path, mod]) =>
-		metaToListItem(filepathToSlug(path), mod.metadata)
-	);
+	return parsedPosts.map(({ slug, metadata, body }) => metaToListItem(slug, metadata, body));
 }
 
 export function getPublishedPosts(): PostListItem[] {
@@ -68,14 +56,11 @@ export function sortPosts(posts: PostListItem[]): PostListItem[] {
 }
 
 export function getPost(slug: string): Post | null {
-	const entry = Object.entries(modules).find(
-		([path]) => filepathToSlug(path) === slug
-	);
+	const entry = parsedPosts.find((post) => post.slug === slug);
 	if (!entry) return null;
-	const [, mod] = entry;
 	return {
-		...metaToListItem(slug, mod.metadata),
-		Content: mod.default
+		...metaToListItem(entry.slug, entry.metadata, entry.body),
+		body: entry.body
 	};
 }
 

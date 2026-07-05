@@ -3,8 +3,8 @@ title: 'My First Game Jam: Why Didn’t I Do This Sooner?'
 date: '2024-03-19'
 tags: ['games', 'development', 'devlog']
 summary: 'After working on a few game projects over the years, my cousin Luke
-and I finally competed in our first game jam. It was a doozy, and something I’ve
-been meaning to write about. Not to spoil anything, but you can play our
+and I finally competed in our first game jam. It was a doozy, and something 
+I’ve been meaning to write about. Not to spoil anything, but you can play our
 game now on itch.io, link in the story.'
 ---
 

@@ -11,11 +11,3 @@ declare namespace svelteHTML {
 		};
 	}
 }
-
-declare module '*.svx' {
-	import type { Component } from 'svelte';
-	import type { PostMeta } from '$lib/content/types';
-	export const metadata: PostMeta;
-	const component: Component;
-	export default component;
-}

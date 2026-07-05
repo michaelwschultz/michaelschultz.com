@@ -1,19 +1,32 @@
 <script lang="ts">
+	import MarkdownContent from "$lib/components/MarkdownContent.svelte";
 	import Tag from "$lib/components/Tag.svelte";
 	import { site } from "$lib/config/site";
+	import { standardSite } from "$lib/config/standard-site";
 	import { formatDateLong } from "$lib/utils/format";
+	import { generateDocumentLinkTag } from "@ewanc26/svelte-standard-site/verification";
 
 	let { data } = $props();
 
 	const post = $derived(data.post);
 	const prev = $derived(data.prev);
 	const next = $derived(data.next);
-	const PostContent = $derived(post.Content);
+	const documentLinkTag = $derived(
+		post.atprotoRkey && standardSite.did
+			? generateDocumentLinkTag({
+					did: standardSite.did,
+					documentRkey: post.atprotoRkey
+				})
+			: ""
+	);
 </script>
 
 <svelte:head>
 	<title>{post.title} | {site.title}</title>
 	<meta name="description" content={post.summary ?? site.description} />
+	{#if documentLinkTag}
+		{@html documentLinkTag}
+	{/if}
 </svelte:head>
 
 <article class="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
@@ -39,7 +52,7 @@
 			class="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0"
 		>
 			<div class="prose max-w-none pb-8 pt-10 dark:prose-invert">
-				<PostContent />
+				<MarkdownContent content={post.body} />
 			</div>
 		</div>
 
@@ -107,7 +120,7 @@
 			class="mt-6 flex flex-wrap gap-4 text-sm text-gray-500 dark:text-gray-400"
 		>
 			<a
-				href="{site.siteRepo}/blob/main/data/thoughts/{post.slug}.mdx"
+				href="{site.siteRepo}/blob/main/src/content/thoughts/{post.slug}.md"
 				class="hover:text-primary-500"
 			>
 				View on GitHub
