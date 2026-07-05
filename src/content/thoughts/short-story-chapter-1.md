@@ -1,9 +1,14 @@
 ---
 title: 'The First Reading: A short story'
 date: '2026-06-09'
-tags: ['sci-fi', 'in-progress', 'short story']
-summary: 'The first chapter of a short story I’m writting.
-I’ll post subseqent chapters as they are available.'
+tags:
+  - sci-fi
+  - in-progress
+  - short story
+summary: >-
+  The first chapter of a short story I’m writting. I’ll post subseqent chapters
+  as they are available.
+atprotoRkey: 3mpwokxck7kfg
 ---
 
 ## Chapter 1: The First Reading
