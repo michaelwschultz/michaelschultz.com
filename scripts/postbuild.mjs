@@ -4,6 +4,11 @@ import { fileURLToPath } from 'node:url';
 
 const projectRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 
+execSync('node scripts/inject-standard-site-links.mjs', {
+	stdio: 'inherit',
+	cwd: projectRoot
+});
+
 execSync('pagefind --site build/prerendered --output-path build/client/pagefind', {
 	stdio: 'inherit',
 	cwd: projectRoot

@@ -65,9 +65,24 @@ Create an app password in Bluesky settings. The lexicon schema lives in `lexicon
 
 ## Publishing thoughts (standard.site)
 
-Thoughts are authored as markdown in `src/content/thoughts/` and rendered locally. Publishing syndicates them to the ATmosphere as [standard.site](https://standard.site/) `site.standard.document` records (markdown via [markpub.at](https://markpub.at/)).
+Thoughts are authored as markdown in `src/content/thoughts/` and **rendered from those local files** on the site. Publish commands **syndicate** content to your PDS as [standard.site](https://standard.site/) `site.standard.document` records (markdown body via [markpub.at](https://markpub.at/)). They do not change how the site renders posts.
 
 **Prerequisites:** `BLUESKY_APP_PASSWORD` and `BLUESKY_HANDLE` in `.env` (same app password as `pnpm status`).
+
+### What each command updates
+
+| Command | ATProto (your PDS) | Local repo | Production site |
+|---------|-------------------|------------|-----------------|
+| `pnpm publish-publication` | Creates **one** `site.standard.publication` (run once; re-running creates a duplicate) | Writes `static/.well-known/site.standard.publication` | Serves well-known after deploy; prints `PUBLIC_ATPROTO_DID` and `PUBLIC_PUBLICATION_RKEY` for `.env` / GitHub secrets |
+| `pnpm write-well-known` | Nothing | Rewrites `static/.well-known/site.standard.publication` from env | Well-known file only — redeploy to go live |
+| `pnpm publish-thought <slug>` | Creates or **updates** one `site.standard.document` | On **first** publish only: adds `atprotoRkey` to that post’s frontmatter | HTML unchanged until you `pnpm build` and deploy |
+| `pnpm publish-thoughts` | Same as above, for every non-draft `.md` in `src/content/thoughts/` | Writes `atprotoRkey` for any post that did not have one yet | HTML unchanged until you `pnpm build` and deploy |
+
+**Create vs update (posts):** If frontmatter already has `atprotoRkey`, publish commands call `updateDocument` on that record (same AT-URI, new content, `updatedAt`). If there is no `atprotoRkey`, they create a new document and save the rkey into the `.md` file. Do not remove `atprotoRkey` unless you intend to publish a second copy on ATProto.
+
+**Drafts:** Posts with `draft: true` are skipped by publish commands.
+
+**Verification:** [site-validator.fly.dev](https://site-validator.fly.dev/) checks **individual post URLs** (e.g. `https://michaelschultz.com/thoughts/laptops-in-schools/`), not the `/thoughts/` index. After `pnpm build`, `scripts/postbuild.mjs` injects `<link rel="site.standard.document" href="at://...">` into each prerendered post that has `atprotoRkey` in frontmatter (DID is read from `static/.well-known/site.standard.publication`). `PUBLIC_ATPROTO_DID` in env is optional.
 
 ### One-time: create the publication
 
@@ -75,37 +90,35 @@ Thoughts are authored as markdown in `src/content/thoughts/` and rendered locall
 pnpm publish-publication
 ```
 
-This creates a `site.standard.publication` on your PDS, writes `static/.well-known/site.standard.publication`, and prints values for `.env`:
+Add the printed values to `.env` and GitHub Environment secrets:
 
 - `PUBLIC_ATPROTO_DID`
 - `PUBLIC_PUBLICATION_RKEY`
 
-Add those to `.env` and your GitHub Environment secrets so production builds emit verification link tags.
-
-If you already have the DID and rkey, regenerate the well-known file without creating a new publication:
+If you already published once and only need to refresh the well-known file:
 
 ```bash
 pnpm write-well-known
 ```
 
-### Publish posts
+### Publish or update posts
 
-After editing a post, push it to ATProto:
+After editing markdown locally:
 
 ```bash
 pnpm publish-thought laptops-in-schools   # one post
-pnpm publish-thoughts                   # all non-draft posts
+pnpm publish-thoughts                     # all non-draft posts
 ```
 
-New posts get an `atprotoRkey` written into frontmatter; republishing updates the existing record. Draft posts (`draft: true`) are skipped.
+Safe to re-run `publish-thoughts` after changes — posts with an `atprotoRkey` are updated in place, not duplicated.
 
-Then rebuild and deploy so the site serves updated HTML and verification tags:
+Commit any new `atprotoRkey` values in frontmatter, then rebuild and deploy so the live site matches ATProto and serves verification tags:
 
 ```bash
 pnpm build
 ```
 
-Validate a live post URL at [site-validator.fly.dev](https://site-validator.fly.dev/).
+Validate a live post URL (with trailing slash) at [site-validator.fly.dev](https://site-validator.fly.dev/).
 
 ## Docker
 

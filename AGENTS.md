@@ -4,10 +4,11 @@
 - When extending the site, migrate and normalize content first, then build UI to match the existing look.
 - Keep the work page intro prominent; list past tech roles in a minimal, de-emphasized way with no company logos.
 - Avoid implicit `any`; type route `+page.ts` loaders with `PageLoad` from `./$types`.
+- Keep thoughts as local markdown on disk; syndicate to the ATmosphere with standard.site, do not render posts from the PDS.
 
 ## Learned Workspace Facts
 
-- SvelteKit site at the repo root: `@sveltejs/adapter-node` (hybrid — most routes prerendered, `/listening` is SSR), mdsvex (`.svx` in `src/content/thoughts/`), and `$lib/content/*` plus `$lib/config/*` for posts, work, games, and site config.
+- SvelteKit site at the repo root: `@sveltejs/adapter-node` (hybrid — most routes prerendered, `/listening` is SSR), `$lib/content/*` plus `$lib/config/*` for posts, work, games, and site config. Thoughts are local markdown (`src/content/thoughts/*.md`, `markdown-it`, `js-yaml` v3 frontmatter); syndicate to standard.site via `@ewanc26/svelte-standard-site` (`pnpm publish-publication`, `publish-thought`, `publish-thoughts`, `write-well-known`; markpub.at content). Verification `<link>` tags on individual thought pages only; `pnpm-workspace.yaml` pins `@ewanc26/*` overrides.
 - `/listening` reads recent Last.fm scrobbles from SQLite (`better-sqlite3`); sync runs via in-process `node-cron` (~5×/day at server startup) and stale refresh on page load; `GET /api/cron/sync-listening` (Bearer `CRON_SECRET`) is optional for external/manual HTTP sync only.
 - Homepage status line reads `com.michaelschultz.status/self` from Bluesky via `/api/status` (60s server cache); publish with `pnpm status` using `BLUESKY_APP_PASSWORD` locally (not needed at runtime).
 - Docker deployment: multi-stage `Dockerfile` + `docker-compose.yml` on external network `pangolin` for reverse-proxy routing; shared pnpm store cache mount with separate `prod-deps` and `build` stages (runtime copies prod `node_modules` from `prod-deps`, `build/` from `build`); `pnpm-workspace.yaml` sets `trustLockfile: true`; `deploy/deploy.sh` uses `docker buildx build` with local layer cache at `/var/lib/michaelschultzcom-build-cache`; SQLite at `DATABASE_PATH` (default `/app/data/listening.db`); `deploy/docker-entrypoint.sh` chowns the `listening-data` volume.

@@ -2,31 +2,18 @@
 	import MarkdownContent from "$lib/components/MarkdownContent.svelte";
 	import Tag from "$lib/components/Tag.svelte";
 	import { site } from "$lib/config/site";
-	import { standardSite } from "$lib/config/standard-site";
 	import { formatDateLong } from "$lib/utils/format";
-	import { generateDocumentLinkTag } from "@ewanc26/svelte-standard-site/verification";
 
 	let { data } = $props();
 
 	const post = $derived(data.post);
 	const prev = $derived(data.prev);
 	const next = $derived(data.next);
-	const documentLinkTag = $derived(
-		post.atprotoRkey && standardSite.did
-			? generateDocumentLinkTag({
-					did: standardSite.did,
-					documentRkey: post.atprotoRkey
-				})
-			: ""
-	);
 </script>
 
 <svelte:head>
 	<title>{post.title} | {site.title}</title>
 	<meta name="description" content={post.summary ?? site.description} />
-	{#if documentLinkTag}
-		{@html documentLinkTag}
-	{/if}
 </svelte:head>
 
 <article class="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
