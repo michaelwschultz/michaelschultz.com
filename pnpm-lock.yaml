@@ -13,9 +13,6 @@ importers:
 
   .:
     dependencies:
-      '@ewanc26/svelte-standard-site':
-        specifier: ^0.2.4
-        version: 0.2.4(@sveltejs/kit@2.61.1(@sveltejs/vite-plugin-svelte@7.1.2(svelte@5.56.0)(vite@8.1.2(@types/node@24.12.4)(jiti@2.7.0)))(svelte@5.56.0)(typescript@6.0.3)(vite@8.1.2(@types/node@24.12.4)(jiti@2.7.0)))(svelte@5.56.0)
       '@lucide/svelte':
         specifier: ^1.23.0
         version: 1.23.0(svelte@5.56.0)
@@ -28,9 +25,6 @@ importers:
       js-yaml:
         specifier: 3.14.1
         version: 3.14.1
-      kokoro-js:
-        specifier: ^1.2.1
-        version: 1.2.1
       markdown-it:
         specifier: ^14.1.0
         version: 14.3.0
@@ -47,6 +41,9 @@ importers:
       '@atproto/api':
         specifier: ^0.15.15
         version: 0.15.27
+      '@ewanc26/svelte-standard-site':
+        specifier: ^0.2.4
+        version: 0.2.4(@sveltejs/kit@2.61.1(@sveltejs/vite-plugin-svelte@7.1.2(svelte@5.56.0)(vite@8.1.2(@types/node@24.12.4)(jiti@2.7.0)))(svelte@5.56.0)(typescript@6.0.3)(vite@8.1.2(@types/node@24.12.4)(jiti@2.7.0)))(svelte@5.56.0)
       '@sveltejs/adapter-node':
         specifier: ^5.5.7
         version: 5.5.7(@sveltejs/kit@2.61.1(@sveltejs/vite-plugin-svelte@7.1.2(svelte@5.56.0)(vite@8.1.2(@types/node@24.12.4)(jiti@2.7.0)))(svelte@5.56.0)(typescript@6.0.3)(vite@8.1.2(@types/node@24.12.4)(jiti@2.7.0)))
@@ -86,6 +83,9 @@ importers:
       husky:
         specifier: ^9.1.7
         version: 9.1.7
+      kokoro-js:
+        specifier: ^1.2.1
+        version: 1.2.1
       pagefind:
         specifier: ^1.5.2
         version: 1.5.2

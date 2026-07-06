@@ -24,6 +24,7 @@
 	},
 	"devDependencies": {
 		"@atproto/api": "^0.15.15",
+		"@ewanc26/svelte-standard-site": "^0.2.4",
 		"@sveltejs/adapter-node": "^5.5.7",
 		"@sveltejs/kit": "^2.57.0",
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
@@ -37,6 +38,7 @@
 		"@types/node-cron": "^3.0.11",
 		"github-slugger": "^2.0.0",
 		"husky": "^9.1.7",
+		"kokoro-js": "^1.2.1",
 		"pagefind": "^1.5.2",
 		"svelte": "^5.55.2",
 		"svelte-check": "^4.4.6",
@@ -45,12 +47,10 @@
 		"vite": "^8.1.2"
 	},
 	"dependencies": {
-		"@ewanc26/svelte-standard-site": "^0.2.4",
 		"@lucide/svelte": "^1.23.0",
 		"better-sqlite3": "^12.11.1",
 		"gray-matter": "^4.0.3",
 		"js-yaml": "3.14.1",
-		"kokoro-js": "^1.2.1",
 		"markdown-it": "^14.1.0",
 		"node-cron": "^4.5.0",
 		"onedollarstats": "^0.0.23",

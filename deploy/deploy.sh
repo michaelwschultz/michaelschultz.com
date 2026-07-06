@@ -61,5 +61,9 @@ docker compose up -d --no-build
 container_id="$(docker compose ps -q web)"
 echo "✓ web running (${container_id})"
 
+echo "→ Pruning unused images"
+docker image prune -a -f
+echo "✓ Prune complete"
+
 cleanup_deploy
 trap - EXIT
