@@ -15,6 +15,37 @@
 	let readerRoot: HTMLElement | null = $state(null);
 </script>
 
+{#snippet postMeta()}
+	<dl
+		class="flex flex-wrap justify-center gap-x-8 gap-y-4 border-t border-gray-200 pt-6 text-sm dark:border-gray-700 xl:block xl:space-y-6 xl:border-t-0 xl:pt-0"
+		data-reader-skip
+	>
+		<div>
+			<dt class="font-medium text-gray-500 dark:text-gray-400">Published</dt>
+			<dd class="mt-1 text-gray-900 dark:text-gray-100">
+				<time datetime={post.date}>{formatDateLong(post.date, site.locale)}</time>
+			</dd>
+		</div>
+		<div>
+			<dt class="font-medium text-gray-500 dark:text-gray-400">Words</dt>
+			<dd class="mt-1 text-gray-900 dark:text-gray-100">
+				{post.wordCount.toLocaleString(site.locale)}
+				{post.wordCount === 1 ? 'word' : 'words'}
+			</dd>
+		</div>
+		<div>
+			<dt class="font-medium text-gray-500 dark:text-gray-400">Reading time</dt>
+			<dd class="mt-1 text-gray-900 dark:text-gray-100">{post.readingTime}</dd>
+		</div>
+		<div class="w-full pt-2">
+			<dt class="sr-only">Listen</dt>
+			<dd class="flex justify-center xl:justify-start">
+				<ListenButton slug={post.slug} title={post.title} {readerRoot} />
+			</dd>
+		</div>
+	</dl>
+{/snippet}
+
 <svelte:head>
 	<title>{post.title} | {site.title}</title>
 	<meta name="description" content={post.summary ?? site.description} />
@@ -41,6 +72,10 @@
 							{/each}
 						</div>
 					</div>
+
+					<div class="mt-8 xl:hidden">
+						{@render postMeta()}
+					</div>
 				</header>
 
 				<div class="prose max-w-none pb-8 pt-10 dark:prose-invert">
@@ -50,35 +85,9 @@
 		</div>
 
 		<aside
-			class="pb-10 pt-6 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700"
+			class="hidden pb-10 pt-6 xl:block xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700"
 		>
-			<dl
-				class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm xl:block xl:space-y-6"
-			>
-				<div>
-					<dt class="font-medium text-gray-500 dark:text-gray-400">Published</dt>
-					<dd class="mt-1 text-gray-900 dark:text-gray-100">
-						<time datetime={post.date}>{formatDateLong(post.date, site.locale)}</time>
-					</dd>
-				</div>
-				<div>
-					<dt class="font-medium text-gray-500 dark:text-gray-400">Words</dt>
-					<dd class="mt-1 text-gray-900 dark:text-gray-100">
-						{post.wordCount.toLocaleString(site.locale)}
-						{post.wordCount === 1 ? 'word' : 'words'}
-					</dd>
-				</div>
-				<div>
-					<dt class="font-medium text-gray-500 dark:text-gray-400">Reading time</dt>
-					<dd class="mt-1 text-gray-900 dark:text-gray-100">{post.readingTime}</dd>
-				</div>
-				<div class="w-full xl:pt-2">
-					<dt class="sr-only">Listen</dt>
-					<dd class="mt-1 flex justify-center xl:justify-start">
-						<ListenButton slug={post.slug} title={post.title} {readerRoot} />
-					</dd>
-				</div>
-			</dl>
+			{@render postMeta()}
 		</aside>
 	</div>
 

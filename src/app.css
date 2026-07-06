@@ -115,6 +115,54 @@
 	.prose :where(iframe):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 		max-width: 100%;
 	}
+
+	.prose :where(figure.md-figure):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+		margin-block: 1.75em;
+	}
+
+	.prose
+		:where(figure.md-figure img):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+		margin-inline: auto;
+	}
+
+	.prose
+		:where(figure.md-figure figcaption):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+		margin-top: 0.75em;
+		text-align: center;
+		font-size: var(--text-sm);
+		line-height: var(--text-sm--line-height);
+		font-style: italic;
+		color: var(--color-gray-500);
+	}
+
+	.prose-invert
+		:where(figure.md-figure figcaption):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+		color: var(--color-gray-400);
+	}
+
+	/* Inline images keep captions in the DOM for read-aloud but hide them visually. */
+	.prose
+		:where(p:not(:has(> figure.md-figure:only-child)) figure.md-figure):not(
+			:where([class~='not-prose'], [class~='not-prose'] *)
+		) {
+		display: inline;
+		margin: 0;
+	}
+
+	.prose
+		:where(p:not(:has(> figure.md-figure:only-child)) figure.md-figure figcaption):not(
+			:where([class~='not-prose'], [class~='not-prose'] *)
+		) {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border-width: 0;
+	}
 }
 
 .project-card-blur::before {

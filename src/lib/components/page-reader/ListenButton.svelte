@@ -8,6 +8,7 @@
 		playThought,
 		togglePlayback
 	} from '$lib/page-reader/page-reader.svelte';
+	import PlaybackInfoIcon from './PlaybackInfoIcon.svelte';
 
 	interface Props {
 		slug: string;
@@ -54,24 +55,27 @@
 </script>
 
 {#if capability.supported}
-	<button
-		type="button"
-		class="inline-flex cursor-pointer items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium transition disabled:cursor-not-allowed {isPlaying || isPaused
-			? 'border-primary-500 bg-primary-500 text-white hover:brightness-105'
-			: 'border-gray-200 text-gray-900 hover:border-primary-500 hover:text-primary-600 dark:border-gray-700 dark:text-gray-100 dark:hover:border-primary-500 dark:hover:text-primary-400'}"
-		aria-label={ariaLabel}
-		disabled={!readerRoot || isLoading}
-		onclick={onClick}
-	>
-		{#if isPlaying}
-			<Pause class="h-5 w-5" fill="currentColor" strokeWidth={0} aria-hidden="true" />
-		{:else if isPaused}
-			<Play class="h-5 w-5" fill="currentColor" strokeWidth={0} aria-hidden="true" />
-		{:else}
-			<Headphones class="h-5 w-5" aria-hidden="true" />
-		{/if}
-		{label}
-	</button>
+	<div class="inline-flex items-center gap-0.5">
+		<button
+			type="button"
+			class="inline-flex cursor-pointer items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium transition disabled:cursor-not-allowed {isPlaying || isPaused
+				? 'border-primary-500 bg-primary-500 text-white hover:brightness-105'
+				: 'border-gray-200 text-gray-900 hover:border-primary-500 hover:text-primary-600 dark:border-gray-700 dark:text-gray-100 dark:hover:border-primary-500 dark:hover:text-primary-400'}"
+			aria-label={ariaLabel}
+			disabled={!readerRoot || isLoading}
+			onclick={onClick}
+		>
+			{#if isPlaying}
+				<Pause class="h-5 w-5" fill="currentColor" strokeWidth={0} aria-hidden="true" />
+			{:else if isPaused}
+				<Play class="h-5 w-5" fill="currentColor" strokeWidth={0} aria-hidden="true" />
+			{:else}
+				<Headphones class="h-5 w-5" aria-hidden="true" />
+			{/if}
+			{label}
+		</button>
+		<PlaybackInfoIcon />
+	</div>
 {:else if browser}
 	<p class="text-sm text-gray-500 dark:text-gray-400" title={capability.reason ?? undefined}>
 		Listen unavailable
