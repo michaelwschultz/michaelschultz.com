@@ -36,6 +36,7 @@
 <SocialMeta meta={socialMeta} />
 
 <svelte:head>
+	<link rel="stylesheet" href="/reader-highlight.css" />
 	<link
 		rel="alternate"
 		type="application/rss+xml"

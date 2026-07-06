@@ -1,0 +1,5 @@
+/* CSS Custom Highlight API — kept out of app.css so Tailwind/lightningcss won't warn at build. */
+::highlight(reader-word) {
+	background-color: oklch(0.86 0.16 92 / 0.25);
+	color: inherit;
+}

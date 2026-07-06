@@ -252,9 +252,3 @@ html[data-pf-theme='dark'] {
 	--pf-outline-focus: #22c55e;
 	--pf-font: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
 }
-
-/* Page reader sentence highlight (CSS Custom Highlight API) */
-::highlight(reader-word) {
-	background-color: oklch(0.86 0.16 92 / 0.25);
-	color: inherit;
-}
