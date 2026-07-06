@@ -1,9 +1,12 @@
 import { readdirSync, writeFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { StandardSitePublisher } from '@ewanc26/svelte-standard-site/publisher';
 import { transformContent } from '@ewanc26/svelte-standard-site/content';
 import { getPublicationAtUri } from '@ewanc26/svelte-standard-site/verification';
 import matter from 'gray-matter';
 import { buildMarkpubContent, extractRkey, toIsoDate } from './markpub.mjs';
+import { uploadCoverImage } from './cover-image.mjs';
 import {
 	getPublisherConfig,
 	readThoughtFile,
@@ -11,6 +14,8 @@ import {
 	siteUrl,
 	thoughtsDir
 } from './standard-site.mjs';
+
+const rootDir = join(dirname(fileURLToPath(import.meta.url)), '../..');
 
 export async function publishThought(slug, publisher, publicationAtUri) {
 	const { path, raw } = readThoughtFile(slug);
@@ -24,6 +29,7 @@ export async function publishThought(slug, publisher, publicationAtUri) {
 	const postPath = `/thoughts/${slug}/`;
 	const transformed = transformContent(content, { baseUrl: siteUrl, postPath });
 	const markpubContent = buildMarkpubContent(transformed, data);
+	const coverImage = await uploadCoverImage(publisher, data.hero, rootDir);
 
 	const documentInput = {
 		site: publicationAtUri,
@@ -33,7 +39,8 @@ export async function publishThought(slug, publisher, publicationAtUri) {
 		publishedAt: toIsoDate(data.date),
 		tags: data.tags ?? [],
 		textContent: transformed.textContent,
-		content: markpubContent
+		content: markpubContent,
+		...(coverImage ? { coverImage } : {})
 	};
 
 	if (data.atprotoRkey) {

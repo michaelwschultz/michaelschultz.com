@@ -73,6 +73,18 @@
 						</div>
 					</div>
 
+					{#if post.hero}
+						<figure class="not-prose mt-8 overflow-hidden rounded-lg" data-reader-skip>
+							<img
+								src={post.hero}
+								alt=""
+								class="aspect-[2/1] w-full object-cover"
+								decoding="async"
+								fetchpriority="high"
+							/>
+						</figure>
+					{/if}
+
 					<div class="mt-8 xl:hidden">
 						{@render postMeta()}
 					</div>

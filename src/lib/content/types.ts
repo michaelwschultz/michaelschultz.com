@@ -6,6 +6,8 @@ export type PostMeta = {
 	summary?: string;
 	lastmod?: string;
 	layout?: string;
+	/** Cover image URL path (e.g. /static/images/...) or absolute URL. */
+	hero?: string;
 	images?: string[];
 	canonicalUrl?: string;
 	atprotoRkey?: string;

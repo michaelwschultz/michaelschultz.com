@@ -1,4 +1,5 @@
 import { slug as slugify } from 'github-slugger';
+import { normalizeHeroPath } from './hero';
 import { parseFrontmatter } from './parse-frontmatter';
 import type { Post, PostListItem, PostMeta } from './types';
 
@@ -30,6 +31,7 @@ function metaToListItem(slug: string, metadata: PostMeta, body: string): PostLis
 	const wordCount = countWords(body || metadata.summary || '');
 	return {
 		...metadata,
+		hero: normalizeHeroPath(metadata.hero),
 		slug,
 		path: `thoughts/${slug}`,
 		tags: metadata.tags ?? [],

@@ -8,6 +8,7 @@ export function buildMarkpubContent(transformed, frontmatter) {
 		lastmod: _lastmod,
 		layout: _layout,
 		images: _images,
+		hero: _hero,
 		canonicalUrl: _canonicalUrl,
 		...publishMeta
 	} = frontmatter;

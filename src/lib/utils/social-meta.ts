@@ -51,7 +51,7 @@ export function getPageSocialMeta(page: Page): SocialMeta {
 		return {
 			title: post.title,
 			description: post.summary ?? site.description,
-			image: post.images?.[0] ?? site.socialBanner,
+			image: post.hero ?? post.images?.[0] ?? site.socialBanner,
 			url: absoluteUrl(postPath),
 			type: 'article',
 			publishedTime: post.date
