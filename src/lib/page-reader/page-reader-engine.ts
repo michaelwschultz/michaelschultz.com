@@ -3,6 +3,7 @@ import type { KokoroTTS } from 'kokoro-js';
 import {
 	ensureAudioContextRunning,
 	getSharedAudioContext,
+	hasWebGpu,
 	isMobileReader,
 	unlockReaderAudio,
 	yieldToMain
@@ -17,10 +18,14 @@ const MAX_RATE = 2;
 const BASE_SEC_PER_CHAR = 0.07;
 const ESTIMATE_PRIOR_CHARS = 400;
 const DURATION_UPDATE_THRESHOLD = 2;
-/** Sentences to synthesize ahead of playback on mobile (limits main-thread blocking). */
-const MOBILE_GENERATION_LOOKAHEAD = 1;
 
 let lastRate = 1;
+
+/** Sentences to synthesize ahead of playback on mobile (WASM is slower than WebGPU). */
+function mobileGenerationLookahead(): number {
+	if (!isMobileReader()) return Number.POSITIVE_INFINITY;
+	return hasWebGpu() ? 3 : 1;
+}
 
 export type ReaderStatus =
 	| 'idle'
@@ -507,7 +512,7 @@ export class PageReaderEngine {
 		if (!isMobileReader()) return true;
 		return (
 			this.lastBufferedSentenceIndex() - this.playbackSentenceIndex() <
-			MOBILE_GENERATION_LOOKAHEAD
+			mobileGenerationLookahead()
 		);
 	}
 

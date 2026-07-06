@@ -10,6 +10,12 @@ export function isMobileReader(): boolean {
 	);
 }
 
+/** WebGPU is available (Safari 17+, Chrome Android on supported GPUs). */
+export function hasWebGpu(): boolean {
+	if (typeof navigator === 'undefined') return false;
+	return (navigator as Navigator & { gpu?: unknown }).gpu !== undefined;
+}
+
 export function getSharedAudioContext(): AudioContext | null {
 	return audioContext;
 }

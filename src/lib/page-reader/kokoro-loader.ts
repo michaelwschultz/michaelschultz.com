@@ -1,7 +1,7 @@
 import type { KokoroTTS } from 'kokoro-js';
 
 import './readable-stream-polyfill';
-import { isMobileReader } from './audio-context';
+import { hasWebGpu } from './audio-context';
 
 const MODEL_ID = 'onnx-community/Kokoro-82M-v1.0-ONNX';
 
@@ -17,9 +17,7 @@ export type ModelProgressHandler = (loaded: number, total: number) => void;
 let ttsPromise: Promise<KokoroTTS> | null = null;
 
 function pickDevice(): 'webgpu' | 'wasm' {
-	if (isMobileReader()) return 'wasm';
-	const nav = globalThis.navigator as (Navigator & { gpu?: unknown }) | undefined;
-	return nav?.gpu === undefined ? 'wasm' : 'webgpu';
+	return hasWebGpu() ? 'webgpu' : 'wasm';
 }
 
 /**
