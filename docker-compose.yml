@@ -2,6 +2,7 @@ services:
   web:
     image: ${WEB_IMAGE:-michaelschultzcom-web}
     build: .
+    cpus: 0.8
     restart: unless-stopped
     volumes:
       - listening-data:/app/data

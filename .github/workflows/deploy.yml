@@ -74,8 +74,10 @@ jobs:
           script: |
             set -euo pipefail
             cd "${{ secrets.DEPLOY_APP_DIR }}"
-            git fetch origin main
-            git checkout main
-            git pull --ff-only origin main
+            echo "→ Syncing main"
+            git fetch -q origin main
+            git checkout -q main
+            git pull -q --ff-only origin main
+            echo "✓ At $(git rev-parse --short HEAD)"
             ./deploy/write-env.sh
             ./deploy/deploy.sh
