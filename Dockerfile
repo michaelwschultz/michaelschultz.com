@@ -19,10 +19,9 @@ RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
 
 FROM base AS build
 
-# ~1 GiB VPS hosts swap-thrash with a multi-GB heap; override when building on larger CI runners.
-ARG BUILD_NODE_MAX_OLD_SPACE_SIZE=768
+# Build runs on GitHub Actions; heap cap is overridden there via BUILD_NODE_MAX_OLD_SPACE_SIZE.
+ARG BUILD_NODE_MAX_OLD_SPACE_SIZE=2048
 ENV NODE_OPTIONS="--max-old-space-size=${BUILD_NODE_MAX_OLD_SPACE_SIZE}"
-ENV UV_THREADPOOL_SIZE=2
 
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends python3 make g++ \
@@ -30,7 +29,7 @@ RUN apt-get update \
 
 COPY package.json pnpm-lock.yaml .npmrc pnpm-workspace.yaml ./
 RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
-	pnpm install --frozen-lockfile --store-dir=/pnpm/store --config.child-concurrency=2
+	pnpm install --frozen-lockfile --store-dir=/pnpm/store
 
 COPY . .
 RUN --mount=type=cache,id=vite-cache,target=/app/node_modules/.vite \
