@@ -10,6 +10,7 @@ export WEB_IMAGE="${WEB_IMAGE:-ghcr.io/michaelwschultz/michaelschultz.com:latest
 # On a 1-vCPU host, 80% keeps headroom for SSH/system. On N vCPUs use N×80% (e.g. 160%).
 DEPLOY_DOCKER_CPU_QUOTA="${DEPLOY_DOCKER_CPU_QUOTA:-80%}"
 docker_cpu_limited=0
+docker_config_dir=""
 
 reset_docker_cpu_quota() {
 	if [[ "$docker_cpu_limited" -eq 1 ]]; then
@@ -31,10 +32,22 @@ limit_docker_cpu_quota() {
 	fi
 }
 
-trap reset_docker_cpu_quota EXIT
+cleanup_deploy() {
+	reset_docker_cpu_quota
+	if [[ -n "$docker_config_dir" ]]; then
+		rm -rf "$docker_config_dir"
+		docker_config_dir=""
+		unset DOCKER_CONFIG
+	fi
+}
+
+trap cleanup_deploy EXIT
 
 if [[ -n "${GHCR_TOKEN:-}" && -n "${GHCR_USERNAME:-}" ]]; then
-	echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USERNAME" --password-stdin >/dev/null
+	docker_config_dir="$(mktemp -d)"
+	export DOCKER_CONFIG="$docker_config_dir"
+	# Ephemeral config: token is not left in ~/.docker/config.json after deploy.
+	echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USERNAME" --password-stdin >/dev/null 2>&1
 fi
 
 limit_docker_cpu_quota
@@ -48,5 +61,5 @@ docker compose up -d --no-build
 container_id="$(docker compose ps -q web)"
 echo "✓ web running (${container_id})"
 
-reset_docker_cpu_quota
+cleanup_deploy
 trap - EXIT
