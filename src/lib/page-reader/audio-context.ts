@@ -56,3 +56,15 @@ export async function ensureAudioContextRunning(ctx: AudioContext): Promise<bool
 	}
 	return ctx.state === 'running';
 }
+
+/** Let the browser paint and handle input between heavy Kokoro inference steps. */
+export function yieldToMain(): Promise<void> {
+	const scheduler = globalThis.scheduler as { yield?: () => Promise<void> } | undefined;
+	if (scheduler?.yield) {
+		return scheduler.yield();
+	}
+	const delay = isMobileReader() ? 16 : 0;
+	return new Promise((resolve) => {
+		globalThis.setTimeout(resolve, delay);
+	});
+}

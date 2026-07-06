@@ -4,7 +4,8 @@ import {
 	ensureAudioContextRunning,
 	getSharedAudioContext,
 	isMobileReader,
-	unlockReaderAudio
+	unlockReaderAudio,
+	yieldToMain
 } from './audio-context';
 import { loadKokoro, splitSentences } from './kokoro-loader';
 import type { ReaderVoice } from './voice-catalog';
@@ -16,6 +17,8 @@ const MAX_RATE = 2;
 const BASE_SEC_PER_CHAR = 0.07;
 const ESTIMATE_PRIOR_CHARS = 400;
 const DURATION_UPDATE_THRESHOLD = 2;
+/** Sentences to synthesize ahead of playback on mobile (limits main-thread blocking). */
+const MOBILE_GENERATION_LOOKAHEAD = 1;
 
 let lastRate = 1;
 
@@ -81,6 +84,7 @@ export class PageReaderEngine {
 	private waitingForChunk = false;
 	private pausedAt = 0;
 	private ticker: ReturnType<typeof setInterval> | null = null;
+	private generationPump: Promise<void> | null = null;
 
 	subscribe(listener: (state: ReaderState) => void): () => void {
 		this.listeners.add(listener);
@@ -293,6 +297,7 @@ export class PageReaderEngine {
 				this.setState({
 					status: this.chunks.length === 0 ? 'generating' : 'playing'
 				});
+				this.requestMoreGeneration();
 			}
 			return;
 		}
@@ -336,6 +341,7 @@ export class PageReaderEngine {
 
 		this.startTicker();
 		this.setState({ status: 'playing', currentTime: this.currentTime() });
+		this.requestMoreGeneration();
 	}
 
 	private playFromRel(rel: number): void {
@@ -358,6 +364,8 @@ export class PageReaderEngine {
 		if (this.isPlaying && this.waitingForChunk && this.currentChunkIndex === index) {
 			void this.playChunkAt(index, 0);
 		}
+
+		this.requestMoreGeneration();
 	}
 
 	private resetPlayback(): void {
@@ -478,49 +486,100 @@ export class PageReaderEngine {
 		this.currentChunkIndex = 0;
 		this.pausedAt = 0;
 
-		await this.generateFrom(0);
+		void this.scheduleGeneration();
 		return runId === this.runId;
 	}
 
-	private async generateFrom(startIndex: number): Promise<void> {
+	private lastBufferedSentenceIndex(): number {
+		if (this.chunks.length === 0) return this.baseSentence - 1;
+		return this.baseSentence + this.chunks.length - 1;
+	}
+
+	private playbackSentenceIndex(): number {
+		if (this.chunks.length === 0) return this.baseSentence;
+		return this.baseSentence + Math.min(this.currentChunkIndex, this.chunks.length - 1);
+	}
+
+	private needsMoreGeneration(): boolean {
+		if (this.generationComplete) return false;
+		const nextIndex = this.baseSentence + this.chunks.length;
+		if (nextIndex >= this.sentences.length) return false;
+		if (!isMobileReader()) return true;
+		return (
+			this.lastBufferedSentenceIndex() - this.playbackSentenceIndex() <
+			MOBILE_GENERATION_LOOKAHEAD
+		);
+	}
+
+	private requestMoreGeneration(): void {
+		if (!this.needsMoreGeneration()) return;
+		this.scheduleGeneration();
+	}
+
+	private scheduleGeneration(): void {
+		if (this.generationPump) return;
+		this.generationPump = this.pumpGeneration().finally(() => {
+			this.generationPump = null;
+			if (this.needsMoreGeneration()) {
+				this.scheduleGeneration();
+			}
+		});
+	}
+
+	private async generateSentenceAt(index: number, runId: number): Promise<boolean> {
+		const ctx = this.ctx;
+		const tts = this.tts;
+		if (!ctx || !tts) return false;
+
+		let raw;
+		try {
+			raw = await tts.generate(this.sentences[index], {
+				voice: this.voice,
+				speed: this.rate
+			});
+		} catch {
+			if (runId === this.runId) {
+				this.setState({ status: 'error', error: 'Couldn’t generate audio.' });
+			}
+			return false;
+		}
+		if (runId !== this.runId) return false;
+
+		const audio = Array.isArray(raw.audio) ? raw.audio[0] : raw.audio;
+		if (audio) {
+			const buffer = ctx.createBuffer(1, audio.length, raw.sampling_rate);
+			buffer.getChannelData(0).set(audio);
+			this.producedChars += this.charLen[index] ?? 0;
+			this.appendChunk(buffer);
+		}
+		this.setState({
+			generationProgress: Math.min(this.producedChars / this.totalChars, 0.99)
+		});
+		return true;
+	}
+
+	private async pumpGeneration(): Promise<void> {
 		const runId = this.runId;
 		const ctx = this.ctx;
 		const tts = this.tts;
 		if (!ctx || !tts) return;
 
-		this.producedChars = this.sumChars(startIndex);
+		this.producedChars = this.sumChars(this.baseSentence + this.chunks.length);
 
-		for (let index = startIndex; index < this.sentences.length; index++) {
-			let raw;
-			try {
-				raw = await tts.generate(this.sentences[index], {
-					voice: this.voice,
-					speed: this.rate
-				});
-			} catch {
-				if (runId === this.runId) {
-					this.setState({ status: 'error', error: 'Couldn’t generate audio.' });
-				}
-				return;
-			}
-			if (runId !== this.runId) return;
-
-			const audio = Array.isArray(raw.audio) ? raw.audio[0] : raw.audio;
-			if (audio) {
-				const buffer = ctx.createBuffer(1, audio.length, raw.sampling_rate);
-				buffer.getChannelData(0).set(audio);
-				this.producedChars += this.charLen[index] ?? 0;
-				this.appendChunk(buffer);
-			}
-			this.setState({
-				generationProgress: Math.min(this.producedChars / this.totalChars, 0.99)
-			});
+		while (runId === this.runId && this.needsMoreGeneration()) {
+			const index = this.baseSentence + this.chunks.length;
+			const ok = await this.generateSentenceAt(index, runId);
+			if (!ok) return;
+			await yieldToMain();
 		}
 
 		if (runId !== this.runId) return;
-		this.generationComplete = true;
-		this.updateDuration(true);
-		this.setState({ generationProgress: 1 });
+
+		if (this.baseSentence + this.chunks.length >= this.sentences.length) {
+			this.generationComplete = true;
+			this.updateDuration(true);
+			this.setState({ generationProgress: 1 });
+		}
 	}
 
 	play(): void {
@@ -597,7 +656,7 @@ export class PageReaderEngine {
 			generationProgress: Math.min(this.sumChars(this.baseSentence) / this.totalChars, 0.99)
 		});
 
-		void this.generateFrom(this.baseSentence);
+		void this.scheduleGeneration();
 	}
 
 	private seek(projectedTime: number): void {
@@ -648,7 +707,7 @@ export class PageReaderEngine {
 			this.setState({ currentTime: this.pausedAt });
 		}
 
-		void this.generateFrom(this.baseSentence + resumeRel);
+		void this.scheduleGeneration();
 	}
 
 	reset(): void {
