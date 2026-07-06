@@ -1,7 +1,7 @@
 import type { KokoroTTS } from 'kokoro-js';
 
 import './readable-stream-polyfill';
-import { hasWebGpu } from './audio-context';
+import { hasWebGpu, isMobileReader } from './audio-context';
 
 const MODEL_ID = 'onnx-community/Kokoro-82M-v1.0-ONNX';
 
@@ -17,6 +17,8 @@ export type ModelProgressHandler = (loaded: number, total: number) => void;
 let ttsPromise: Promise<KokoroTTS> | null = null;
 
 function pickDevice(): 'webgpu' | 'wasm' {
+	// Mobile GPUs exhaust memory with WebGPU + fp32 Kokoro; WASM q8 is stable.
+	if (isMobileReader()) return 'wasm';
 	return hasWebGpu() ? 'webgpu' : 'wasm';
 }
 
