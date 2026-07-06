@@ -6,7 +6,7 @@ WORKDIR /app
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable && corepack prepare pnpm@11.9.0 --activate
+RUN corepack enable && corepack prepare pnpm@11.10.0 --activate
 
 ENV HUSKY=0
 
@@ -19,16 +19,23 @@ RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
 
 FROM base AS build
 
+# ~1 GiB VPS hosts swap-thrash with a multi-GB heap; override when building on larger CI runners.
+ARG BUILD_NODE_MAX_OLD_SPACE_SIZE=768
+ENV NODE_OPTIONS="--max-old-space-size=${BUILD_NODE_MAX_OLD_SPACE_SIZE}"
+ENV UV_THREADPOOL_SIZE=2
+
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends python3 make g++ \
 	&& rm -rf /var/lib/apt/lists/*
 
 COPY package.json pnpm-lock.yaml .npmrc pnpm-workspace.yaml ./
 RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
-	pnpm install --frozen-lockfile --store-dir=/pnpm/store
+	pnpm install --frozen-lockfile --store-dir=/pnpm/store --config.child-concurrency=2
 
 COPY . .
-RUN pnpm build
+RUN --mount=type=cache,id=vite-cache,target=/app/node_modules/.vite \
+	--mount=type=cache,id=svelte-kit-cache,target=/app/.svelte-kit \
+	pnpm build
 
 FROM node:24-bookworm-slim AS runtime
 

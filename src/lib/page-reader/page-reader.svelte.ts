@@ -1,5 +1,5 @@
 import { browser } from '$app/environment';
-import { PageReaderEngine, type ReaderState } from './page-reader-engine';
+import type { PageReaderEngine, ReaderState } from './page-reader-engine';
 import { extractSpeechText } from './speech-text';
 import { DEFAULT_READER_VOICE } from './voice-catalog';
 
@@ -19,6 +19,7 @@ const INITIAL_STATE: ReaderState = {
 };
 
 let engine: PageReaderEngine | null = $state(null);
+let enginePromise: Promise<PageReaderEngine | null> | null = null;
 export const pageReader = $state({
 	state: { ...INITIAL_STATE },
 	nowPlaying: null as NowPlaying | null,
@@ -29,10 +30,9 @@ let lastPlayback: { slug: string; title: string; text: string; root: HTMLElement
 	$state(null);
 let unsubscribe: (() => void) | null = null;
 
-export function initPageReader(): void {
-	if (!browser || engine) return;
-	engine = new PageReaderEngine();
-	unsubscribe = engine.subscribe((next) => {
+function attachEngine(instance: PageReaderEngine): PageReaderEngine {
+	unsubscribe?.();
+	unsubscribe = instance.subscribe((next) => {
 		pageReader.state.status = next.status;
 		pageReader.state.currentTime = next.currentTime;
 		pageReader.state.duration = next.duration;
@@ -41,6 +41,29 @@ export function initPageReader(): void {
 		pageReader.state.rate = next.rate;
 		pageReader.state.error = next.error;
 	});
+	engine = instance;
+	return instance;
+}
+
+/** Load Kokoro and the reader engine on demand (kept out of the site-wide client graph). */
+export async function ensurePageReaderEngine(): Promise<PageReaderEngine | null> {
+	if (!browser) return null;
+	if (engine) return engine;
+
+	enginePromise ??= import('./page-reader-engine').then(({ PageReaderEngine }) =>
+		attachEngine(new PageReaderEngine())
+	);
+
+	try {
+		return await enginePromise;
+	} catch {
+		enginePromise = null;
+		return null;
+	}
+}
+
+export function initPageReader(): void {
+	void ensurePageReaderEngine();
 }
 
 export function disposePageReader(): void {
@@ -48,6 +71,7 @@ export function disposePageReader(): void {
 	unsubscribe = null;
 	engine?.dispose();
 	engine = null;
+	enginePromise = null;
 	Object.assign(pageReader.state, INITIAL_STATE);
 	pageReader.nowPlaying = null;
 	preparedRef = null;
@@ -67,7 +91,8 @@ export async function playThought(
 	title: string,
 	root: HTMLElement
 ): Promise<void> {
-	if (!engine) return;
+	const activeEngine = await ensurePageReaderEngine();
+	if (!activeEngine) return;
 
 	const text = extractSpeechText(root);
 	if (!text) return;
@@ -76,7 +101,7 @@ export async function playThought(
 	pageReader.nowPlaying = { slug, title };
 	pageReader.scrollLocked = true;
 
-	const { status } = engine.getState();
+	const { status } = activeEngine.getState();
 	const prepared = preparedRef;
 	const alreadyPrepared =
 		prepared?.slug === slug &&
@@ -85,19 +110,19 @@ export async function playThought(
 		status !== 'error';
 
 	if (alreadyPrepared) {
-		engine.play();
+		activeEngine.play();
 		return;
 	}
 
 	preparedRef = { slug, text };
-	const ok = await engine.prepare(text, DEFAULT_READER_VOICE);
+	const ok = await activeEngine.prepare(text, DEFAULT_READER_VOICE);
 	if (!ok && preparedRef?.slug === slug) {
 		preparedRef = null;
 	}
 }
 
 export function retryPlayback(): void {
-	if (!engine || !lastPlayback) return;
+	if (!lastPlayback) return;
 	void playThought(lastPlayback.slug, lastPlayback.title, lastPlayback.root);
 }
 

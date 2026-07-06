@@ -59,7 +59,9 @@ export default defineConfig(({ mode }) => ({
 	},
 	build: {
 		chunkSizeWarningLimit: 2500,
-		cssMinify: 'esbuild'
+		cssMinify: 'esbuild',
+		sourcemap: false,
+		reportCompressedSize: false
 	},
 	ssr: {
 		external: ['better-sqlite3', 'kokoro-js', '@huggingface/transformers']

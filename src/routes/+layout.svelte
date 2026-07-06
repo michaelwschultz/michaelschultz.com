@@ -7,7 +7,6 @@
 	import SiteHeader from '$lib/components/SiteHeader.svelte';
 	import PagefindSearch from '$lib/components/PagefindSearch.svelte';
 	import SocialMeta from '$lib/components/SocialMeta.svelte';
-	import PageReaderProvider from '$lib/page-reader/PageReaderProvider.svelte';
 	import { site } from '$lib/config/site';
 	import { getPageSocialMeta } from '$lib/utils/social-meta';
 
@@ -45,23 +44,21 @@
 	/>
 </svelte:head>
 
-<PageReaderProvider>
-	<div class="mx-auto max-w-3xl overflow-x-clip px-4 sm:px-6 xl:max-w-5xl xl:px-0">
-		<div class="flex min-h-screen flex-col justify-between font-sans">
-			<SiteHeader onSearchClick={() => openSearch()} />
-			<main
-				class="mb-auto min-w-0"
-				data-pagefind-body={pagefindUrl === '/' ? undefined : true}
-				data-pagefind-ignore={pagefindUrl === '/' ? 'all' : undefined}
-			>
-				{#if pagefindUrl !== '/'}
-					<span class="sr-only" data-pagefind-meta={`url:${pagefindUrl}`}></span>
-				{/if}
-				{@render children()}
-			</main>
-			<SiteFooter />
-		</div>
+<div class="mx-auto max-w-3xl overflow-x-clip px-4 sm:px-6 xl:max-w-5xl xl:px-0">
+	<div class="flex min-h-screen flex-col justify-between font-sans">
+		<SiteHeader onSearchClick={() => openSearch()} />
+		<main
+			class="mb-auto min-w-0"
+			data-pagefind-body={pagefindUrl === '/' ? undefined : true}
+			data-pagefind-ignore={pagefindUrl === '/' ? 'all' : undefined}
+		>
+			{#if pagefindUrl !== '/'}
+				<span class="sr-only" data-pagefind-meta={`url:${pagefindUrl}`}></span>
+			{/if}
+			{@render children()}
+		</main>
+		<SiteFooter />
 	</div>
-</PageReaderProvider>
+</div>
 
 <PagefindSearch registerOpen={(fn) => (openSearch = fn)} />

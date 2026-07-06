@@ -1,23 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-export DOCKER_BUILDKIT=1
-export COMPOSE_DOCKER_CLI_BUILD=1
-
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 
-CACHE_DIR="${BUILD_CACHE_DIR:-/var/lib/michaelschultzcom-build-cache}"
-IMAGE_NAME="${COMPOSE_IMAGE_NAME:-michaelschultzcom-web}"
+export WEB_IMAGE="${WEB_IMAGE:-ghcr.io/michaelwschultz/michaelschultz.com:latest}"
 
-mkdir -p "$CACHE_DIR"
+if [[ -n "${GHCR_TOKEN:-}" && -n "${GHCR_USERNAME:-}" ]]; then
+	echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USERNAME" --password-stdin
+fi
 
-docker buildx build \
-	--cache-from "type=local,src=$CACHE_DIR" \
-	--cache-to "type=local,dest=$CACHE_DIR,mode=max" \
-	--load \
-	-t "$IMAGE_NAME" \
-	-f Dockerfile \
-	.
-
-docker compose up -d
+docker compose pull web
+docker compose up -d --no-build
