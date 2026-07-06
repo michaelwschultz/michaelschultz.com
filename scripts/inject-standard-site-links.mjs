@@ -1,4 +1,4 @@
-import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import yaml from 'js-yaml';
@@ -38,6 +38,15 @@ function injectLink(html, atUri) {
 	return html.replace('</head>', `\t${tag}\n</head>`);
 }
 
+function removeStalePrecompressedFiles(htmlPath) {
+	for (const suffix of ['.br', '.gz']) {
+		const compressedPath = `${htmlPath}${suffix}`;
+		if (existsSync(compressedPath)) {
+			unlinkSync(compressedPath);
+		}
+	}
+}
+
 const did = didFromWellKnown();
 let injected = 0;
 
@@ -57,6 +66,7 @@ for (const file of readdirSync(thoughtsDir)) {
 	const atUri = `at://${did}/site.standard.document/${rkey}`;
 	const html = readFileSync(htmlPath, 'utf8');
 	writeFileSync(htmlPath, injectLink(html, atUri), 'utf8');
+	removeStalePrecompressedFiles(htmlPath);
 	injected += 1;
 }
 
