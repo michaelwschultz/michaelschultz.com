@@ -2,6 +2,7 @@
 	import { Headphones, Pause, Play } from '@lucide/svelte';
 	import { browser } from '$app/environment';
 	import { getReaderCapability } from '$lib/page-reader/capability';
+	import { unlockReaderAudio } from '$lib/page-reader/audio-context';
 	import {
 		pageReader,
 		isCurrentThought,
@@ -41,11 +42,17 @@
 		return 'Listen to this article';
 	});
 
-	async function onClick() {
+	function onClick() {
 		if (!readerRoot || !capability.supported) return;
 
+		// iOS Safari requires unlocking audio synchronously in the tap handler.
+		unlockReaderAudio();
+		void handleClick();
+	}
+
+	async function handleClick() {
 		if (!isCurrent || status === 'idle' || status === 'error') {
-			await playThought(slug, title, readerRoot);
+			await playThought(slug, title, readerRoot!);
 			return;
 		}
 

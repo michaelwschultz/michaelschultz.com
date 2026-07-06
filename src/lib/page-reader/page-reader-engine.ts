@@ -1,5 +1,11 @@
 import type { KokoroTTS } from 'kokoro-js';
 
+import {
+	ensureAudioContextRunning,
+	getSharedAudioContext,
+	isMobileReader,
+	unlockReaderAudio
+} from './audio-context';
 import { loadKokoro, splitSentences } from './kokoro-loader';
 import type { ReaderVoice } from './voice-catalog';
 import { DEFAULT_READER_VOICE } from './voice-catalog';
@@ -55,7 +61,8 @@ export class PageReaderEngine {
 	private voice: ReaderVoice = DEFAULT_READER_VOICE;
 	private sentences: Array<string> = [];
 	private charLen: Array<number> = [];
-	private chunks: Array<AudioBuffer> = [];
+	private chunks: Array<AudioBuffer | null> = [];
+	private chunkDurations: Array<number> = [];
 	private chunkStart: Array<number> = [];
 	private baseSentence = 0;
 	private totalGenerated = 0;
@@ -96,7 +103,7 @@ export class PageReaderEngine {
 		const rel = clamp(this.currentTime() - this.baseOffset(), 0, this.totalGenerated);
 		const chunkIndex = Math.min(this.indexForRel(rel), this.chunks.length - 1);
 		const start = this.chunkStart[chunkIndex] ?? 0;
-		const duration = this.chunks[chunkIndex]?.duration ?? 0;
+		const duration = this.chunkDuration(chunkIndex);
 		const fraction = duration > 0 ? clamp((rel - start) / duration, 0, 1) : 0;
 		return { index: this.baseSentence + chunkIndex, fraction };
 	}
@@ -107,10 +114,20 @@ export class PageReaderEngine {
 	}
 
 	private ensureContext(): AudioContext | null {
-		if (this.ctx) {
-			void this.ctx.resume();
-			return this.ctx;
+		if (this.ctx) return this.ctx;
+
+		const shared = getSharedAudioContext();
+		if (shared) {
+			this.ctx = shared;
+			return shared;
 		}
+
+		const unlocked = unlockReaderAudio();
+		if (unlocked) {
+			this.ctx = unlocked;
+			return unlocked;
+		}
+
 		const Ctor =
 			globalThis.AudioContext ??
 			(globalThis as unknown as { webkitAudioContext?: typeof AudioContext })
@@ -118,6 +135,24 @@ export class PageReaderEngine {
 		if (Ctor === undefined) return null;
 		this.ctx = new Ctor();
 		return this.ctx;
+	}
+
+	private chunkDuration(index: number): number {
+		const buffer = this.chunks[index];
+		if (buffer) return buffer.duration;
+		return this.chunkDurations[index] ?? 0;
+	}
+
+	private trimPlayedChunks(): void {
+		if (!isMobileReader()) return;
+		const trimBefore = this.currentChunkIndex - 1;
+		if (trimBefore <= 0) return;
+		for (let i = 0; i < trimBefore; i++) {
+			const buffer = this.chunks[i];
+			if (!buffer) continue;
+			this.chunkDurations[i] = buffer.duration;
+			this.chunks[i] = null;
+		}
 	}
 
 	private bumpTimeline(): void {
@@ -152,7 +187,7 @@ export class PageReaderEngine {
 			const rel = i - this.baseSentence;
 			const duration =
 				rel >= 0 && rel < this.chunks.length
-					? this.chunks[rel].duration
+					? this.chunkDuration(rel)
 					: (this.charLen[i] ?? 0) * spc;
 			starts[i + 1] = starts[i] + duration;
 		}
@@ -228,8 +263,8 @@ export class PageReaderEngine {
 	private indexForRel(rel: number): number {
 		if (this.chunks.length === 0) return 0;
 		if (rel >= this.totalGenerated) return this.chunks.length;
-		for (const [index, buffer] of this.chunks.entries()) {
-			if (rel < this.chunkStart[index] + buffer.duration) return index;
+		for (const [index] of this.chunks.entries()) {
+			if (rel < this.chunkStart[index] + this.chunkDuration(index)) return index;
 		}
 		return this.chunks.length - 1;
 	}
@@ -237,10 +272,10 @@ export class PageReaderEngine {
 	private handleSourceEnded(source: AudioBufferSourceNode): void {
 		if (source !== this.source) return;
 		this.source = null;
-		this.playChunkAt(this.currentChunkIndex + 1, 0);
+		void this.playChunkAt(this.currentChunkIndex + 1, 0);
 	}
 
-	private playChunkAt(index: number, offset: number): void {
+	private async playChunkAt(index: number, offset: number): Promise<void> {
 		this.stopSource();
 		const ctx = this.ctx;
 
@@ -263,6 +298,26 @@ export class PageReaderEngine {
 		}
 
 		const buffer = this.chunks[index];
+		if (!buffer) {
+			this.setState({
+				status: 'error',
+				error: 'Audio was cleared. Tap Listen to start again.'
+			});
+			this.isPlaying = false;
+			return;
+		}
+
+		if (!(await ensureAudioContextRunning(ctx))) {
+			this.isPlaying = false;
+			this.waitingForChunk = false;
+			this.stopTicker();
+			this.setState({
+				status: 'error',
+				error: 'Audio was blocked. Tap Listen to try again.'
+			});
+			return;
+		}
+
 		const source = ctx.createBufferSource();
 		source.buffer = buffer;
 		source.connect(ctx.destination);
@@ -277,6 +332,7 @@ export class PageReaderEngine {
 		this.isPlaying = true;
 		source.start(0, offset);
 		this.source = source;
+		this.trimPlayedChunks();
 
 		this.startTicker();
 		this.setState({ status: 'playing', currentTime: this.currentTime() });
@@ -287,19 +343,20 @@ export class PageReaderEngine {
 		const index = this.indexForRel(target);
 		const offset = index < this.chunks.length ? target - this.chunkStart[index] : 0;
 		this.isPlaying = true;
-		this.playChunkAt(index, offset);
+		void this.playChunkAt(index, offset);
 	}
 
 	private appendChunk(buffer: AudioBuffer): void {
 		const index = this.chunks.length;
 		this.chunks.push(buffer);
+		this.chunkDurations.push(buffer.duration);
 		this.chunkStart[index] = this.totalGenerated;
 		this.totalGenerated += buffer.duration;
 		this.bumpTimeline();
 		this.updateDuration(false);
 
 		if (this.isPlaying && this.waitingForChunk && this.currentChunkIndex === index) {
-			this.playChunkAt(index, 0);
+			void this.playChunkAt(index, 0);
 		}
 	}
 
@@ -309,6 +366,7 @@ export class PageReaderEngine {
 		this.sentences = [];
 		this.charLen = [];
 		this.chunks = [];
+		this.chunkDurations = [];
 		this.chunkStart = [];
 		this.baseSentence = 0;
 		this.totalGenerated = 0;
@@ -333,9 +391,12 @@ export class PageReaderEngine {
 
 	private truncateFrom(relIndex: number): void {
 		this.chunks.length = relIndex;
+		this.chunkDurations.length = relIndex;
 		this.chunkStart.length = relIndex;
 		this.totalGenerated =
-			relIndex > 0 ? this.chunkStart[relIndex - 1] + this.chunks[relIndex - 1].duration : 0;
+			relIndex > 0
+				? this.chunkStart[relIndex - 1] + this.chunkDuration(relIndex - 1)
+				: 0;
 		this.generationComplete = false;
 		this.bumpTimeline();
 		this.displayedDuration = 0;
@@ -350,6 +411,14 @@ export class PageReaderEngine {
 			this.setState({
 				status: 'error',
 				error: 'Audio isn’t supported in this browser.'
+			});
+			return false;
+		}
+
+		if (!(await ensureAudioContextRunning(ctx))) {
+			this.setState({
+				status: 'error',
+				error: 'Audio was blocked. Tap Listen to try again.'
 			});
 			return false;
 		}
@@ -456,7 +525,19 @@ export class PageReaderEngine {
 
 	play(): void {
 		if (this.isPlaying) return;
-		void this.ctx?.resume();
+		unlockReaderAudio();
+		void this.resumePlayback();
+	}
+
+	private async resumePlayback(): Promise<void> {
+		const ctx = this.ctx;
+		if (!ctx || !(await ensureAudioContextRunning(ctx))) {
+			this.setState({
+				status: 'error',
+				error: 'Audio was blocked. Tap Listen to try again.'
+			});
+			return;
+		}
 		this.isPlaying = true;
 		this.resumeAt(this.pausedAt);
 	}
@@ -497,6 +578,7 @@ export class PageReaderEngine {
 
 		this.baseSentence = clamp(sentenceIndex, 0, this.sentences.length - 1);
 		this.chunks = [];
+		this.chunkDurations = [];
 		this.chunkStart = [];
 		this.totalGenerated = 0;
 		this.generationComplete = false;

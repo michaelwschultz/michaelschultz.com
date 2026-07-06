@@ -1,4 +1,5 @@
 import { browser } from '$app/environment';
+import { unlockReaderAudio } from './audio-context';
 import type { PageReaderEngine, ReaderState } from './page-reader-engine';
 import { extractSpeechText } from './speech-text';
 import { DEFAULT_READER_VOICE } from './voice-catalog';
@@ -122,11 +123,13 @@ export async function playThought(
 }
 
 export function retryPlayback(): void {
+	unlockReaderAudio();
 	if (!lastPlayback) return;
 	void playThought(lastPlayback.slug, lastPlayback.title, lastPlayback.root);
 }
 
 export function togglePlayback(): void {
+	unlockReaderAudio();
 	engine?.toggle();
 }
 
