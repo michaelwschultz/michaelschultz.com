@@ -6,7 +6,7 @@ tags:
   - in-progress
   - short story
 summary: >-
-  The first chapter of a short story I’m writting. I’ll post subseqent chapters
+  The first chapter of a short story I’m writing. I’ll post subsequent chapters
   as they are available.
 atprotoRkey: 3mpwokxck7kfg
 ---
