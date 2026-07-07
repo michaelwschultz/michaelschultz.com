@@ -6,8 +6,8 @@
 	import {
 		pageReader,
 		isCurrentThought,
-		playThought,
-		togglePlayback
+		togglePlayback,
+		warmupThought
 	} from '$lib/page-reader/page-reader.svelte';
 	import PlaybackInfoIcon from './PlaybackInfoIcon.svelte';
 
@@ -24,19 +24,20 @@
 	const status = $derived(pageReader.state.status);
 	const isPlaying = $derived(isCurrent && status === 'playing');
 	const isPaused = $derived(isCurrent && status === 'paused');
-	const isLoading = $derived(
-		isCurrent && (status === 'loading-model' || status === 'generating')
-	);
+	const isWarming = $derived(isCurrent && status === 'loading-model');
+	const isReady = $derived(isCurrent && status === 'ready');
 
 	const label = $derived.by(() => {
-		if (isLoading) return 'Loading…';
+		if (isWarming) return 'Preparing…';
+		if (isReady) return 'Ready';
 		if (isPlaying) return 'Pause';
 		if (isPaused) return 'Resume';
 		return 'Listen';
 	});
 
 	const ariaLabel = $derived.by(() => {
-		if (isLoading) return 'Loading audio';
+		if (isWarming) return 'Preparing audio';
+		if (isReady) return 'Audio ready — use play in the bar below';
 		if (isPlaying) return 'Pause listening';
 		if (isPaused) return 'Resume listening';
 		return 'Listen to this article';
@@ -52,11 +53,11 @@
 
 	async function handleClick() {
 		if (!isCurrent || status === 'idle' || status === 'error') {
-			await playThought(slug, title, readerRoot!);
+			await warmupThought(slug, title, readerRoot!);
 			return;
 		}
 
-		if (isLoading) return;
+		if (isWarming || isReady) return;
 		togglePlayback();
 	}
 </script>
@@ -67,9 +68,11 @@
 			type="button"
 			class="inline-flex cursor-pointer items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium transition disabled:cursor-not-allowed {isPlaying || isPaused
 				? 'border-primary-500 bg-primary-500 text-white hover:brightness-105'
-				: 'border-gray-200 text-gray-900 hover:border-primary-500 hover:text-primary-600 dark:border-gray-700 dark:text-gray-100 dark:hover:border-primary-500 dark:hover:text-primary-400'}"
+				: isReady
+					? 'border-primary-500 text-primary-600 dark:text-primary-400'
+					: 'border-gray-200 text-gray-900 hover:border-primary-500 hover:text-primary-600 dark:border-gray-700 dark:text-gray-100 dark:hover:border-primary-500 dark:hover:text-primary-400'}"
 			aria-label={ariaLabel}
-			disabled={!readerRoot || isLoading}
+			disabled={!readerRoot || isWarming}
 			onclick={onClick}
 		>
 			{#if isPlaying}

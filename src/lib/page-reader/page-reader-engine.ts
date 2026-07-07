@@ -4,10 +4,13 @@ import {
 	ensureAudioContextRunning,
 	getSharedAudioContext,
 	isMobileReader,
+	startReaderAudioKeepAlive,
+	stopReaderAudioKeepAlive,
 	unlockReaderAudio,
 	yieldToMain
 } from './audio-context';
-import { loadKokoro, splitSentences } from './kokoro-loader';
+import { awaitGenerateIdle, generateSpeech } from './kokoro-generate';
+import { isKokoroLoadStarted, loadKokoro, splitSentences } from './kokoro-loader';
 import type { ReaderVoice } from './voice-catalog';
 import { DEFAULT_READER_VOICE } from './voice-catalog';
 
@@ -25,6 +28,7 @@ let lastRate = 1;
 export type ReaderStatus =
 	| 'idle'
 	| 'loading-model'
+	| 'ready'
 	| 'generating'
 	| 'playing'
 	| 'paused'
@@ -85,6 +89,10 @@ export class PageReaderEngine {
 	private pausedAt = 0;
 	private ticker: ReturnType<typeof setInterval> | null = null;
 	private generationPump: Promise<void> | null = null;
+	private generationPumpRunId = 0;
+	private playChunkFlight: Promise<void> | null = null;
+	private prewarmPromise: Promise<void> | null = null;
+	private inferenceWarmed = false;
 
 	subscribe(listener: (state: ReaderState) => void): () => void {
 		this.listeners.add(listener);
@@ -96,6 +104,22 @@ export class PageReaderEngine {
 
 	getState(): ReaderState {
 		return this.state;
+	}
+
+	/** Load Kokoro and run a short inference so the first Listen click is responsive. */
+	prewarm(): Promise<void> {
+		this.prewarmPromise ??= this.doPrewarm();
+		return this.prewarmPromise;
+	}
+
+	private async doPrewarm(): Promise<void> {
+		try {
+			const tts = await loadKokoro();
+			this.tts ??= tts;
+			this.inferenceWarmed = true;
+		} catch {
+			// Prewarm is best-effort; warmup will retry.
+		}
 	}
 
 	getSentences(): Array<string> {
@@ -276,10 +300,22 @@ export class PageReaderEngine {
 	private handleSourceEnded(source: AudioBufferSourceNode): void {
 		if (source !== this.source) return;
 		this.source = null;
-		void this.playChunkAt(this.currentChunkIndex + 1, 0);
+		void this.schedulePlayChunkAt(this.currentChunkIndex + 1, 0);
+	}
+
+	private schedulePlayChunkAt(index: number, offset: number): void {
+		const flight = (this.playChunkFlight ?? Promise.resolve()).then(() =>
+			this.playChunkAt(index, offset)
+		);
+		this.playChunkFlight = flight.finally(() => {
+			if (this.playChunkFlight === flight) {
+				this.playChunkFlight = null;
+			}
+		});
 	}
 
 	private async playChunkAt(index: number, offset: number): Promise<void> {
+		unlockReaderAudio();
 		this.stopSource();
 		const ctx = this.ctx;
 
@@ -306,7 +342,7 @@ export class PageReaderEngine {
 		if (!buffer) {
 			this.setState({
 				status: 'error',
-				error: 'Audio was cleared. Tap Listen to start again.'
+				error: 'Audio was cleared. Tap play to start again.'
 			});
 			this.isPlaying = false;
 			return;
@@ -316,9 +352,11 @@ export class PageReaderEngine {
 			this.isPlaying = false;
 			this.waitingForChunk = false;
 			this.stopTicker();
+			this.pausedAt = this.baseOffset();
 			this.setState({
-				status: 'error',
-				error: 'Audio was blocked. Tap Listen to try again.'
+				status: 'paused',
+				currentTime: this.pausedAt,
+				error: null
 			});
 			return;
 		}
@@ -335,9 +373,21 @@ export class PageReaderEngine {
 		this.chunkPlayCtxStart = ctx.currentTime;
 		this.waitingForChunk = false;
 		this.isPlaying = true;
-		source.start(0, offset);
+		try {
+			source.start(0, offset);
+		} catch {
+			this.isPlaying = false;
+			this.waitingForChunk = false;
+			this.stopTicker();
+			this.setState({
+				status: 'error',
+				error: 'Audio was blocked. Tap play to try again.'
+			});
+			return;
+		}
 		this.source = source;
 		this.trimPlayedChunks();
+		stopReaderAudioKeepAlive();
 
 		this.startTicker();
 		this.setState({ status: 'playing', currentTime: this.currentTime() });
@@ -349,7 +399,7 @@ export class PageReaderEngine {
 		const index = this.indexForRel(target);
 		const offset = index < this.chunks.length ? target - this.chunkStart[index] : 0;
 		this.isPlaying = true;
-		void this.playChunkAt(index, offset);
+		this.schedulePlayChunkAt(index, offset);
 	}
 
 	private appendChunk(buffer: AudioBuffer): void {
@@ -362,7 +412,7 @@ export class PageReaderEngine {
 		this.updateDuration(false);
 
 		if (this.isPlaying && this.waitingForChunk && this.currentChunkIndex === index) {
-			void this.playChunkAt(index, 0);
+			this.schedulePlayChunkAt(index, 0);
 		}
 
 		this.requestMoreGeneration();
@@ -389,6 +439,9 @@ export class PageReaderEngine {
 		this.producedChars = 0;
 		this.displayedDuration = 0;
 		this.bumpTimeline();
+		this.generationPump = null;
+		this.generationPumpRunId = 0;
+		this.playChunkFlight = null;
 	}
 
 	private sumChars(count: number): number {
@@ -410,39 +463,24 @@ export class PageReaderEngine {
 		this.displayedDuration = 0;
 	}
 
-	async prepare(text: string, voice: ReaderVoice | Promise<ReaderVoice>): Promise<boolean> {
+	async warmup(text: string, voice: ReaderVoice | Promise<ReaderVoice>): Promise<boolean> {
 		const runId = ++this.runId;
+		await awaitGenerateIdle();
 		this.resetPlayback();
-
-		const ctx = this.ensureContext();
-		if (!ctx) {
-			this.setState({
-				status: 'error',
-				error: 'Audio isn’t supported in this browser.'
-			});
-			return false;
-		}
-
-		if (!(await ensureAudioContextRunning(ctx))) {
-			this.setState({
-				status: 'error',
-				error: 'Audio was blocked. Tap Listen to try again.'
-			});
-			return false;
-		}
 
 		this.setState({
 			status: 'loading-model',
 			currentTime: 0,
 			duration: 0,
-			modelProgress: 0,
+			modelProgress: this.inferenceWarmed || isKokoroLoadStarted() ? 1 : 0,
 			generationProgress: 0,
 			error: null
 		});
 
 		try {
+			await this.prewarm();
 			this.tts = await loadKokoro((loaded, total) => {
-				if (runId === this.runId) {
+				if (runId === this.runId && !this.inferenceWarmed) {
 					this.setState({ modelProgress: total > 0 ? loaded / total : 0 });
 				}
 			});
@@ -478,16 +516,72 @@ export class PageReaderEngine {
 		this.charLen = this.sentences.map((sentence) => sentence.length);
 		this.totalChars = Math.max(this.sumChars(this.sentences.length), 1);
 		this.bumpTimeline();
-		this.setState({ status: 'generating', generationProgress: 0 });
+		this.updateDuration(true);
 
+		this.ensureContext();
+		const buffered = await this.generateSentenceAt(0, runId);
+		if (runId !== this.runId) return false;
+		if (!buffered) return false;
+
+		this.setState({ status: 'ready', modelProgress: 1, generationProgress: 0 });
+
+		return runId === this.runId;
+	}
+
+	async startPlayback(): Promise<boolean> {
+		if (this.state.status === 'paused') {
+			void this.resumePlayback();
+			return true;
+		}
+		if (this.state.status !== 'ready') return false;
+
+		const runId = this.runId;
+		const ctx = this.ensureContext();
+		if (!ctx) {
+			this.setState({
+				status: 'error',
+				error: 'Audio isn’t supported in this browser.'
+			});
+			return false;
+		}
+
+		if (!(await ensureAudioContextRunning(ctx))) {
+			this.setState({
+				status: 'error',
+				error: 'Audio was blocked. Tap play to try again.'
+			});
+			return false;
+		}
+
+		const hasBufferedChunk = this.chunks.length > 0;
+
+		this.setState({
+			status: hasBufferedChunk ? 'playing' : 'generating',
+			generationProgress: hasBufferedChunk
+				? Math.min(this.producedChars / this.totalChars, 0.99)
+				: 0
+		});
 		this.baseSentence = 0;
 		this.isPlaying = true;
-		this.waitingForChunk = true;
+		this.waitingForChunk = !hasBufferedChunk;
 		this.currentChunkIndex = 0;
 		this.pausedAt = 0;
 
+		if (hasBufferedChunk) {
+			startReaderAudioKeepAlive(ctx);
+			this.schedulePlayChunkAt(0, 0);
+			void this.scheduleGeneration();
+			return runId === this.runId;
+		}
+
 		void this.scheduleGeneration();
 		await this.waitForBufferedChunk(runId);
+		if (runId !== this.runId) return false;
+
+		startReaderAudioKeepAlive(ctx);
+		if (this.waitingForChunk && this.chunks.length > 0) {
+			this.schedulePlayChunkAt(this.currentChunkIndex, 0);
+		}
 		return runId === this.runId;
 	}
 
@@ -524,10 +618,18 @@ export class PageReaderEngine {
 	}
 
 	private scheduleGeneration(): void {
-		if (this.generationPump) return;
-		this.generationPump = this.pumpGeneration().finally(() => {
-			this.generationPump = null;
-			if (this.needsMoreGeneration()) {
+		if (this.generationPump && this.generationPumpRunId === this.runId) {
+			return;
+		}
+
+		const runId = this.runId;
+		this.generationPumpRunId = runId;
+		const pump = this.pumpGeneration();
+		this.generationPump = pump.finally(() => {
+			if (this.generationPumpRunId === runId) {
+				this.generationPump = null;
+			}
+			if (runId === this.runId && this.needsMoreGeneration()) {
 				this.scheduleGeneration();
 			}
 		});
@@ -540,17 +642,19 @@ export class PageReaderEngine {
 
 		let raw;
 		try {
-			raw = await tts.generate(this.sentences[index], {
+			raw = await generateSpeech(tts, this.sentences[index], {
 				voice: this.voice,
 				speed: this.rate
 			});
+			if (runId !== this.runId) {
+				return false;
+			}
 		} catch {
 			if (runId === this.runId) {
 				this.setState({ status: 'error', error: 'Couldn’t generate audio.' });
 			}
 			return false;
 		}
-		if (runId !== this.runId) return false;
 
 		const audio = Array.isArray(raw.audio) ? raw.audio[0] : raw.audio;
 		if (audio) {
@@ -590,8 +694,12 @@ export class PageReaderEngine {
 	}
 
 	play(): void {
-		if (this.isPlaying) return;
 		unlockReaderAudio();
+		if (this.isPlaying && this.waitingForChunk) {
+			this.schedulePlayChunkAt(this.currentChunkIndex, this.offsetInBuffer);
+			return;
+		}
+		if (this.isPlaying) return;
 		void this.resumePlayback();
 	}
 
@@ -600,7 +708,7 @@ export class PageReaderEngine {
 		if (!ctx || !(await ensureAudioContextRunning(ctx))) {
 			this.setState({
 				status: 'error',
-				error: 'Audio was blocked. Tap Listen to try again.'
+				error: 'Audio was blocked. Tap play to try again.'
 			});
 			return;
 		}
@@ -726,6 +834,7 @@ export class PageReaderEngine {
 	dispose(): void {
 		this.runId += 1;
 		this.resetPlayback();
+		stopReaderAudioKeepAlive();
 		void this.ctx?.close();
 		this.ctx = null;
 		this.listeners.clear();

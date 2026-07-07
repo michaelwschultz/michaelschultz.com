@@ -9,8 +9,11 @@ const HIGHLIGHT_NAME = 'reader-word';
 
 interface TextNodeSpan {
 	node: Text;
+	/** Start/end in normalized `fullText` coordinates. */
 	start: number;
 	end: number;
+	/** Original DOM text (before `normalizeReaderWhitespace`). */
+	raw: string;
 }
 
 interface WordToken {
@@ -41,6 +44,25 @@ interface HighlightLike {
 interface HighlightRegistryLike {
 	set(name: string, highlight: HighlightLike): void;
 	delete(name: string): void;
+}
+
+/** Collapse editor/HTML line wraps in a text run; block breaks are added separately. */
+export function normalizeReaderWhitespace(text: string): string {
+	return text.replace(/[\n\r\t\f\v]+/g, ' ').replace(/ {2,}/g, ' ');
+}
+
+/** Map a normalized offset inside `raw` back to a DOM character index. */
+export function domOffsetAtNormalizedOffset(raw: string, normalizedOffset: number): number {
+	if (normalizedOffset <= 0) return 0;
+	const normalized = normalizeReaderWhitespace(raw);
+	if (normalizedOffset >= normalized.length) return raw.length;
+
+	for (let rawEnd = 1; rawEnd <= raw.length; rawEnd++) {
+		if (normalizeReaderWhitespace(raw.slice(0, rawEnd)).length >= normalizedOffset) {
+			return rawEnd;
+		}
+	}
+	return raw.length;
 }
 
 export function blockAncestor(node: Node): Element | null {
@@ -74,9 +96,16 @@ export function collectTextNodes(root: HTMLElement): {
 			if (fullText && block !== prevBlock) fullText += '\n';
 			prevBlock = block;
 
+			const raw = current.textContent;
+			const normalized = normalizeReaderWhitespace(raw);
+			if (!normalized) {
+				current = walker.nextNode();
+				continue;
+			}
+
 			const start = fullText.length;
-			fullText += current.textContent;
-			spans.push({ node: current, start, end: fullText.length });
+			fullText += normalized;
+			spans.push({ node: current, start, end: fullText.length, raw });
 		}
 		current = walker.nextNode();
 	}
@@ -96,11 +125,14 @@ function rangeFromOffsets(
 
 	for (const span of spans) {
 		if (!started && start >= span.start && start < span.end) {
-			range.setStart(span.node, start - span.start);
+			range.setStart(
+				span.node,
+				domOffsetAtNormalizedOffset(span.raw, start - span.start)
+			);
 			started = true;
 		}
 		if (started && end > span.start && end <= span.end) {
-			range.setEnd(span.node, end - span.start);
+			range.setEnd(span.node, domOffsetAtNormalizedOffset(span.raw, end - span.start));
 			return range;
 		}
 	}

@@ -51,6 +51,11 @@ export function loadKokoro(onProgress?: ModelProgressHandler): Promise<KokoroTTS
 	return ttsPromise;
 }
 
+/** True once `loadKokoro()` has been called (in flight or resolved). */
+export function isKokoroLoadStarted(): boolean {
+	return ttsPromise !== null;
+}
+
 /**
  * Split text into sentences using Kokoro's own splitter so generation chunks
  * match what the model expects.
@@ -59,9 +64,10 @@ export async function splitSentences(text: string): Promise<Array<string>> {
 	const { TextSplitterStream } = await import('kokoro-js');
 	const sentences: Array<string> = [];
 	for (const paragraph of text.split(/\n+/)) {
-		if (!paragraph.trim()) continue;
+		const normalized = paragraph.replace(/\s+/g, ' ').trim();
+		if (!normalized) continue;
 		const splitter = new TextSplitterStream();
-		splitter.push(paragraph);
+		splitter.push(normalized);
 		for (const sentence of splitter) {
 			const trimmed = sentence.trim();
 			if (trimmed.length > 0) sentences.push(trimmed);

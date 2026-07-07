@@ -1,5 +1,10 @@
 import { browser } from '$app/environment';
-import { unlockReaderAudio } from './audio-context';
+import {
+	beginReaderAudioSession,
+	stopReaderAudioKeepAlive,
+	unlockReaderAudio
+} from './audio-context';
+import { awaitGenerateIdle } from './kokoro-generate';
 import type { PageReaderEngine, ReaderState } from './page-reader-engine';
 import { extractSpeechText } from './speech-text';
 import { DEFAULT_READER_VOICE } from './voice-catalog';
@@ -30,6 +35,7 @@ let preparedRef: { slug: string; text: string } | null = $state(null);
 let lastPlayback: { slug: string; title: string; text: string; root: HTMLElement } | null =
 	$state(null);
 let unsubscribe: (() => void) | null = null;
+let readerInFlight = false;
 
 function attachEngine(instance: PageReaderEngine): PageReaderEngine {
 	unsubscribe?.();
@@ -64,19 +70,25 @@ export async function ensurePageReaderEngine(): Promise<PageReaderEngine | null>
 }
 
 export function initPageReader(): void {
-	void ensurePageReaderEngine();
+	void (async () => {
+		const instance = await ensurePageReaderEngine();
+		await instance?.prewarm();
+	})();
 }
 
 export function disposePageReader(): void {
 	unsubscribe?.();
 	unsubscribe = null;
-	engine?.dispose();
-	engine = null;
-	enginePromise = null;
-	Object.assign(pageReader.state, INITIAL_STATE);
-	pageReader.nowPlaying = null;
-	preparedRef = null;
-	lastPlayback = null;
+	void (async () => {
+		await awaitGenerateIdle();
+		engine?.dispose();
+		engine = null;
+		enginePromise = null;
+		Object.assign(pageReader.state, INITIAL_STATE);
+		pageReader.nowPlaying = null;
+		preparedRef = null;
+		lastPlayback = null;
+	})();
 }
 
 export function isReaderActive(): boolean {
@@ -87,49 +99,72 @@ export function isCurrentThought(slug: string): boolean {
 	return pageReader.nowPlaying?.slug === slug;
 }
 
-export async function playThought(
+/** Load model and split text; leaves the reader in `ready` until the user presses play. */
+export async function warmupThought(
 	slug: string,
 	title: string,
 	root: HTMLElement
 ): Promise<void> {
-	const activeEngine = await ensurePageReaderEngine();
-	if (!activeEngine) return;
+	if (readerInFlight) return;
 
-	const text = extractSpeechText(root);
-	if (!text) return;
+	readerInFlight = true;
+	try {
+		const activeEngine = await ensurePageReaderEngine();
+		if (!activeEngine) return;
 
-	lastPlayback = { slug, title, text, root };
-	pageReader.nowPlaying = { slug, title };
-	pageReader.scrollLocked = true;
+		const text = extractSpeechText(root);
+		if (!text) return;
 
-	const { status } = activeEngine.getState();
-	const prepared = preparedRef;
-	const alreadyPrepared =
-		prepared?.slug === slug &&
-		prepared.text === text &&
-		status !== 'idle' &&
-		status !== 'error';
+		lastPlayback = { slug, title, text, root };
+		pageReader.nowPlaying = { slug, title };
+		pageReader.scrollLocked = true;
 
-	if (alreadyPrepared) {
-		activeEngine.play();
-		return;
-	}
+		const { status } = activeEngine.getState();
+		const prepared = preparedRef;
+		const alreadyPrepared =
+			prepared?.slug === slug &&
+			prepared.text === text &&
+			status !== 'idle' &&
+			status !== 'error';
 
-	preparedRef = { slug, text };
-	const ok = await activeEngine.prepare(text, DEFAULT_READER_VOICE);
-	if (!ok && preparedRef?.slug === slug) {
-		preparedRef = null;
+		if (alreadyPrepared) return;
+
+		preparedRef = { slug, text };
+		const ok = await activeEngine.warmup(text, DEFAULT_READER_VOICE);
+		if (!ok && preparedRef?.slug === slug) {
+			preparedRef = null;
+		}
+	} finally {
+		readerInFlight = false;
 	}
 }
 
-export function retryPlayback(): void {
-	unlockReaderAudio();
+/** Start synthesis and playback after warmup (requires a user gesture for audio). */
+export async function startListening(): Promise<void> {
+	if (!(await beginReaderAudioSession())) return;
+
+	const activeEngine = await ensurePageReaderEngine();
+	if (!activeEngine) return;
+
+	await activeEngine.startPlayback();
+}
+
+export async function retryPlayback(): Promise<void> {
 	if (!lastPlayback) return;
-	void playThought(lastPlayback.slug, lastPlayback.title, lastPlayback.root);
+
+	unlockReaderAudio();
+	await warmupThought(lastPlayback.slug, lastPlayback.title, lastPlayback.root);
+	if (pageReader.state.status === 'ready') {
+		await startListening();
+	}
 }
 
 export function togglePlayback(): void {
 	unlockReaderAudio();
+	if (pageReader.state.status === 'ready') {
+		void startListening();
+		return;
+	}
 	engine?.toggle();
 }
 
@@ -149,6 +184,7 @@ export function stopPlayback(): void {
 	preparedRef = null;
 	pageReader.nowPlaying = null;
 	pageReader.scrollLocked = true;
+	stopReaderAudioKeepAlive();
 	engine?.reset();
 }
 

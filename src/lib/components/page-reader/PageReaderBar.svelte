@@ -2,6 +2,7 @@
 	import { Pause, Play, RotateCcw, X } from '@lucide/svelte';
 	import { browser } from '$app/environment';
 	import { formatTime } from '$lib/page-reader/format-time';
+	import { unlockReaderAudio } from '$lib/page-reader/audio-context';
 	import {
 		pageReader,
 		isReaderActive,
@@ -9,6 +10,7 @@
 		seekPlayback,
 		setPlaybackRate,
 		skipPlayback,
+		startListening,
 		stopPlayback,
 		togglePlayback
 	} from '$lib/page-reader/page-reader.svelte';
@@ -39,22 +41,30 @@
 		}
 	});
 
-	const isLoading = $derived(
-		pageReader.state.status === 'loading-model' || pageReader.state.status === 'generating'
-	);
+	const isWarming = $derived(pageReader.state.status === 'loading-model');
+	const isReady = $derived(pageReader.state.status === 'ready');
 	const isError = $derived(pageReader.state.status === 'error');
-	const isPlaying = $derived(pageReader.state.status === 'playing');
-	const transportReady = $derived(
-		pageReader.state.status === 'playing' || pageReader.state.status === 'paused'
+	const showPause = $derived(
+		pageReader.state.status === 'playing' || pageReader.state.status === 'generating'
 	);
+	const transportReady = $derived(
+		pageReader.state.status === 'playing' ||
+			pageReader.state.status === 'paused' ||
+			pageReader.state.status === 'ready'
+	);
+	const playDisabled = $derived(isWarming);
 
 	const kickerLabel = $derived.by(() => {
-		if (pageReader.state.status === 'loading-model') {
+		if (isWarming) {
 			const percent = Math.round(pageReader.state.modelProgress * 100);
-			return percent > 0 ? `Loading voice… ${percent}%` : 'Loading voice…';
+			if (percent >= 100) return 'Synthesizing first sentence…';
+			return percent > 0 ? `Preparing voice… ${percent}%` : 'Preparing voice…';
 		}
+		if (isReady) return 'Ready — press play';
 		if (pageReader.state.status === 'generating') {
-			return `Generating audio… ${Math.round(pageReader.state.generationProgress * 100)}%`;
+			const percent = Math.round(pageReader.state.generationProgress * 100);
+			if (percent === 0) return 'Synthesizing first sentence…';
+			return `Generating audio… ${percent}%`;
 		}
 		if (isError) return pageReader.state.error ?? 'Something went wrong';
 		if (pageReader.state.status === 'paused') return 'Paused';
@@ -63,6 +73,19 @@
 
 	const previewTime = $derived(scrubValue ?? pageReader.state.currentTime);
 	const fraction = $derived(pageReader.state.duration > 0 ? previewTime / pageReader.state.duration : 0);
+
+	function onPlayClick() {
+		unlockReaderAudio();
+		if (isError) {
+			void retryPlayback();
+			return;
+		}
+		if (isReady) {
+			void startListening();
+			return;
+		}
+		togglePlayback();
+	}
 </script>
 
 {#if browser && visible}
@@ -101,9 +124,9 @@
 				<div class="flex shrink-0 items-center gap-1">
 					<button
 						type="button"
-						class="cursor-pointer rounded-full p-2 text-gray-700 hover:bg-gray-100 disabled:cursor-not-allowed dark:text-gray-200 dark:hover:bg-gray-800"
+						class="cursor-pointer rounded-full p-2 text-gray-700 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-gray-800"
 						aria-label="Skip back 15 seconds"
-						disabled={!transportReady}
+						disabled={!transportReady || isReady}
 						onclick={() => skipPlayback(-SKIP_SECONDS)}
 					>
 						<SkipBackSecondsIcon seconds={SKIP_SECONDS} class="h-6 w-6" />
@@ -111,13 +134,16 @@
 
 					<button
 						type="button"
-						class="cursor-pointer rounded-xl bg-primary-500 p-3 text-white shadow-[0_2px_9px_-2px_var(--color-primary-500)] hover:brightness-105 active:scale-95"
-						aria-label={isError ? 'Retry' : isPlaying ? 'Pause' : 'Play'}
-						onclick={() => (isError ? retryPlayback() : togglePlayback())}
+						class="rounded-xl p-3 transition active:scale-95 {playDisabled
+							? 'cursor-not-allowed bg-gray-300 text-gray-500 dark:bg-gray-700 dark:text-gray-400'
+							: 'cursor-pointer bg-primary-500 text-white shadow-[0_2px_9px_-2px_var(--color-primary-500)] hover:brightness-105'}"
+						aria-label={isError ? 'Retry' : showPause ? 'Pause' : 'Play'}
+						disabled={playDisabled}
+						onclick={onPlayClick}
 					>
 						{#if isError}
 							<RotateCcw class="h-6 w-6" aria-hidden="true" />
-						{:else if isPlaying}
+						{:else if showPause}
 							<Pause class="h-6 w-6" fill="currentColor" strokeWidth={0} aria-hidden="true" />
 						{:else}
 							<Play class="h-6 w-6" fill="currentColor" strokeWidth={0} aria-hidden="true" />
@@ -127,11 +153,11 @@
 					<div class="relative">
 						<button
 							type="button"
-							class="inline-flex h-8 w-14 shrink-0 cursor-pointer items-center justify-center rounded-full font-mono text-xs tabular-nums text-gray-700 hover:bg-gray-100 disabled:cursor-not-allowed dark:text-gray-200 dark:hover:bg-gray-800"
+							class="inline-flex h-8 w-14 shrink-0 cursor-pointer items-center justify-center rounded-full font-mono text-xs tabular-nums text-gray-700 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-gray-800"
 							aria-label="Playback speed"
 							aria-haspopup="listbox"
 							aria-expanded={speedOpen}
-							disabled={!transportReady && !isLoading}
+							disabled={!transportReady || isReady}
 							onclick={() => (speedOpen = !speedOpen)}
 						>
 							{pageReader.state.rate}×
@@ -169,7 +195,7 @@
 
 					<button
 						type="button"
-						class="cursor-pointer rounded-full p-2 text-gray-700 hover:bg-gray-100 disabled:cursor-not-allowed dark:text-gray-200 dark:hover:bg-gray-800"
+						class="cursor-pointer rounded-full p-2 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
 						aria-label="Stop listening"
 						onclick={() => stopPlayback()}
 					>
@@ -181,7 +207,7 @@
 			<div class="px-5 pb-4">
 				<SeekTrack
 					{fraction}
-					disabled={!transportReady && !isLoading}
+					disabled={!transportReady || isReady}
 					durationSeconds={pageReader.state.duration}
 					currentSeconds={previewTime}
 					onPreview={(seconds) => (scrubValue = seconds)}
