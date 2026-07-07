@@ -78,7 +78,7 @@
 							<img
 								src={post.hero}
 								alt=""
-								class="aspect-[2/1] w-full object-cover"
+								class="aspect-2/1 w-full object-cover"
 								decoding="async"
 								fetchpriority="high"
 							/>

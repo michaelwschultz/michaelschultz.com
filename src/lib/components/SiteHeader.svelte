@@ -2,6 +2,7 @@
 	import { Search } from '@lucide/svelte';
 	import { navLinks } from '$lib/config/nav';
 	import { site } from '$lib/config/site';
+	import MsLogo from '$lib/components/icons/MsLogo.svelte';
 	import MobileNav from './MobileNav.svelte';
 
 	let { onSearchClick = () => {} }: { onSearchClick?: () => void } = $props();
@@ -10,8 +11,8 @@
 </script>
 
 <header class="flex items-center justify-between py-10">
-	<a href="/" aria-label={site.headerTitle} class="flex items-center">
-		<img src="/static/images/ms.svg" alt="logo" width="31" height="24" class="mr-3" />
+	<a href="/" aria-label={site.headerTitle} class="flex items-center text-gray-900 dark:text-gray-100">
+		<MsLogo class="mr-3 h-7 w-7 shrink-0" />
 	</a>
 	<div class="flex items-center space-x-4 leading-5 sm:space-x-6">
 		{#each links as link}
