@@ -33,7 +33,7 @@
 		>
 			<p>
 				A modern take on the one-button infinite runner. Travel across a lively pond while
-				collecting more light to hold back the encroching night.
+				collecting more light to hold back the encroaching night.
 			</p>
 			<p class="pt-4">If nothing else, check it out for the good vibes.</p>
 		</ProjectCard>
